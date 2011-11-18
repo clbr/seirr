@@ -25,27 +25,35 @@ void CMeshCache::addMesh(const io::path& filename, IAnimatedMesh* mesh)
 {
 	mesh->grab();
 
-	MeshEntry e ( filename );
-	e.Mesh = mesh;
+	const io::SNamedPath *copy = new io::SNamedPath(filename);
 
-	Meshes.push_back(e);
+	Meshes.insert(filename, mesh);
+
+	if (!RevMeshes.find(mesh)) {
+		RevMeshes.insert(mesh, copy);
+		IMeshes.insert(mesh->getMesh(0), copy);
+	}
+	else delete copy;
 }
 
 
 //! Removes a mesh from the cache.
-void CMeshCache::removeMesh(const IAnimatedMesh* const mesh)
+void CMeshCache::removeMesh(IAnimatedMesh* mesh)
 {
 	if ( !mesh )
 		return;
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh == mesh)
-		{
-			Meshes[i].Mesh->drop();
-			Meshes.erase(i);
-			return;
-		}
+
+	revnode *r = RevMeshes.find(mesh);
+
+	if (r) {
+
+		const io::SNamedPath *s = r->getValue();
+
+		IMeshes.remove(mesh->getMesh(0));
+		Meshes.remove(*s);
+		RevMeshes.remove(mesh);
 	}
+
 }
 
 
@@ -54,14 +62,15 @@ void CMeshCache::removeMesh(const IMesh* const mesh)
 {
 	if ( !mesh )
 		return;
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh && Meshes[i].Mesh->getMesh(0) == mesh)
-		{
-			Meshes[i].Mesh->drop();
-			Meshes.erase(i);
-			return;
-		}
+
+	inode *i = IMeshes.find(mesh);
+
+	if (i) {
+		const io::SNamedPath *s = i->getValue();
+
+		IMeshes.remove(mesh);
+		Meshes.remove(*s);
+		RevMeshes.remove(Meshes.find(*s)->getValue());
 	}
 }
 
@@ -73,56 +82,14 @@ u32 CMeshCache::getMeshCount() const
 }
 
 
-//! Returns current number of the mesh
-s32 CMeshCache::getMeshIndex(const IAnimatedMesh* const mesh) const
-{
-	for (u32 i=0; i<Meshes.size(); ++i)
-		if (Meshes[i].Mesh == mesh)
-			return (s32)i;
-
-	return -1;
-}
-
-
-
-//! Returns current index number of the mesh, and -1 if it is not in the cache.
-s32 CMeshCache::getMeshIndex(const IMesh* const mesh) const
-{
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh && Meshes[i].Mesh->getMesh(0) == mesh)
-			return (s32)i;
-	}
-
-	return -1;
-}
-
-
-//! Returns a mesh based on its index number
-IAnimatedMesh* CMeshCache::getMeshByIndex(u32 number)
-{
-	if (number >= Meshes.size())
-		return 0;
-
-	return Meshes[number].Mesh;
-}
-
-
 //! Returns a mesh based on its name.
 IAnimatedMesh* CMeshCache::getMeshByName(const io::path& name)
 {
-	MeshEntry e ( name );
-	s32 id = Meshes.binary_search(e);
-	return (id != -1) ? Meshes[id].Mesh : 0;
-}
+	meshnode *m = Meshes.find(name);
 
-//! Get the name of a loaded mesh, based on its index.
-const io::SNamedPath& CMeshCache::getMeshName(u32 index) const
-{
-	if (index >= Meshes.size())
-		return emptyNamedPath;
+	if (m) return m->getValue();
 
-	return Meshes[index].NamedPath;
+	return 0;
 }
 
 //! Get the name of a loaded mesh, if there is any.
@@ -131,11 +98,10 @@ const io::SNamedPath& CMeshCache::getMeshName(const IAnimatedMesh* const mesh) c
 	if(!mesh)
 		return emptyNamedPath;
 
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh == mesh)
-			return Meshes[i].NamedPath;
-	}
+	revnode *r = RevMeshes.find(mesh);
+
+	if (r)
+		return *r->getValue();
 
 	return emptyNamedPath;
 }
@@ -146,89 +112,105 @@ const io::SNamedPath& CMeshCache::getMeshName(const IMesh* const mesh) const
 	if (!mesh)
 		return emptyNamedPath;
 
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		// IMesh may actually be an IAnimatedMesh, so do a direct comparison
-		// as well as getting an IMesh from our stored IAnimatedMeshes
-		if (Meshes[i].Mesh && (Meshes[i].Mesh == mesh || Meshes[i].Mesh->getMesh(0) == mesh))
-			return Meshes[i].NamedPath;
+	// IMesh may actually be an IAnimatedMesh, so do a direct comparison
+	// as well as getting an IMesh from our stored IAnimatedMeshes
+	revnode *r = RevMeshes.find((IAnimatedMesh *) mesh);
+
+	if (r) {
+		return *r->getValue();
+	}
+
+	inode *i = IMeshes.find(mesh);
+
+	if (i) {
+		return *i->getValue();
 	}
 
 	return emptyNamedPath;
 }
 
 //! Renames a loaded mesh.
-bool CMeshCache::renameMesh(u32 index, const io::path& name)
+bool CMeshCache::renameMesh(IAnimatedMesh* mesh, const io::path& name)
 {
-	if (index >= Meshes.size())
-		return false;
+	revnode *r = RevMeshes.find(mesh);
+	if (!r) return false;
 
-	Meshes[index].NamedPath.setPath(name);
-	Meshes.sort();
+	const io::SNamedPath *n = r->getValue();
+
+	const io::SNamedPath *copy = new io::SNamedPath(name);
+
+	// Avoid accidental deletion
+	mesh->grab();
+
+	IMeshes.remove(mesh->getMesh(0));
+	Meshes.remove(*n);
+	RevMeshes.remove(mesh);
+
+	Meshes.insert(name, mesh);
+	RevMeshes.insert(mesh, copy);
+	IMeshes.insert(mesh->getMesh(0), copy);
+
 	return true;
 }
 
 //! Renames a loaded mesh.
-bool CMeshCache::renameMesh(const IAnimatedMesh* const mesh, const io::path& name)
+bool CMeshCache::renameMesh(IMesh* mesh, const io::path& name)
 {
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh == mesh)
-		{
-			Meshes[i].NamedPath.setPath(name);
-			Meshes.sort();
-			return true;
-		}
-	}
+	inode *i = IMeshes.find(mesh);
+	if (!i) return false;
 
-	return false;
+	const io::SNamedPath *n = i->getValue();
+
+	const io::SNamedPath *copy = new io::SNamedPath(name);
+
+	IAnimatedMesh *ani = Meshes.find(*n)->getValue();
+
+	// Avoid accidental deletion
+	mesh->grab();
+
+	IMeshes.remove(mesh);
+	Meshes.remove(*n);
+	RevMeshes.remove(ani);
+
+	Meshes.insert(name, ani);
+	RevMeshes.insert(ani, copy);
+	IMeshes.insert(mesh, copy);
+
+	return true;
 }
-
-//! Renames a loaded mesh.
-bool CMeshCache::renameMesh(const IMesh* const mesh, const io::path& name)
-{
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh && Meshes[i].Mesh->getMesh(0) == mesh)
-		{
-			Meshes[i].NamedPath.setPath(name);
-			Meshes.sort();
-			return true;
-		}
-	}
-
-	return false;
-}
-
 
 //! returns if a mesh already was loaded
 bool CMeshCache::isMeshLoaded(const io::path& name)
 {
-	return getMeshByName(name) != 0;
+	return getMeshByName(name) != NULL;
 }
 
 
 //! Clears the whole mesh cache, removing all meshes.
 void CMeshCache::clear()
 {
-	for (u32 i=0; i<Meshes.size(); ++i)
-		Meshes[i].Mesh->drop();
-
 	Meshes.clear();
+	RevMeshes.clear();
+	IMeshes.clear();
 }
 
 //! Clears all meshes that are held in the mesh cache but not used anywhere else.
 void CMeshCache::clearUnusedMeshes()
 {
-	for (u32 i=0; i<Meshes.size(); ++i)
-	{
-		if (Meshes[i].Mesh->getReferenceCount() == 1)
-		{
-			Meshes[i].Mesh->drop();
-			Meshes.erase(i);
-			--i;
-		}
+
+	core::array<io::SNamedPath> *a = Meshes.findUnused();
+	core::array<io::SNamedPath> &b = *a;
+
+	for (u32 i = 0; i < a->size(); i++) {
+
+		IAnimatedMesh *m = Meshes.find(b[i])->getValue();
+
+		IMeshes.remove(m->getMesh(0));
+		RevMeshes.remove(m);
+		Meshes.remove(b[i]);
 	}
+
+	delete a;
 }
 
 

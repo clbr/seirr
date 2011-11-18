@@ -11,7 +11,6 @@
 #include "IGPUProgrammingServices.h"
 #include "irrArray.h"
 #include "irrString.h"
-#include "irrMap.h"
 #include "IAttributes.h"
 #include "IMeshBuffer.h"
 #include "CFPSCounter.h"
@@ -19,6 +18,7 @@
 #include "SVertexIndex.h"
 #include "SLight.h"
 #include "SExposedVideoData.h"
+#include "rbtree_spec.h"
 
 namespace irr
 {
@@ -78,9 +78,6 @@ namespace video
 
 		//! loads a Texture
 		virtual ITexture* getTexture(io::IReadFile* file);
-
-		//! Returns a texture by index
-		virtual ITexture* getTextureByIndex(u32 index);
 
 		//! Returns amount of textures currently loaded
 		virtual u32 getTextureCount() const;
@@ -645,16 +642,6 @@ namespace video
 			return (f32) getAverage ( p[(y * pitch) + x] );
 		}
 
-		struct SSurface
-		{
-			video::ITexture* Surface;
-
-			bool operator < (const SSurface& other) const
-			{
-				return Surface->getName() < other.Surface->getName();
-			}
-		};
-
 		struct SMaterialRenderer
 		{
 			core::stringc Name;
@@ -676,7 +663,8 @@ namespace video
 			core::dimension2d<u32> size;
 		};
 
-		core::array<SSurface> Textures;
+		core::droptree<io::SNamedPath, ITexture *> Textures;
+		core::deltree<const ITexture *, const io::SNamedPath *> RevTextures;
 		core::array<video::IImageLoader*> SurfaceLoader;
 		core::array<video::IImageWriter*> SurfaceWriter;
 		core::array<SLight> Lights;

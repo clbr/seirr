@@ -251,10 +251,8 @@ void CNullDriver::deleteAllTextures()
 	// last set material member. Could be optimized to reduce state changes.
 	setMaterial(SMaterial());
 
-	for (u32 i=0; i<Textures.size(); ++i)
-		Textures[i].Surface->drop();
-
 	Textures.clear();
+	RevTextures.clear();
 }
 
 
@@ -318,13 +316,11 @@ void CNullDriver::removeTexture(ITexture* texture)
 	if (!texture)
 		return;
 
-	for (u32 i=0; i<Textures.size(); ++i)
-	{
-		if (Textures[i].Surface == texture)
-		{
-			texture->drop();
-			Textures.erase(i);
-		}
+	revtexnode *r = RevTextures.find(texture);
+
+	if (r) {
+		Textures.remove(*r->getValue());
+		RevTextures.remove(texture);
 	}
 }
 
@@ -333,18 +329,7 @@ void CNullDriver::removeTexture(ITexture* texture)
 //! memory.
 void CNullDriver::removeAllTextures()
 {
-	setMaterial ( SMaterial() );
 	deleteAllTextures();
-}
-
-
-//! Returns a texture by index
-ITexture* CNullDriver::getTextureByIndex(u32 i)
-{
-	if ( i < Textures.size() )
-		return Textures[i].Surface;
-
-	return 0;
 }
 
 
@@ -358,14 +343,22 @@ u32 CNullDriver::getTextureCount() const
 //! Renames a texture
 void CNullDriver::renameTexture(ITexture* texture, const io::path& newName)
 {
-	// we can do a const_cast here safely, the name of the ITexture interface
-	// is just readonly to prevent the user changing the texture name without invoking
-	// this method, because the textures will need resorting afterwards
+	revtexnode *r = RevTextures.find(texture);
 
-	io::SNamedPath& name = const_cast<io::SNamedPath&>(texture->getName());
-	name.setPath(newName);
+	if (r) {
+		const io::SNamedPath *p = r->getValue();
 
-	Textures.sort();
+		// Prevent accidental removal.
+		texture->grab();
+
+		Textures.remove(*p);
+		RevTextures.remove(texture);
+
+		io::SNamedPath *copy = new io::SNamedPath(newName);
+
+		Textures.insert(newName, texture);
+		RevTextures.insert(texture, copy);
+	}
 }
 
 
@@ -474,18 +467,13 @@ void CNullDriver::addTexture(video::ITexture* texture)
 {
 	if (texture)
 	{
-		SSurface s;
-		s.Surface = texture;
 		texture->grab();
+		const io::SNamedPath &n = texture->getName();
 
-		Textures.push_back(s);
+		io::SNamedPath *copy = new io::SNamedPath(n);
 
-		// the new texture is now at the end of the texture list. when searching for
-		// the next new texture, the texture array will be sorted and the index of this texture
-		// will be changed. to let the order be more consistent to the user, sort
-		// the textures now already although this isn't necessary:
-
-		Textures.sort();
+		Textures.insert(n, texture);
+		RevTextures.insert(texture, copy);
 	}
 }
 
@@ -493,13 +481,10 @@ void CNullDriver::addTexture(video::ITexture* texture)
 //! looks if the image is already loaded
 video::ITexture* CNullDriver::findTexture(const io::path& filename)
 {
-	SSurface s;
-	SDummyTexture dummy(filename);
-	s.Surface = &dummy;
+	texnode *t = Textures.find(filename);
 
-	s32 index = Textures.binary_search(s);
-	if (index != -1)
-		return Textures[index].Surface;
+	if (t)
+		return t->getValue();
 
 	return 0;
 }

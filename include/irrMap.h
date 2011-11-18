@@ -109,7 +109,6 @@ class map
 			return !IsRed;
 		}
 
-	private:
 		RBTree();
 
 		RBTree*		LeftChild;
@@ -707,9 +706,7 @@ class map
 
 		// p is now gone from the tree in the sense that
 		// no one is pointing at it. Let's get rid of it.
-		delete p;
-
-		--Size;
+		nuke(p);
 		return true;
 	}
 
@@ -723,7 +720,7 @@ class map
 			Node* p = i.getNode();
 			i++; // Increment it before it is deleted
 				// else iterator will get quite confused.
-			delete p;
+			nuke(p);
 		}
 		Root = 0;
 		Size= 0;
@@ -831,7 +828,7 @@ class map
 	{
 		return AccessClass(*this, k);
 	}
-	private:
+	protected:
 
 	//------------------------------
 	// Disabled methods
@@ -911,6 +908,11 @@ class map
 
 		_IRR_IMPLEMENT_MANAGED_MARSHALLING_BUGFIX;
 		return result;
+	}
+
+	virtual void nuke(Node *n) {
+		delete n;
+		Size--;
 	}
 
 	//! Rotate left.

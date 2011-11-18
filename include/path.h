@@ -36,6 +36,12 @@ struct SNamedPath
 		return InternalName < other.InternalName;
 	}
 
+	//! Is equal comparator
+	bool operator ==(const SNamedPath& other) const
+	{
+		return InternalName == other.InternalName;
+	}
+
 	//! Set the path.
 	void setPath(const path& p)
 	{
