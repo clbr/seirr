@@ -146,9 +146,9 @@ CIrrDeviceLinux::~CIrrDeviceLinux()
 				if (!glXMakeCurrent(display, None, NULL))
 					os::Printer::log("Could not release glx context.", ELL_WARNING);
 			}
-			glXDestroyContext(display, Context);
 			if (glxWin)
 				glXDestroyWindow(display, glxWin);
+			glXDestroyContext(display, Context);
 		}
 		#endif // #ifdef _IRR_COMPILE_WITH_OPENGL_
 
