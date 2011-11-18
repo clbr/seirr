@@ -857,6 +857,11 @@ namespace quake3
 					loadFile.append ( extension[g] );
 				}
 
+
+				texture = driver->findTexture( loadFile );
+				if ( texture )
+					break;
+
 				if ( fileSystem->existFile ( loadFile ) )
 				{
 					texture = driver->getTexture( loadFile );
