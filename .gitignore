@@ -1,0 +1,8 @@
+*.txt
+*.[do]
+lib
+examples
+doc
+tools
+*.so.*
+bin
