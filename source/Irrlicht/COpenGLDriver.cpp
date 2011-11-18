@@ -3911,7 +3911,7 @@ ITexture* COpenGLDriver::createDepthTexture(ITexture* texture, bool shared)
 				return DepthTextures[i];
 			}
 		}
-		DepthTextures.push_back(new COpenGLFBODepthTexture(texture->getSize(), "depth1", this));
+		DepthTextures.push_back(new COpenGLFBODepthTexture(texture->getSize(), "depth1", this, true));
 		return DepthTextures.getLast();
 	}
 	return (new COpenGLFBODepthTexture(texture->getSize(), "depth1", this));
