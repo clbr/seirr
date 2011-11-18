@@ -77,7 +77,7 @@ LIB_PATH = ../../lib/$(SYSTEM)
 INSTALL_DIR = /opt/irr2/lib
 sharedlib install: SHARED_LIB = libIrrlicht.so
 #staticlib sharedlib: LDFLAGS += --no-export-all-symbols --add-stdcall-alias
-sharedlib: LDFLAGS += -L/usr/X11R7/lib -lGL -lXxf86vm
+sharedlib: LDFLAGS += -L/usr/X11R7/lib -lGL -lXxf86vm -lX11 -lpng -ljpeg
 staticlib sharedlib: CXXINCS += -I/usr/X11R7/include
 
 #OSX specific options
@@ -99,7 +99,7 @@ staticlib_win32: CPPFLAGS += -D_IRR_STATIC_LIB_
 
 ####################
 # All target, builds Irrlicht as static lib (libIrrlicht.a) and copies it into lib/Linux
-all linux: staticlib
+all linux: sharedlib
 
 # Builds Irrlicht as shared lib (libIrrlicht.so.versionNumber) and copies it into lib/Linux
 sharedlib: $(LINKOBJ)

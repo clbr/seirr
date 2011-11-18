@@ -11,8 +11,8 @@
 #define IRRLICHT_VERSION_REVISION 2
 // This flag will be defined only in SVN, the official release code will have
 // it undefined
-#define IRRLICHT_VERSION_SVN -beta
-#define IRRLICHT_SDK_VERSION "1.7.2-beta"
+//#define IRRLICHT_VERSION_SVN -beta
+#define IRRLICHT_SDK_VERSION "1.7.2-pse"
 
 #include <stdio.h> // TODO: Although included elsewhere this is required at least for mingw
 
@@ -130,11 +130,11 @@ define out. */
 //! Define _IRR_COMPILE_WITH_SOFTWARE_ to compile the Irrlicht engine with software driver
 /** If you do not need the software driver, or want to use Burning's Video instead,
 comment this define out */
-#define _IRR_COMPILE_WITH_SOFTWARE_
+//#define _IRR_COMPILE_WITH_SOFTWARE_
 
 //! Define _IRR_COMPILE_WITH_BURNINGSVIDEO_ to compile the Irrlicht engine with Burning's video driver
 /** If you do not need this software driver, you can comment this define out. */
-#define _IRR_COMPILE_WITH_BURNINGSVIDEO_
+//#define _IRR_COMPILE_WITH_BURNINGSVIDEO_
 
 //! Define _IRR_COMPILE_WITH_X11_ to compile the Irrlicht engine with X11 support.
 /** If you do not wish the engine to be compiled with X11, comment this
@@ -176,7 +176,7 @@ the engine will no longer read .jpeg images. */
 //! Define _IRR_USE_NON_SYSTEM_JPEG_LIB_ to let irrlicht use the jpeglib which comes with irrlicht.
 /** If this is commented out, Irrlicht will try to compile using the jpeg lib installed in the system.
 	This is only used when _IRR_COMPILE_WITH_LIBJPEG_ is defined. */
-#define _IRR_USE_NON_SYSTEM_JPEG_LIB_
+//#define _IRR_USE_NON_SYSTEM_JPEG_LIB_
 
 
 //! Define _IRR_COMPILE_WITH_LIBPNG_ to enable compiling the engine using libpng.
@@ -187,7 +187,7 @@ the engine will no longer read .png images. */
 //! Define _IRR_USE_NON_SYSTEM_LIBPNG_ to let irrlicht use the libpng which comes with irrlicht.
 /** If this is commented out, Irrlicht will try to compile using the libpng installed in the system.
 	This is only used when _IRR_COMPILE_WITH_LIBPNG_ is defined. */
-#define _IRR_USE_NON_SYSTEM_LIB_PNG_
+//#define _IRR_USE_NON_SYSTEM_LIB_PNG_
 
 
 //! Define _IRR_D3D_NO_SHADER_DEBUGGING to disable shader debugging in D3D9
@@ -290,15 +290,15 @@ B3D, MS3D or X meshes */
 #define _IRR_COMPILE_WITH_PLY_LOADER_
 
 //! Define _IRR_COMPILE_WITH_IRR_WRITER_ if you want to write static .irrMesh files
-#define _IRR_COMPILE_WITH_IRR_WRITER_
+//#define _IRR_COMPILE_WITH_IRR_WRITER_
 //! Define _IRR_COMPILE_WITH_COLLADA_WRITER_ if you want to write Collada files
-#define _IRR_COMPILE_WITH_COLLADA_WRITER_
+//#define _IRR_COMPILE_WITH_COLLADA_WRITER_
 //! Define _IRR_COMPILE_WITH_STL_WRITER_ if you want to write .stl files
-#define _IRR_COMPILE_WITH_STL_WRITER_
+//#define _IRR_COMPILE_WITH_STL_WRITER_
 //! Define _IRR_COMPILE_WITH_OBJ_WRITER_ if you want to write .obj files
-#define _IRR_COMPILE_WITH_OBJ_WRITER_
+//#define _IRR_COMPILE_WITH_OBJ_WRITER_
 //! Define _IRR_COMPILE_WITH_PLY_WRITER_ if you want to write .ply files
-#define _IRR_COMPILE_WITH_PLY_WRITER_
+//#define _IRR_COMPILE_WITH_PLY_WRITER_
 
 //! Define _IRR_COMPILE_WITH_BMP_LOADER_ if you want to load .bmp files
 //! Disabling this loader will also disable the built-in font
@@ -306,38 +306,38 @@ B3D, MS3D or X meshes */
 //! Define _IRR_COMPILE_WITH_JPG_LOADER_ if you want to load .jpg files
 #define _IRR_COMPILE_WITH_JPG_LOADER_
 //! Define _IRR_COMPILE_WITH_PCX_LOADER_ if you want to load .pcx files
-#define _IRR_COMPILE_WITH_PCX_LOADER_
+//#define _IRR_COMPILE_WITH_PCX_LOADER_
 //! Define _IRR_COMPILE_WITH_PNG_LOADER_ if you want to load .png files
 #define _IRR_COMPILE_WITH_PNG_LOADER_
 //! Define _IRR_COMPILE_WITH_PPM_LOADER_ if you want to load .ppm/.pgm/.pbm files
-#define _IRR_COMPILE_WITH_PPM_LOADER_
+//#define _IRR_COMPILE_WITH_PPM_LOADER_
 //! Define _IRR_COMPILE_WITH_PSD_LOADER_ if you want to load .psd files
 #define _IRR_COMPILE_WITH_PSD_LOADER_
 //! Define _IRR_COMPILE_WITH_TGA_LOADER_ if you want to load .tga files
 #define _IRR_COMPILE_WITH_TGA_LOADER_
 //! Define _IRR_COMPILE_WITH_WAL_LOADER_ if you want to load .wal files
-#define _IRR_COMPILE_WITH_WAL_LOADER_
+//#define _IRR_COMPILE_WITH_WAL_LOADER_
 //! Define _IRR_COMPILE_WITH_RGB_LOADER_ if you want to load Silicon Graphics .rgb/.rgba/.sgi/.int/.inta/.bw files
-#define _IRR_COMPILE_WITH_RGB_LOADER_
+//#define _IRR_COMPILE_WITH_RGB_LOADER_
 
 //! Define _IRR_COMPILE_WITH_BMP_WRITER_ if you want to write .bmp files
-#define _IRR_COMPILE_WITH_BMP_WRITER_
+//#define _IRR_COMPILE_WITH_BMP_WRITER_
 //! Define _IRR_COMPILE_WITH_JPG_WRITER_ if you want to write .jpg files
-#define _IRR_COMPILE_WITH_JPG_WRITER_
+//#define _IRR_COMPILE_WITH_JPG_WRITER_
 //! Define _IRR_COMPILE_WITH_PCX_WRITER_ if you want to write .pcx files
-#define _IRR_COMPILE_WITH_PCX_WRITER_
+//#define _IRR_COMPILE_WITH_PCX_WRITER_
 //! Define _IRR_COMPILE_WITH_PNG_WRITER_ if you want to write .png files
 #define _IRR_COMPILE_WITH_PNG_WRITER_
 //! Define _IRR_COMPILE_WITH_PPM_WRITER_ if you want to write .ppm files
-#define _IRR_COMPILE_WITH_PPM_WRITER_
+//#define _IRR_COMPILE_WITH_PPM_WRITER_
 //! Define _IRR_COMPILE_WITH_PSD_WRITER_ if you want to write .psd files
-#define _IRR_COMPILE_WITH_PSD_WRITER_
+//#define _IRR_COMPILE_WITH_PSD_WRITER_
 //! Define _IRR_COMPILE_WITH_TGA_WRITER_ if you want to write .tga files
-#define _IRR_COMPILE_WITH_TGA_WRITER_
+//#define _IRR_COMPILE_WITH_TGA_WRITER_
 
 //! Define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_ if you want to open ZIP and GZIP archives
 /** ZIP reading has several more options below to configure. */
-#define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
 #ifdef __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
 //! Define _IRR_COMPILE_WITH_ZLIB_ to enable compiling the engine using zlib.
 /** This enables the engine to read from compressed .zip archives. If you
@@ -348,33 +348,33 @@ ones. */
 /** If this is commented out, Irrlicht will try to compile using the zlib
 installed on the system. This is only used when _IRR_COMPILE_WITH_ZLIB_ is
 defined. */
-#define _IRR_USE_NON_SYSTEM_ZLIB_
+//#define _IRR_USE_NON_SYSTEM_ZLIB_
 //! Define _IRR_COMPILE_WITH_ZIP_ENCRYPTION_ if you want to read AES-encrypted ZIP archives
 #define _IRR_COMPILE_WITH_ZIP_ENCRYPTION_
 //! Define _IRR_COMPILE_WITH_BZIP2_ if you want to support bzip2 compressed zip archives
 /** bzip2 is superior to the original zip file compression modes, but requires
 a certain amount of memory for decompression and adds several files to the
 library. */
-#define _IRR_COMPILE_WITH_BZIP2_
+//#define _IRR_COMPILE_WITH_BZIP2_
 //! Define _IRR_USE_NON_SYSTEM_BZLIB_ to let irrlicht use the bzlib which comes with irrlicht.
 /** If this is commented out, Irrlicht will try to compile using the bzlib
 installed on the system. This is only used when _IRR_COMPILE_WITH_BZLIB_ is
 defined. */
-#define _IRR_USE_NON_SYSTEM_BZLIB_
+//#define _IRR_USE_NON_SYSTEM_BZLIB_
 //! Define _IRR_COMPILE_WITH_LZMA_ if you want to use LZMA compressed zip files.
 /** LZMA is a very efficient compression code, known from 7zip. Irrlicht
 currently only supports zip archives, though. */
-#define _IRR_COMPILE_WITH_LZMA_
+//#define _IRR_COMPILE_WITH_LZMA_
 #endif
 
 //! Define __IRR_COMPILE_WITH_MOUNT_ARCHIVE_LOADER_ if you want to mount folders as archives
-#define __IRR_COMPILE_WITH_MOUNT_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_MOUNT_ARCHIVE_LOADER_
 //! Define __IRR_COMPILE_WITH_PAK_ARCHIVE_LOADER_ if you want to open ID software PAK archives
-#define __IRR_COMPILE_WITH_PAK_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_PAK_ARCHIVE_LOADER_
 //! Define __IRR_COMPILE_WITH_NPK_ARCHIVE_LOADER_ if you want to open Nebula Device NPK archives
-#define __IRR_COMPILE_WITH_NPK_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_NPK_ARCHIVE_LOADER_
 //! Define __IRR_COMPILE_WITH_TAR_ARCHIVE_LOADER_ if you want to open TAR archives
-#define __IRR_COMPILE_WITH_TAR_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_TAR_ARCHIVE_LOADER_
 
 //! Set FPU settings
 /** Irrlicht should use approximate float and integer fpu techniques
