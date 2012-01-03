@@ -691,7 +691,7 @@ COpenGLFBODepthTexture::COpenGLFBODepthTexture(
 		const io::path& name,
 		COpenGLDriver* driver,
 		bool useStencil)
-	: COpenGLFBOTexture(size, name, driver), DepthRenderBuffer(0),
+	: COpenGLFBOTexture(size, name, driver, ECF_A8R8G8B8), DepthRenderBuffer(0),
 	StencilRenderBuffer(0), UseStencil(useStencil)
 {
 #ifdef _DEBUG
