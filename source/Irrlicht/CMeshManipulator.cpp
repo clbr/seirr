@@ -1361,6 +1361,9 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 				buf->Vertices.reallocate(vcount);
 				buf->Indices.reallocate(icount);
 
+				core::map<const S3DVertex, const u16> sind; // search index for fast operation
+				typedef core::map<const S3DVertex, const u16>::Node snode;
+
 				// Main algorithm
 				u32 highest = 0;
 				u32 drawcalls = 0;
@@ -1389,39 +1392,45 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 					// Output the best triangle
 					u16 newind = buf->Vertices.size();
 
-					const s32 ind0 = buf->Vertices.linear_search(v[tc[highest].ind[0]]);
-					if (ind0 == -1)
+					snode *s = sind.find(v[tc[highest].ind[0]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[0]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[0]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind0);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind1 = buf->Vertices.linear_search(v[tc[highest].ind[1]]);
-					if (ind1 == -1)
+					s = sind.find(v[tc[highest].ind[1]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[1]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[1]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind1);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind2 = buf->Vertices.linear_search(v[tc[highest].ind[2]]);
-					if (ind2 == -1)
+					s = sind.find(v[tc[highest].ind[2]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[2]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[2]], newind);
 					}
 					else
 					{
-						buf->Indices.push_back(ind2);
+						buf->Indices.push_back(s->getValue());
 					}
 
 					vc[tc[highest].ind[0]].NumActiveTris--;
@@ -1464,6 +1473,9 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 				buf->Vertices.reallocate(vcount);
 				buf->Indices.reallocate(icount);
 
+				core::map<const S3DVertex2TCoords, const u16> sind; // search index for fast operation
+				typedef core::map<const S3DVertex2TCoords, const u16>::Node snode;
+
 				// Main algorithm
 				u32 highest = 0;
 				u32 drawcalls = 0;
@@ -1492,39 +1504,45 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 					// Output the best triangle
 					u16 newind = buf->Vertices.size();
 
-					const s32 ind0 = buf->Vertices.linear_search(v[tc[highest].ind[0]]);
-					if (ind0 == -1)
+					snode *s = sind.find(v[tc[highest].ind[0]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[0]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[0]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind0);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind1 = buf->Vertices.linear_search(v[tc[highest].ind[1]]);
-					if (ind1 == -1)
+					s = sind.find(v[tc[highest].ind[1]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[1]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[1]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind1);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind2 = buf->Vertices.linear_search(v[tc[highest].ind[2]]);
-					if (ind2 == -1)
+					s = sind.find(v[tc[highest].ind[2]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[2]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[2]], newind);
 					}
 					else
 					{
-						buf->Indices.push_back(ind2);
+						buf->Indices.push_back(s->getValue());
 					}
 
 					vc[tc[highest].ind[0]].NumActiveTris--;
@@ -1568,6 +1586,9 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 				buf->Vertices.reallocate(vcount);
 				buf->Indices.reallocate(icount);
 
+				core::map<const S3DVertexTangents, const u16> sind; // search index for fast operation
+				typedef core::map<const S3DVertexTangents, const u16>::Node snode;
+
 				// Main algorithm
 				u32 highest = 0;
 				u32 drawcalls = 0;
@@ -1596,39 +1617,45 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *m) const
 					// Output the best triangle
 					u16 newind = buf->Vertices.size();
 
-					const s32 ind0 = buf->Vertices.linear_search(v[tc[highest].ind[0]]);
-					if (ind0 == -1)
+					snode *s = sind.find(v[tc[highest].ind[0]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[0]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[0]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind0);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind1 = buf->Vertices.linear_search(v[tc[highest].ind[1]]);
-					if (ind1 == -1)
+					s = sind.find(v[tc[highest].ind[1]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[1]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[1]], newind);
 						newind++;
 					}
 					else
 					{
-						buf->Indices.push_back(ind1);
+						buf->Indices.push_back(s->getValue());
 					}
 
-					const s32 ind2 = buf->Vertices.linear_search(v[tc[highest].ind[2]]);
-					if (ind2 == -1)
+					s = sind.find(v[tc[highest].ind[2]]);
+
+					if (!s)
 					{
 						buf->Vertices.push_back(v[tc[highest].ind[2]]);
 						buf->Indices.push_back(newind);
+						sind.insert(v[tc[highest].ind[2]], newind);
 					}
 					else
 					{
-						buf->Indices.push_back(ind2);
+						buf->Indices.push_back(s->getValue());
 					}
 
 					vc[tc[highest].ind[0]].NumActiveTris--;
