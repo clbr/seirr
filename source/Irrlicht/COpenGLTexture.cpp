@@ -727,6 +727,9 @@ COpenGLFBODepthTexture::COpenGLFBODepthTexture(
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, ImageSize.Width,
 				ImageSize.Height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
 
+			os::Printer::log("Currently GL RTT stencil is only supported with"
+					"GL_EXT_packed_depth_stencil", ELL_ERROR);
+
 			// we 're in trouble! the code below does not complete
 			// the FBO currently...  stencil buffer is only
 			// supported with EXT_packed_depth_stencil extension
@@ -823,6 +826,11 @@ void COpenGLFBODepthTexture::bindRTT()
 //! Unbind Render Target Texture
 void COpenGLFBODepthTexture::unbindRTT()
 {
+}
+
+bool COpenGLFBODepthTexture::hasStencil()
+{
+	return UseStencil;
 }
 
 

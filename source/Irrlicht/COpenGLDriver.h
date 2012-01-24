@@ -23,6 +23,7 @@ namespace irr
 #include "IMaterialRendererServices.h"
 // also includes the OpenGL stuff
 #include "COpenGLExtensionHandler.h"
+#include "COpenGLTexture.h"
 
 namespace irr
 {
@@ -302,7 +303,8 @@ namespace video
 		virtual u32 getMaximalPrimitiveCount() const;
 
 		virtual ITexture* addRenderTargetTexture(const core::dimension2d<u32>& size,
-				const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN);
+				const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN,
+				const bool useStencil = false);
 
 		//! set or reset render target
 		virtual bool setRenderTarget(video::E_RENDER_TARGET target, bool clearTarget,
@@ -348,7 +350,8 @@ namespace video
 		//! Returns the maximum texture size supported.
 		virtual core::dimension2du getMaxTextureSize() const;
 
-		ITexture* createDepthTexture(ITexture* texture, bool shared=true);
+		ITexture* createDepthTexture(ITexture* texture, const bool useStencil = false,
+						const bool shared = true);
 		void removeDepthTexture(ITexture* texture);
 
 		//! Convert E_PRIMITIVE_TYPE to OpenGL equivalent
@@ -423,7 +426,7 @@ namespace video
 		SMaterial Material, LastMaterial;
 		COpenGLTexture* RenderTargetTexture;
 		const ITexture* CurrentTexture[MATERIAL_MAX_TEXTURES];
-		core::array<ITexture*> DepthTextures;
+		core::array<COpenGLFBODepthTexture*> DepthTextures;
 		struct SUserClipPlane
 		{
 			SUserClipPlane() : Enabled(false) {}

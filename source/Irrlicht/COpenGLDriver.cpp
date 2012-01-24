@@ -8,7 +8,6 @@
 
 #ifdef _IRR_COMPILE_WITH_OPENGL_
 
-#include "COpenGLTexture.h"
 #include "COpenGLMaterialRenderer.h"
 #include "COpenGLShaderMaterialRenderer.h"
 #include "COpenGLSLMaterialRenderer.h"
@@ -3523,7 +3522,8 @@ IVideoDriver* COpenGLDriver::getVideoDriver()
 
 ITexture* COpenGLDriver::addRenderTargetTexture(const core::dimension2d<u32>& size,
 					const io::path& name,
-					const ECOLOR_FORMAT format)
+					const ECOLOR_FORMAT format,
+					const bool useStencil)
 {
 	//disable mip-mapping
 	bool generateMipLevels = getTextureCreationFlag(ETCF_CREATE_MIP_MAPS);
@@ -3539,7 +3539,7 @@ ITexture* COpenGLDriver::addRenderTargetTexture(const core::dimension2d<u32>& si
 		{
 			bool success = false;
 			addTexture(rtt);
-			ITexture* tex = createDepthTexture(rtt);
+			ITexture* tex = createDepthTexture(rtt, useStencil);
 			if (tex)
 			{
 				success = static_cast<video::COpenGLFBODepthTexture*>(tex)->attach(rtt);
@@ -3892,7 +3892,7 @@ IImage* COpenGLDriver::createScreenShot()
 
 
 //! get depth texture for the given render target texture
-ITexture* COpenGLDriver::createDepthTexture(ITexture* texture, bool shared)
+ITexture* COpenGLDriver::createDepthTexture(ITexture* texture, const bool useStencil, const bool shared)
 {
 	if ((texture->getDriverType() != EDT_OPENGL) || (!texture->isRenderTarget()))
 		return 0;
@@ -3905,16 +3905,17 @@ ITexture* COpenGLDriver::createDepthTexture(ITexture* texture, bool shared)
 	{
 		for (u32 i=0; i<DepthTextures.size(); ++i)
 		{
-			if (DepthTextures[i]->getSize()==texture->getSize())
+			if (DepthTextures[i]->getSize()==texture->getSize() &&
+				useStencil == DepthTextures[i]->hasStencil())
 			{
 				DepthTextures[i]->grab();
 				return DepthTextures[i];
 			}
 		}
-		DepthTextures.push_back(new COpenGLFBODepthTexture(texture->getSize(), "depth1", this, true));
+		DepthTextures.push_back(new COpenGLFBODepthTexture(texture->getSize(), "depth1", this, useStencil));
 		return DepthTextures.getLast();
 	}
-	return (new COpenGLFBODepthTexture(texture->getSize(), "depth1", this));
+	return (new COpenGLFBODepthTexture(texture->getSize(), "depth1", this, useStencil));
 }
 
 
