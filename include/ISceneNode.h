@@ -199,8 +199,19 @@ namespace scene
 		virtual core::matrix4 getRelativeTransformation() const
 		{
 			core::matrix4 mat;
+			core::vector3df vec;
+
 			mat.setRotationDegrees(RelativeRotation);
-			mat.setTranslation(RelativeTranslation);
+
+			if (vec == RelativeRotationCenter)
+			{
+				mat.setTranslation(RelativeTranslation);
+			}
+			else
+			{
+				mat.setRotationCenter(RelativeRotationCenter,
+							RelativeTranslation);
+			}
 
 			if (RelativeScale != core::vector3df(1.f,1.f,1.f))
 			{
@@ -483,6 +494,14 @@ namespace scene
 		virtual void setRotation(const core::vector3df& rotation)
 		{
 			RelativeRotation = rotation;
+		}
+
+		//! Sets the center against which the node is rotated.
+		/** This only modifies the relative rotation of the node.
+		\param center The point against which to rotate. */
+		virtual void setRotationCenter(const core::vector3df& center)
+		{
+			RelativeRotationCenter = center;
 		}
 
 
@@ -802,6 +821,9 @@ namespace scene
 
 		//! Relative rotation of the scene node.
 		core::vector3df RelativeRotation;
+
+		//! Relative rotation center point
+		core::vector3df RelativeRotationCenter;
 
 		//! Relative scale of the scene node.
 		core::vector3df RelativeScale;
