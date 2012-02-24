@@ -545,6 +545,8 @@ namespace video
 					return (ColorMask!=ECP_NONE);
 				case EMF_COLOR_MATERIAL:
 					return (ColorMaterial != ECM_NONE);
+				default:
+					break;
 			}
 
 			return false;
