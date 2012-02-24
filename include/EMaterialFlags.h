@@ -75,7 +75,10 @@ namespace video
 		EMF_COLOR_MASK = 0x8000,
 
 		//! ColorMaterial enum for vertex color interpretation
-		EMF_COLOR_MATERIAL = 0x10000
+		EMF_COLOR_MATERIAL = 0x10000,
+
+		//! MaterialType override
+		EMF_MATERIAL_TYPE = 0x20000
 	};
 
 } // end namespace video
