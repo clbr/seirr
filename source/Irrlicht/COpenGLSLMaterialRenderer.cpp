@@ -344,6 +344,11 @@ bool COpenGLSLMaterialRenderer::setVertexShaderConstant(const c8* name, const f3
 	return setPixelShaderConstant(name, floats, count);
 }
 
+bool COpenGLSLMaterialRenderer::setVertexShaderConstant(const c8* name, const s32* ints, int count)
+{
+	return setPixelShaderConstant(name, ints, count);
+}
+
 
 void COpenGLSLMaterialRenderer::setVertexShaderConstant(const f32* data, s32 startRegister, s32 constantAmount)
 {
@@ -399,6 +404,35 @@ bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const f32
 	return false;
 #endif
 
+}
+
+bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const s32* ints, int count)
+{
+	u32 i;
+	const u32 num = UniformInfo.size();
+
+	for (i=0; i < num; ++i)
+	{
+		if (UniformInfo[i].name == name)
+			break;
+	}
+
+	if (i == num)
+		return false;
+
+#if defined(GL_VERSION_2_0)||defined(GL_ARB_shader_objects)
+	GLint Location=0;
+	if (Program2)
+		Location=Driver->extGlGetUniformLocation(Program2,name);
+	else
+		Location=Driver->extGlGetUniformLocationARB(Program,name);
+
+	Driver->extGlUniform1iv(Location, count, ints);
+
+	return true;
+#else
+	return false;
+#endif
 }
 
 

@@ -261,6 +261,12 @@ namespace video
 		//! Sets a constant for the pixel shader based on a name.
 		virtual bool setPixelShaderConstant(const c8* name, const f32* floats, int count);
 
+		//! Sets a constant for the vertex shader based on a name, int interface.
+		virtual bool setVertexShaderConstant(const c8* name, const s32* ints, int count);
+
+		//! Sets a constant for the pixel shader based on a name, int interface.
+		virtual bool setPixelShaderConstant(const c8* name, const s32* ints, int count);
+
 		//! sets the current Texture
 		//! Returns whether setting was a success or not.
 		bool setActiveTexture(u32 stage, const video::ITexture* texture);
