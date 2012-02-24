@@ -1,8 +1,8 @@
 VERSION_MAJOR = 1
 VERSION_MINOR = 7
-VERSION_RELEASE = 2-SVN
+VERSION_RELEASE = 3-SVN
 VERSION = $(VERSION_MAJOR).$(VERSION_MINOR)
-# Irrlicht Engine 1.7.2-SVN
+# Irrlicht Engine 1.7.3-SVN
 # Makefile for Linux
 #
 # To use, just run:
