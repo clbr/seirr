@@ -13,6 +13,7 @@
 #include "IrrlichtDevice.h"
 #include "IImagePresenter.h"
 #include "ICursorControl.h"
+#include "os.h"
 
 #ifdef _IRR_COMPILE_WITH_X11_
 
@@ -146,7 +147,8 @@ namespace irr
 		public:
 
 			CCursorControl(CIrrDeviceLinux* dev, bool null)
-				: Device(dev), IsVisible(true), Null(null), UseReferenceRect(false)
+				: Device(dev), lastQuery(0), IsVisible(true),
+				Null(null), UseReferenceRect(false)
 			{
 #ifdef _IRR_COMPILE_WITH_X11_
 				if (!Null)
@@ -303,6 +305,12 @@ namespace irr
 				if (Null)
 					return;
 
+				u32 now = os::Timer::getTime();
+				if (now <= lastQuery)
+					return;
+
+				lastQuery = now;
+
 				Window tmp;
 				int itmp1, itmp2;
 				unsigned  int maskreturn;
@@ -325,6 +333,7 @@ namespace irr
 			CIrrDeviceLinux* Device;
 			core::position2d<s32> CursorPos;
 			core::rect<s32> ReferenceRect;
+			u32 lastQuery;
 #ifdef _IRR_COMPILE_WITH_X11_
 			Cursor invisCursor;
 #endif
