@@ -337,7 +337,7 @@ B3D, MS3D or X meshes */
 
 //! Define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_ if you want to open ZIP and GZIP archives
 /** ZIP reading has several more options below to configure. */
-#define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
+//#define __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
 #ifdef __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
 //! Define _IRR_COMPILE_WITH_ZLIB_ to enable compiling the engine using zlib.
 /** This enables the engine to read from compressed .zip archives. If you
