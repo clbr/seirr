@@ -1355,6 +1355,9 @@ namespace video
 
 		//! Returns the maximum texture size supported.
 		virtual core::dimension2du getMaxTextureSize() const =0;
+
+		//! Convert the number of indices to the number of primitives
+		virtual u32 indiceToPrimitiveCount(scene::E_PRIMITIVE_TYPE pType, u32 count) const = 0;
 	};
 
 } // end namespace video

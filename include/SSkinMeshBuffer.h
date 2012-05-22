@@ -325,6 +325,12 @@ struct SSkinMeshBuffer : public IMeshBuffer
 		}
 	}
 
+	virtual scene::E_PRIMITIVE_TYPE getPrimitiveType() const
+	{
+		return Primitive;
+	}
+
+
 	//! append the vertices and indices to the current buffer
 	virtual void append(const void* const vertices, u32 numVertices, const u16* const indices, u32 numIndices) {}
 
@@ -394,6 +400,9 @@ struct SSkinMeshBuffer : public IMeshBuffer
 	E_HARDWARE_MAPPING MappingHint_Index:3;
 
 	bool BoundingBoxNeedsRecalculated:1;
+
+	//! What kind of primitives does this buffer contain? Default triangles
+	scene::E_PRIMITIVE_TYPE Primitive;
 };
 
 

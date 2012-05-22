@@ -1452,7 +1452,7 @@ void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer* mb)
 	if (HWBuffer)
 		drawHardwareBuffer(HWBuffer);
 	else
-		drawVertexPrimitiveList(mb->getVertices(), mb->getVertexCount(), mb->getIndices(), mb->getIndexCount()/3, mb->getVertexType(), scene::EPT_TRIANGLES, mb->getIndexType());
+		drawVertexPrimitiveList(mb->getVertices(), mb->getVertexCount(), mb->getIndices(), indiceToPrimitiveCount(mb->getPrimitiveType(), mb->getIndexCount()), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType());
 }
 
 
@@ -2181,6 +2181,32 @@ core::dimension2du CNullDriver::getMaxTextureSize() const
 	return core::dimension2du(0x10000,0x10000); // maybe large enough
 }
 
+u32 CNullDriver::indiceToPrimitiveCount(scene::E_PRIMITIVE_TYPE ptype, u32 count) const
+{
+	switch (ptype)
+	{
+		case scene::EPT_POINTS:
+		case scene::EPT_POINT_SPRITES:
+		case scene::EPT_LINE_LOOP:
+		case scene::EPT_POLYGON:
+			return count;
+		case scene::EPT_LINE_STRIP:
+			return count - 1;
+		case scene::EPT_LINES:
+			return count/2;
+		case scene::EPT_TRIANGLE_STRIP:
+		case scene::EPT_TRIANGLE_FAN:
+			return count - 2;
+		case scene::EPT_TRIANGLES:
+			return count/3;
+		case scene::EPT_QUAD_STRIP:
+			return (count - 2) / 2;
+		case scene::EPT_QUADS:
+			return count/4;
+		default:
+			return count;
+	}
+}
 
 } // end namespace
 } // end namespace
