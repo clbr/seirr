@@ -22,7 +22,7 @@ struct SSkinMeshBuffer : public IMeshBuffer
 	SSkinMeshBuffer(video::E_VERTEX_TYPE vt=video::EVT_STANDARD) :
 		ChangedID_Vertex(1), ChangedID_Index(1), VertexType(vt),
 		MappingHint_Vertex(EHM_NEVER), MappingHint_Index(EHM_NEVER),
-		BoundingBoxNeedsRecalculated(true)
+		BoundingBoxNeedsRecalculated(true), Primitive(EPT_TRIANGLES)
 	{
 		#ifdef _DEBUG
 		setDebugName("SSkinMeshBuffer");
