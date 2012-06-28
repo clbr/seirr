@@ -3660,6 +3660,22 @@ bool COpenGLDriver::setRenderTarget(video::ITexture* texture, bool clearBackBuff
 		return false;
 	}
 
+#if defined(GL_EXT_framebuffer_object)
+	if (CurrentTarget==ERT_MULTI_RENDER_TEXTURES)
+	{
+		for (u32 i=0; i<MRTargets.size(); ++i)
+		{
+			if (MRTargets[i].TargetType==ERT_RENDER_TEXTURE)
+			{
+				for (++i; i<MRTargets.size(); ++i)
+					if (MRTargets[i].TargetType==ERT_RENDER_TEXTURE)
+						extGlFramebufferTexture2D(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT+i, GL_TEXTURE_2D, 0, 0);
+			}
+		}
+		MRTargets.clear();
+	}
+#endif
+
 	// check if we should set the previous RT back
 
 	setActiveTexture(0, 0);
@@ -3686,6 +3702,8 @@ bool COpenGLDriver::setRenderTarget(video::ITexture* texture, bool clearBackBuff
 		CurrentTarget=ERT_FRAME_BUFFER;
 		glDrawBuffer(Doublebuffer?GL_BACK_LEFT:GL_FRONT_LEFT);
 	}
+	// we need to update the matrices due to the rendersize change.
+	Transformation3DChanged = true;
 
 	clearBuffers(clearBackBuffer, clearZBuffer, false, color);
 	return true;
@@ -3696,8 +3714,21 @@ bool COpenGLDriver::setRenderTarget(video::ITexture* texture, bool clearBackBuff
 bool COpenGLDriver::setRenderTarget(const core::array<video::IRenderTarget>& targets,
 				bool clearBackBuffer, bool clearZBuffer, SColor color)
 {
+	// if simply disabling the MRT via array call
 	if (targets.size()==0)
 		return setRenderTarget(0, clearBackBuffer, clearZBuffer, color);
+	// if disabling old MRT, but enabling new one as well
+	if ((MRTargets.size()!=0) && (targets != MRTargets))
+		setRenderTarget(0, clearBackBuffer, clearZBuffer, color);
+	// if no change, simply clear buffers
+	else if (targets == MRTargets)
+	{
+		clearBuffers(clearBackBuffer, clearZBuffer, false, color);
+		return true;
+	}
+
+	// copy to storage for correct disabling
+	MRTargets = targets;
 
 	u32 maxMultipleRTTs = core::min_(static_cast<u32>(MaxMultipleRenderTargets), targets.size());
 
