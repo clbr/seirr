@@ -10,6 +10,7 @@
 #include "IMeshCache.h"
 #include "IAnimatedMesh.h"
 #include "IMaterialRenderer.h"
+#include "SViewFrustum.h"
 
 namespace irr
 {
@@ -147,15 +148,29 @@ void CMeshSceneNode::render()
 	// render original meshes
 	if (renderMeshes)
 	{
-		for (u32 i=0; i<Mesh->getMeshBufferCount(); ++i)
+		const u32 mbcount = Mesh->getMeshBufferCount();
+		const core::aabbox3df cambox =
+			SceneManager->getActiveCamera()->getViewFrustum()->getBoundingBox();
+
+		for (u32 i=0; i<mbcount; ++i)
 		{
 			scene::IMeshBuffer* mb = Mesh->getMeshBuffer(i);
 			if (mb)
 			{
+				// If there's more than one MB, do a per-mb AABB check
+				if (mbcount > 1 && AutomaticCullingState == EAC_BOX)
+				{
+					core::aabbox3df mybox = mb->getBoundingBox();
+					AbsoluteTransformation.transformBoxEx(mybox);
+
+					if (!mybox.intersectsWithBox(cambox))
+						continue;
+				}
+
 				const video::SMaterial& material = ReadOnlyMaterials ? mb->getMaterial() : Materials[i];
 
 				video::IMaterialRenderer* rnd = driver->getMaterialRenderer(material.MaterialType);
-				bool transparent = (rnd && rnd->isTransparent());
+				const bool transparent = (rnd && rnd->isTransparent());
 
 				// only render transparent buffer if this is the transparent render pass
 				// and solid only in solid pass
