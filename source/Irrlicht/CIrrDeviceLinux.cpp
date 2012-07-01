@@ -11,6 +11,8 @@
 #include <sys/utsname.h>
 #include <time.h>
 #include "IEventReceiver.h"
+#include "ISceneManager.h"
+#include "IGUIEnvironment.h"
 #include "os.h"
 #include "CTimer.h"
 #include "irrString.h"
@@ -134,6 +136,15 @@ CIrrDeviceLinux::~CIrrDeviceLinux()
 	if (display)
 	{
 		#ifdef _IRR_COMPILE_WITH_OPENGL_
+
+		// Must free OpenGL textures etc before destroying context
+		VideoDriver->drop();
+		VideoDriver = NULL;
+		GUIEnvironment->drop();
+		GUIEnvironment = NULL;
+		SceneManager->drop();
+		SceneManager = NULL;
+
 		if (Context)
 		{
 			if (glxWin)
