@@ -3820,7 +3820,7 @@ bool COpenGLDriver::setRenderTarget(const core::array<video::IRenderTarget>& tar
 			}
 			if (FeatureAvailable[IRR_AMD_draw_buffers_blend] || FeatureAvailable[IRR_ARB_draw_buffers_blend])
 			{
-				extGlBlendFuncIndexed(i, targets[i].BlendFuncSrc, targets[i].BlendFuncDst);
+				extGlBlendFuncIndexed(i, getGLBlend(targets[i].BlendFuncSrc), getGLBlend(targets[i].BlendFuncDst));
 			}
 			if (targets[i].TargetType==ERT_RENDER_TEXTURE)
 			{
