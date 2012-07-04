@@ -1245,11 +1245,17 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 	if (MultiTextureExtension)
 		extGlClientActiveTexture(GL_TEXTURE0_ARB);
 
-	glEnableClientState(GL_COLOR_ARRAY);
+	if (!(Material.SkipArrays & ESA_COLOR))
+		glEnableClientState(GL_COLOR_ARRAY);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
-	if ((pType!=scene::EPT_POINTS) && (pType!=scene::EPT_POINT_SPRITES))
+
+	if ((pType!=scene::EPT_POINTS) && (pType!=scene::EPT_POINT_SPRITES) &&
+			!(Material.SkipArrays & ESA_TEXCOORD))
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	if ((pType!=scene::EPT_POINTS) && (pType!=scene::EPT_POINT_SPRITES))
+
+	if ((pType!=scene::EPT_POINTS) && (pType!=scene::EPT_POINT_SPRITES) &&
+			!(Material.SkipArrays & ESA_NORMAL))
 		glEnableClientState(GL_NORMAL_ARRAY);
 
 	if (vertices)
