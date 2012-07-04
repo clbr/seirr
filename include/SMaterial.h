@@ -253,6 +253,7 @@ namespace video
 			ZBuffer = other.ZBuffer;
 			AntiAliasing = other.AntiAliasing;
 			ColorMask = other.ColorMask;
+			SkipArrays = other.SkipArrays;
 			ColorMaterial = other.ColorMaterial;
 
 			return *this;
@@ -590,6 +591,7 @@ namespace video
 				NormalizeNormals != b.NormalizeNormals ||
 				AntiAliasing != b.AntiAliasing ||
 				ColorMask != b.ColorMask ||
+				SkipArrays != b.SkipArrays ||
 				ColorMaterial != b.ColorMaterial;
 			for (u32 i=0; (i<MATERIAL_MAX_TEXTURES) && !different; ++i)
 			{
