@@ -96,6 +96,14 @@ namespace video
 		EAS_TEXTURE
 	};
 
+	//! Optionally skip sending these arrays to the GPU (VA) or drawing them (VBO)
+	enum E_SKIP_ARRAYS
+	{
+		ESA_COLOR = 0x1,
+		ESA_NORMAL = 0x2,
+		ESA_TEXCOORD = 0x4
+	};
+
 	//! EMT_ONETEXTURE_BLEND: pack srcFact, dstFact, Modulate and alpha source to MaterialTypeParam
 	/** alpha source can be an OR'ed combination of E_ALPHA_SOURCE values. */
 	inline f32 pack_texureBlendFunc ( const E_BLEND_FACTOR srcFact, const E_BLEND_FACTOR dstFact, const E_MODULATE_FUNC modulate=EMFN_MODULATE_1X, const u32 alphaSource=EAS_TEXTURE )
@@ -195,7 +203,7 @@ namespace video
 			EmissiveColor(0,0,0,0), SpecularColor(255,255,255,255),
 			Shininess(0.0f), MaterialTypeParam(0.0f), MaterialTypeParam2(0.0f), Thickness(1.0f),
 			ZBuffer(ECFN_LESSEQUAL), AntiAliasing(EAAM_SIMPLE), ColorMask(ECP_ALL),
-			ColorMaterial(ECM_DIFFUSE),
+			ColorMaterial(ECM_DIFFUSE), SkipArrays(0),
 			Wireframe(false), PointCloud(false), GouraudShading(true), Lighting(true), ZWriteEnable(true),
 			BackfaceCulling(true), FrontfaceCulling(false), FogEnable(false), NormalizeNormals(false)
 		{ }
@@ -245,6 +253,7 @@ namespace video
 			ZBuffer = other.ZBuffer;
 			AntiAliasing = other.AntiAliasing;
 			ColorMask = other.ColorMask;
+			SkipArrays = other.SkipArrays;
 			ColorMaterial = other.ColorMaterial;
 
 			return *this;
@@ -342,6 +351,9 @@ namespace video
 		diffuse light behavior of each face. The default, ECM_DIFFUSE, will result in
 		a very similar rendering as with lighting turned off, just with light shading. */
 		u8 ColorMaterial:3;
+
+		//! Defines which arrays to skip, if any
+		u8 SkipArrays:3;
 
 		//! Draw as wireframe or filled triangles? Default: false
 		/** The user can access a material flag using
@@ -579,6 +591,7 @@ namespace video
 				NormalizeNormals != b.NormalizeNormals ||
 				AntiAliasing != b.AntiAliasing ||
 				ColorMask != b.ColorMask ||
+				SkipArrays != b.SkipArrays ||
 				ColorMaterial != b.ColorMaterial;
 			for (u32 i=0; (i<MATERIAL_MAX_TEXTURES) && !different; ++i)
 			{
