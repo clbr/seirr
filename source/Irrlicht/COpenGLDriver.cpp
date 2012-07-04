@@ -3469,14 +3469,14 @@ bool COpenGLDriver::setVertexShaderConstant(const c8* name, const s32* ints, int
 }
 
 //! Sets a constant for the pixel shader based on a name.
-bool COpenGLDriver::setPixelShaderConstant(const c8* name, const f32* floats, int count)
+bool COpenGLDriver::setPixelShaderConstant(const c8*, const f32*, int)
 {
 	os::Printer::log("Error: Please call services->setPixelShaderConstant(), not VideoDriver->setPixelShaderConstant().");
 	return false;
 }
 
 //! Sets a constant for the pixel shader based on a name, int interface.
-bool COpenGLDriver::setPixelShaderConstant(const c8* name, const s32* ints, int count)
+bool COpenGLDriver::setPixelShaderConstant(const c8*, const s32*, int)
 {
 	os::Printer::log("Error: Please call services->setPixelShaderConstant(), not VideoDriver->setPixelShaderConstant().");
 	return false;
