@@ -6,3 +6,6 @@ doc
 tools
 *.so.*
 bin
+*.orig
+*~
+media
