@@ -1220,6 +1220,7 @@ inline void COpenGLExtensionHandler::extGlGetAttachedObjects(GLhandleARB program
 
 inline void COpenGLExtensionHandler::extGlGetInfoLog(GLhandleARB object, GLsizei maxLength, GLsizei *length, GLcharARB *infoLog)
 {
+	*length = 0;
 #ifdef _IRR_OPENGL_USE_EXTPOINTER_
 	if (pGlGetInfoLogARB)
 		pGlGetInfoLogARB(object, maxLength, length, infoLog);
@@ -1355,6 +1356,7 @@ inline void COpenGLExtensionHandler::extGlGetActiveUniformARB(GLhandleARB progra
 		GLuint index, GLsizei maxlength, GLsizei *length,
 		GLint *size, GLenum *type, GLcharARB *name)
 {
+	*length = 0;
 #ifdef _IRR_OPENGL_USE_EXTPOINTER_
 	if (pGlGetActiveUniformARB)
 		pGlGetActiveUniformARB(program, index, maxlength, length, size, type, name);
