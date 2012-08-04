@@ -23,6 +23,8 @@ namespace irr
 namespace video
 {
 
+static video::IImage *image;
+
 #ifdef _IRR_COMPILE_WITH_LIBPNG_
 // PNG function for error handling
 static void png_cpexcept_error(png_structp png_ptr, png_const_charp msg)
@@ -92,7 +94,7 @@ IImage* CImageLoaderPng::loadImage(io::IReadFile* file) const
 	if (!file)
 		return 0;
 
-	video::IImage* image = 0;
+	image = 0;
 	//Used to point to image rows
 	u8** RowPointers = 0;
 
