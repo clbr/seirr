@@ -833,6 +833,60 @@ bool COpenGLFBODepthTexture::hasStencil()
 	return UseStencil;
 }
 
+COpenGLTextureArray::COpenGLTextureArray(const core::array<ITexture*> &surfaces,
+		const io::path& name,
+		void *mipmapData, COpenGLDriver *drv)
+		: COpenGLTexture(name, drv)
+{
+	glGenTextures(1, &TextureName);
+
+	uploadTexture(surfaces);
+}
+
+void COpenGLTextureArray::uploadTexture(const core::array<ITexture*> &surfaces)
+{
+	const u32 nfiles = surfaces.size();
+	const u32 w = surfaces[0]->getSize().Width;
+	const u32 h = surfaces[0]->getSize().Height;
+	u32 i;
+
+	const COpenGLTexture * const tex = (COpenGLTexture *) surfaces[0];
+	ECOLOR_FORMAT color = tex->getColorFormat();
+	GLint filter;
+	InternalFormat = getOpenGLFormatAndParametersFromColorFormat(
+				color, filter, PixelFormat, PixelType);
+
+	Driver->setActiveTexture(0, this);
+	if (Driver->testGLError())
+		os::Printer::log("Could not bind Texture", ELL_ERROR);
+
+	// Define it
+	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, InternalFormat, w, h, nfiles, 0,
+			PixelFormat, PixelType, NULL);
+
+	for (i = 0; i < nfiles; i++)
+	{
+		void *src = surfaces[i]->lock(true);
+
+		Driver->setActiveTexture(0, this);
+		if (Driver->testGLError())
+			os::Printer::log("Could not bind Texture", ELL_ERROR);
+
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, w, h, 1,
+				PixelFormat, PixelType, src);
+
+		if (Driver->testGLError())
+			os::Printer::log("Could not glTexSubImage3D", ELL_ERROR);
+
+		surfaces[i]->unlock();
+	}
+
+	Driver->extGlGenerateMipmap(GL_TEXTURE_2D_ARRAY);
+}
+
+COpenGLTextureArray::~COpenGLTextureArray()
+{
+}
 
 bool checkFBOStatus(COpenGLDriver* Driver)
 {

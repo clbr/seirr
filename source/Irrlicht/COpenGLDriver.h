@@ -380,6 +380,9 @@ namespace video
 		//! returns a device dependent texture from a software surface (IImage)
 		virtual video::ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData);
 
+		//! returns a texture array from textures
+		virtual video::ITexture* createDeviceDependentTexture(const core::array<ITexture*> &surfaces, const io::path& name, void* mipmapData);
+
 		//! creates a transposed matrix in supplied GLfloat array to pass to OpenGL
 		inline void createGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m);
 		inline void createGLTextureMatrix(GLfloat gl_matrix[16], const core::matrix4& m);

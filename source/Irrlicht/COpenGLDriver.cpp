@@ -2237,6 +2237,18 @@ video::ITexture* COpenGLDriver::createDeviceDependentTexture(IImage* surface, co
 	return new COpenGLTexture(surface, name, mipmapData, this);
 }
 
+//! returns a texture array from textures
+video::ITexture* COpenGLDriver::createDeviceDependentTexture(const core::array<ITexture*> &surfaces, const io::path& name, void* mipmapData)
+{
+	if (!queryFeature(EVDF_TEXTURE_ARRAY))
+	{
+		os::Printer::log("Array textures not supported", ELL_ERROR);
+		return 0;
+	}
+
+	return new COpenGLTextureArray(surfaces, name, mipmapData, this);
+}
+
 
 //! Sets a material. All 3d drawing functions draw geometry now using this material.
 void COpenGLDriver::setMaterial(const SMaterial& material)

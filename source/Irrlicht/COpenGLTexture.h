@@ -7,6 +7,7 @@
 
 #include "ITexture.h"
 #include "IImage.h"
+#include "irrArray.h"
 
 #include "IrrCompileConfig.h"
 #ifdef _IRR_COMPILE_WITH_OPENGL_
@@ -170,6 +171,17 @@ protected:
 	GLuint ColorFrameBuffer;
 };
 
+class COpenGLTextureArray: public COpenGLTexture
+{
+public:
+	COpenGLTextureArray(const core::array<ITexture*> &surfaces, const io::path& name,
+				void *mipmapData = 0, COpenGLDriver *drv = 0);
+
+	virtual ~COpenGLTextureArray();
+
+protected:
+	void uploadTexture(const core::array<ITexture*> &surfaces);
+};
 
 //! OpenGL FBO depth texture.
 class COpenGLFBODepthTexture : public COpenGLFBOTexture
