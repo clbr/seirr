@@ -31,8 +31,8 @@ CGUIFont::CGUIFont(IGUIEnvironment *env, const io::path& filename)
 		// don't grab environment, to avoid circular references
 		Driver = Environment->getVideoDriver();
 
-		SpriteBank = Environment->getSpriteBank(filename);
-		if (!SpriteBank)	// could be default-font which has no file
+//		SpriteBank = Environment->getSpriteBank(filename);
+//		if (!SpriteBank)	// could be default-font which has no file
 			SpriteBank = Environment->addEmptySpriteBank(filename);
 		if (SpriteBank)
 			SpriteBank->grab();
