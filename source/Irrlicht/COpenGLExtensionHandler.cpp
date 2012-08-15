@@ -57,7 +57,8 @@ COpenGLExtensionHandler::COpenGLExtensionHandler() :
 	pGlProvokingVertexARB(0), pGlProvokingVertexEXT(0),
 	pGlColorMaskIndexedEXT(0), pGlEnableIndexedEXT(0), pGlDisableIndexedEXT(0),
 	pGlBlendFuncIndexedAMD(0), pGlBlendFunciARB(0),
-	pGlProgramParameteriARB(0), pGlProgramParameteriEXT(0)
+	pGlProgramParameteriARB(0), pGlProgramParameteriEXT(0),
+	pGlGenerateMipmap(0)
 #endif // _IRR_OPENGL_USE_EXTPOINTER_
 {
 	for (u32 i=0; i<IRR_OpenGL_Feature_Count; ++i)
@@ -132,6 +133,7 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 	pGlClientActiveTextureARB = (PFNGLCLIENTACTIVETEXTUREARBPROC) wglGetProcAddress("glClientActiveTextureARB");
 
 	// get fragment and vertex program function pointers
+	pGlGenerateMipmap = (PFNGLGENERATEMIPMAPPROC) wglGetProcAddress("glGenerateMipmap");
 	pGlGenProgramsARB = (PFNGLGENPROGRAMSARBPROC) wglGetProcAddress("glGenProgramsARB");
 	pGlGenProgramsNV = (PFNGLGENPROGRAMSNVPROC) wglGetProcAddress("glGenProgramsNV");
 	pGlBindProgramARB = (PFNGLBINDPROGRAMARBPROC) wglGetProcAddress("glBindProgramARB");
@@ -251,6 +253,9 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glClientActiveTextureARB"));
 
 	// get fragment and vertex program function pointers
+	pGlGenerateMipmap = (PFNGLGENERATEMIPMAPPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glGenerateMipmap"));
+
 	pGlGenProgramsARB = (PFNGLGENPROGRAMSARBPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glGenProgramsARB"));
 

@@ -850,6 +850,7 @@ class COpenGLExtensionHandler
 
 	// shader programming
 	void extGlGenPrograms(GLsizei n, GLuint *programs);
+	void extGlGenerateMipmap(GLenum target);
 	void extGlBindProgram(GLenum target, GLuint program);
 	void extGlProgramString(GLenum target, GLenum format, GLsizei len, const GLvoid *string);
 	void extGlLoadProgram(GLenum target, GLuint id, GLsizei len, const GLubyte *string);
@@ -994,6 +995,7 @@ class COpenGLExtensionHandler
 		PFNGLBLENDFUNCIPROC pGlBlendFunciARB;
 		PFNGLPROGRAMPARAMETERIARBPROC pGlProgramParameteriARB;
 		PFNGLPROGRAMPARAMETERIEXTPROC pGlProgramParameteriEXT;
+		PFNGLGENERATEMIPMAPPROC pGlGenerateMipmap;
 	#endif
 };
 
@@ -1036,6 +1038,18 @@ inline void COpenGLExtensionHandler::extGlGenPrograms(GLsizei n, GLuint *program
 	glGenProgramsNV(n,programs);
 #else
 	os::Printer::log("glGenPrograms not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlGenerateMipmap(GLenum target)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlGenerateMipmap)
+		pGlGenerateMipmap(target);
+#elif defined(GL_EXT_framebuffer_object)
+	glGenerateMipmap(target);
+#else
+	os::Printer::log("glGenerateMipmap not supported", ELL_ERROR);
 #endif
 }
 
