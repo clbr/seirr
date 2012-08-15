@@ -81,6 +81,9 @@ public:
 	//! return open gl texture name
 	GLuint getOpenGLTextureName() const;
 
+	//! returns the opengl texture type
+	virtual GLenum getOpenGLTextureType() const;
+
 	//! return whether this texture has mipmaps
 	virtual bool hasMipMaps() const;
 
@@ -178,6 +181,9 @@ public:
 				void *mipmapData = 0, COpenGLDriver *drv = 0);
 
 	virtual ~COpenGLTextureArray();
+
+	//! returns the opengl texture type
+	virtual GLenum getOpenGLTextureType() const;
 
 protected:
 	void uploadTexture(const core::array<ITexture*> &surfaces);

@@ -2181,8 +2181,9 @@ bool COpenGLDriver::setActiveTexture(u32 stage, const video::ITexture* texture)
 		}
 
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D,
-			static_cast<const COpenGLTexture*>(texture)->getOpenGLTextureName());
+		const COpenGLTexture *tex = static_cast<const COpenGLTexture*>(texture);
+		glBindTexture(tex->getOpenGLTextureType(),
+			tex->getOpenGLTextureName());
 	}
 	return true;
 }
@@ -2460,8 +2461,16 @@ void COpenGLDriver::setWrapMode(const SMaterial& material)
 		else if (u>0)
 			break; // stop loop
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, getTextureWrapMode(material.TextureLayer[u].TextureWrapU));
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, getTextureWrapMode(material.TextureLayer[u].TextureWrapV));
+		const COpenGLTexture * const tex = (COpenGLTexture *)
+					material.TextureLayer[u].Texture;
+
+		GLenum type = GL_TEXTURE_2D;
+
+		if (tex)
+			type = tex->getOpenGLTextureType();
+
+		glTexParameteri(type, GL_TEXTURE_WRAP_S, getTextureWrapMode(material.TextureLayer[u].TextureWrapU));
+		glTexParameteri(type, GL_TEXTURE_WRAP_T, getTextureWrapMode(material.TextureLayer[u].TextureWrapV));
 	}
 }
 
@@ -2577,6 +2586,14 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 		else if (i>0)
 			break;
 
+		const COpenGLTexture * const tex = (COpenGLTexture *)
+				material.TextureLayer[i].Texture;
+
+		GLenum type = GL_TEXTURE_2D;
+
+		if (tex)
+			type = tex->getOpenGLTextureType();
+
 #ifdef GL_EXT_texture_lod_bias
 		if (FeatureAvailable[IRR_EXT_texture_lod_bias])
 		{
@@ -2590,21 +2607,21 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 		}
 #endif
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
+		glTexParameteri(type, GL_TEXTURE_MAG_FILTER,
 			(material.TextureLayer[i].BilinearFilter || material.TextureLayer[i].TrilinearFilter) ? GL_LINEAR : GL_NEAREST);
 
 		if (material.getTexture(i) && material.getTexture(i)->hasMipMaps())
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+			glTexParameteri(type, GL_TEXTURE_MIN_FILTER,
 				material.TextureLayer[i].TrilinearFilter ? GL_LINEAR_MIPMAP_LINEAR :
 				material.TextureLayer[i].BilinearFilter ? GL_LINEAR_MIPMAP_NEAREST :
 				GL_NEAREST_MIPMAP_NEAREST);
 		else
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+			glTexParameteri(type, GL_TEXTURE_MIN_FILTER,
 				(material.TextureLayer[i].BilinearFilter || material.TextureLayer[i].TrilinearFilter) ? GL_LINEAR : GL_NEAREST);
 
 #ifdef GL_EXT_texture_filter_anisotropic
 		if (FeatureAvailable[IRR_EXT_texture_filter_anisotropic])
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			glTexParameteri(type, GL_TEXTURE_MAX_ANISOTROPY_EXT,
 			material.TextureLayer[i].AnisotropicFilter>1 ? core::min_(MaxAnisotropy, material.TextureLayer[i].AnisotropicFilter) : 1);
 #endif
 	}

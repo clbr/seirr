@@ -270,6 +270,9 @@ void COpenGLTexture::getImageValues(IImage* image)
 	ColorFormat = getBestColorFormat(image->getColorFormat());
 }
 
+GLenum COpenGLTexture::getOpenGLTextureType() const {
+	return GL_TEXTURE_2D;
+}
 
 //! copies the the texture into an open gl texture.
 void COpenGLTexture::uploadTexture(bool newTexture, void* mipmapData, u32 level)
@@ -886,6 +889,10 @@ void COpenGLTextureArray::uploadTexture(const core::array<ITexture*> &surfaces)
 
 COpenGLTextureArray::~COpenGLTextureArray()
 {
+}
+
+GLenum COpenGLTextureArray::getOpenGLTextureType() const {
+	return GL_TEXTURE_2D_ARRAY;
 }
 
 bool checkFBOStatus(COpenGLDriver* Driver)
