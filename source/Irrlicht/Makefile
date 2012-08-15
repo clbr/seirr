@@ -137,6 +137,7 @@ install install_osx:
 	mkdir -p $(INSTALL_DIR)/../include/irrlicht
 	cp ../../include/*.h $(INSTALL_DIR)/../include/irrlicht/
 	cp $(LIB_PATH)/$(SHARED_LIB).$(VERSION) $(INSTALL_DIR)
+	-cp $(LIB_PATH)/$(STATIC_LIB) $(INSTALL_DIR)
 	cd $(INSTALL_DIR) && ln -s -f $(SHARED_LIB).$(VERSION) $(SHARED_LIB)
 #	ldconfig -n $(INSTALL_DIR)
 
