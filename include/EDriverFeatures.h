@@ -79,6 +79,9 @@ namespace video
 		//! Are non-power-of-two textures supported?
 		EVDF_TEXTURE_NPOT,
 
+		//! Are array textures supported?
+		EVDF_TEXTURE_ARRAY,
+
 		//! Are framebuffer objects supported?
 		EVDF_FRAMEBUFFER_OBJECT,
 

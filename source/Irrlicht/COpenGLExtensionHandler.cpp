@@ -595,6 +595,8 @@ bool COpenGLExtensionHandler::queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
 		// extra test for now!
 		// return (FeatureAvailable[IRR_ARB_texture_non_power_of_two]||Version>=200);
 		return (FeatureAvailable[IRR_ARB_texture_non_power_of_two]);
+	case EVDF_TEXTURE_ARRAY:
+		return FeatureAvailable[IRR_EXT_texture_array];
 	case EVDF_FRAMEBUFFER_OBJECT:
 		return FeatureAvailable[IRR_EXT_framebuffer_object];
 	case EVDF_VERTEX_BUFFER_OBJECT:
