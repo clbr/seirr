@@ -443,6 +443,52 @@ ITexture* CNullDriver::getTexture(io::IReadFile* file)
 	return texture;
 }
 
+//! loads a texture array
+ITexture* CNullDriver::getTexture(const core::array<io::path> &files)
+{
+	const u32 nfiles = files.size();
+	u32 i;
+
+	if (nfiles < 2)
+		return 0;
+
+	core::array<ITexture*> slices;
+	slices.set_used(nfiles);
+
+	core::stringc name = "array_";
+
+	// Load the individual slices
+	for (i = 0; i < nfiles; i++)
+	{
+		slices[i] = getTexture(files[i]);
+
+		if (!slices[i])
+			return 0;
+
+		name += files[i];
+	}
+
+	// Check that they match
+	const core::dimension2du base = slices[0]->getSize();
+	for (i = 1; i < nfiles; i++)
+	{
+		if (slices[i]->getSize() != base)
+		{
+			os::Printer::log("Array textures must be the same size", ELL_ERROR);
+			return 0;
+		}
+	}
+
+	ITexture *tex = createDeviceDependentTexture(slices, name);
+	if (tex)
+	{
+		addTexture(tex);
+		tex->drop();
+		os::Printer::log("Loaded texture array, levels", core::stringc(nfiles));
+	}
+
+	return tex;
+}
 
 //! opens the file and loads it into the surface
 video::ITexture* CNullDriver::loadTextureFromFile(io::IReadFile* file, const io::path& hashName )
@@ -535,6 +581,13 @@ ITexture* CNullDriver::addTexture(const core::dimension2d<u32>& size,
 //! returns a device dependent texture from a software surface (IImage)
 //! THIS METHOD HAS TO BE OVERRIDDEN BY DERIVED DRIVERS WITH OWN TEXTURES
 ITexture* CNullDriver::createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
+{
+	return new SDummyTexture(name);
+}
+
+//! returns a device dependent texture from a texture array
+//! THIS METHOD HAS TO BE OVERRIDDEN BY DERIVED DRIVERS WITH OWN TEXTURES
+ITexture* CNullDriver::createDeviceDependentTexture(const core::array<ITexture*> &surfaces, const io::path& name, void* mipmapData)
 {
 	return new SDummyTexture(name);
 }

@@ -79,6 +79,9 @@ namespace video
 		//! loads a Texture
 		virtual ITexture* getTexture(io::IReadFile* file);
 
+		//! loads a texture array
+		virtual ITexture* getTexture(const core::array<io::path> &files);
+
 		//! Returns amount of textures currently loaded
 		virtual u32 getTextureCount() const;
 
@@ -615,6 +618,10 @@ namespace video
 		//! returns a device dependent texture from a software surface (IImage)
 		//! THIS METHOD HAS TO BE OVERRIDDEN BY DERIVED DRIVERS WITH OWN TEXTURES
 		virtual video::ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData=0);
+
+		//! returns a device dependent texture from a texture array
+		//! THIS METHOD HAS TO BE OVERRIDDEN BY DERIVED DRIVERS WITH OWN TEXTURES
+		virtual video::ITexture* createDeviceDependentTexture(const core::array<ITexture*> &surfaces, const io::path& name, void* mipmapData=0);
 
 		//! checks triangle count and print warning if wrong
 		bool checkPrimitiveCount(u32 prmcnt) const;

@@ -357,6 +357,9 @@ namespace video
 		IReferenceCounted::drop() for more information. */
 		virtual ITexture* getTexture(io::IReadFile* file) =0;
 
+		//! Load these files, in order, to a texture array
+		virtual ITexture* getTexture(const core::array<io::path> &files) = 0;
+
 		//! Returns amount of textures currently loaded
 		/** \return Amount of textures currently loaded */
 		virtual u32 getTextureCount() const = 0;
