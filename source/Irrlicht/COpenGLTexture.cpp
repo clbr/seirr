@@ -672,6 +672,7 @@ void COpenGLFBOTexture::bindRTT()
 #ifdef GL_EXT_framebuffer_object
 	if (ColorFrameBuffer != 0)
 		Driver->extGlBindFramebuffer(GL_FRAMEBUFFER_EXT, ColorFrameBuffer);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
 #endif
 }
 
