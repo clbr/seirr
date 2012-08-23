@@ -771,7 +771,7 @@ namespace quake3
 				io::IFileSystem *fileSystem,
 				video::IVideoDriver* driver)
 	{
-		static const char* extension[] =
+		static const char * const extension[] =
 		{
 			".jpg",
 			".jpeg",
