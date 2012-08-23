@@ -48,9 +48,9 @@ namespace irr
 namespace gui
 {
 
-const wchar_t* IRR_XML_FORMAT_GUI_ENV			= L"irr_gui";
-const wchar_t* IRR_XML_FORMAT_GUI_ELEMENT		= L"element";
-const wchar_t* IRR_XML_FORMAT_GUI_ELEMENT_ATTR_TYPE	= L"type";
+const wchar_t IRR_XML_FORMAT_GUI_ENV[]			= L"irr_gui";
+const wchar_t IRR_XML_FORMAT_GUI_ELEMENT[]		= L"element";
+const wchar_t IRR_XML_FORMAT_GUI_ELEMENT_ATTR_TYPE[]	= L"type";
 
 //! constructor
 CGUIEnvironment::CGUIEnvironment(io::IFileSystem* fs, video::IVideoDriver* driver, IOSOperator* op)
