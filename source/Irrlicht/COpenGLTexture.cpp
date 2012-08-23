@@ -627,7 +627,7 @@ COpenGLFBOTexture::COpenGLFBOTexture(const core::dimension2d<u32>& size,
 #ifdef GL_EXT_framebuffer_object
 	// generate frame buffer
 	Driver->extGlGenFramebuffers(1, &ColorFrameBuffer);
-	Driver->extGlBindFramebuffer(GL_FRAMEBUFFER_EXT, ColorFrameBuffer);
+	bindRTT();
 
 	// generate color texture
 	glGenTextures(1, &TextureName);
