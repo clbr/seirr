@@ -58,6 +58,7 @@ CXXINCS = -I../../include #-Izlib -Ijpeglib -Ilibpng
 CPPFLAGS += $(CXXINCS) -DIRRLICHT_EXPORTS=1
 CXXFLAGS += -Wall -Wextra -pipe -fno-exceptions -fno-rtti -fstrict-aliasing -Wno-unused-parameter
 CXXFLAGS += -ffunction-sections -fdata-sections
+CXXFLAGS += -fvisibility=hidden
 #ifndef NDEBUG
 #CXXFLAGS += -g -D_DEBUG
 #else
