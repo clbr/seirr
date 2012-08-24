@@ -4,6 +4,9 @@
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
 #include "CImageLoaderWAL.h"
+
+#ifdef _IRR_COMPILE_WITH_RGB_LOADER_
+
 #include "CColorConverter.h"
 #include "CImage.h"
 #include "os.h"
@@ -146,3 +149,4 @@ IImageLoader* createImageLoaderWAL()
 }
 
 
+#endif

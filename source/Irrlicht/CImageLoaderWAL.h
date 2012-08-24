@@ -12,6 +12,9 @@
 #define __C_IMAGE_LOADER_WAL_H_INCLUDED__
 
 #include "IImageLoader.h"
+#include "IrrCompileConfig.h"
+
+#ifdef _IRR_COMPILE_WITH_RGB_LOADER_
 
 namespace irr
 {
@@ -64,5 +67,7 @@ private:
 
 }
 }
+
+#endif // Compile with WAL
 
 #endif
