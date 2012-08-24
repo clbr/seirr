@@ -521,7 +521,7 @@ namespace quake3
 		if ( string.size() == 0 )
 			return;
 
-		static const c8 * funclist[] =
+		static const c8 * const funclist[] =
 		{
 			"sin","cos","square",
 			"triangle", "sawtooth","inversesawtooth", "noise"
