@@ -174,7 +174,7 @@ namespace quake3
 			return true;
 
 		bool ret = true;
-		static const c8 * funclist[] = { "none", "disable", "twosided" };
+		static const c8 * const funclist[] = { "none", "disable", "twosided" };
 
 		u32 pos = 0;
 		switch ( isEqual ( cull, pos, funclist, 3 ) )
@@ -197,7 +197,7 @@ namespace quake3
 		if ( string.size() == 0 )
 			return ret;
 
-		static const c8 * funclist[] = { "lequal","equal" };
+		static const c8 * const funclist[] = { "lequal","equal" };
 
 		u32 pos = 0;
 		switch ( isEqual ( string, pos, funclist, 2 ) )
@@ -229,7 +229,7 @@ namespace quake3
 			return;
 
 		// maps to E_BLEND_FACTOR
-		static const c8 * funclist[] =
+		static const c8 * const funclist[] =
 		{
 			"gl_zero",
 			"gl_one",
