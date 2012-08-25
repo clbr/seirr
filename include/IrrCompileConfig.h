@@ -267,21 +267,21 @@ B3D, MS3D or X meshes */
 //! Define _IRR_COMPILE_WITH_3DS_LOADER_ if you want to load 3D Studio Max files
 #define _IRR_COMPILE_WITH_3DS_LOADER_
 //! Define _IRR_COMPILE_WITH_COLLADA_LOADER_ if you want to load Collada files
-#define _IRR_COMPILE_WITH_COLLADA_LOADER_
+//#define _IRR_COMPILE_WITH_COLLADA_LOADER_
 //! Define _IRR_COMPILE_WITH_CSM_LOADER_ if you want to load Cartography Shop files
-#define _IRR_COMPILE_WITH_CSM_LOADER_
+//#define _IRR_COMPILE_WITH_CSM_LOADER_
 //! Define _IRR_COMPILE_WITH_BSP_LOADER_ if you want to load Quake 3 BSP files
 #define _IRR_COMPILE_WITH_BSP_LOADER_
 //! Define _IRR_COMPILE_WITH_DMF_LOADER_ if you want to load DeleD files
-#define _IRR_COMPILE_WITH_DMF_LOADER_
+//#define _IRR_COMPILE_WITH_DMF_LOADER_
 //! Define _IRR_COMPILE_WITH_LMTS_LOADER_ if you want to load LMTools files
-#define _IRR_COMPILE_WITH_LMTS_LOADER_
+//#define _IRR_COMPILE_WITH_LMTS_LOADER_
 //! Define _IRR_COMPILE_WITH_MY3D_LOADER_ if you want to load MY3D files
-#define _IRR_COMPILE_WITH_MY3D_LOADER_
+//#define _IRR_COMPILE_WITH_MY3D_LOADER_
 //! Define _IRR_COMPILE_WITH_OBJ_LOADER_ if you want to load Wavefront OBJ files
 #define _IRR_COMPILE_WITH_OBJ_LOADER_
 //! Define _IRR_COMPILE_WITH_OCT_LOADER_ if you want to load FSRad OCT files
-#define _IRR_COMPILE_WITH_OCT_LOADER_
+//#define _IRR_COMPILE_WITH_OCT_LOADER_
 //! Define _IRR_COMPILE_WITH_LWO_LOADER_ if you want to load Lightwave3D files
 #define _IRR_COMPILE_WITH_LWO_LOADER_
 //! Define _IRR_COMPILE_WITH_STL_LOADER_ if you want to load stereolithography files
@@ -312,7 +312,7 @@ B3D, MS3D or X meshes */
 //! Define _IRR_COMPILE_WITH_PPM_LOADER_ if you want to load .ppm/.pgm/.pbm files
 //#define _IRR_COMPILE_WITH_PPM_LOADER_
 //! Define _IRR_COMPILE_WITH_PSD_LOADER_ if you want to load .psd files
-#define _IRR_COMPILE_WITH_PSD_LOADER_
+//#define _IRR_COMPILE_WITH_PSD_LOADER_
 //! Define _IRR_COMPILE_WITH_TGA_LOADER_ if you want to load .tga files
 #define _IRR_COMPILE_WITH_TGA_LOADER_
 //! Define _IRR_COMPILE_WITH_WAL_LOADER_ if you want to load .wal files
