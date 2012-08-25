@@ -7,6 +7,7 @@
 
 #include "IReferenceCounted.h"
 #include "coreutil.h"
+#include "IWriteFile.h"
 
 namespace irr
 {
@@ -49,7 +50,9 @@ namespace io
 	//! Internal function, please do not use.
 	IRRLICHT_API IReadFile* createLimitReadFile(const io::path& fileName, IReadFile* alreadyOpenedFile, long pos, long areaSize);
 	//! Internal function, please do not use.
-	IRRLICHT_API IReadFile* createMemoryReadFile(void* memory, long size, const io::path& fileName, bool deleteMemoryWhenDropped);
+	IRRLICHT_API IReadFile* createMemoryReadFile(const void* memory, long size, const io::path& fileName, bool deleteMemoryWhenDropped);
+	//! Internal function, please do not use.
+	IRRLICHT_API IWriteFile* createMemoryWriteFile(void* memory, long size, const io::path& fileName, bool deleteMemoryWhenDropped);
 
 } // end namespace io
 } // end namespace irr
