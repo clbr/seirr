@@ -7,6 +7,8 @@
 
 #include "IXMLReader.h"
 
+#ifdef _IRR_COMPILE_WITH_XML_
+
 namespace irr
 {
 namespace io
@@ -21,6 +23,12 @@ namespace io
 
 } // end namespace irr
 } // end namespace io
+
+#else // _IRR_COMPILE_WITH_XML_
+
+void noXML();
+
+#endif // _IRR_COMPILE_WITH_XML_
 
 #endif
 

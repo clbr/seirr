@@ -3,6 +3,9 @@
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
 #include "CXMLWriter.h"
+
+#ifdef _IRR_COMPILE_WITH_XML_
+
 #include <wchar.h>
 #include "irrString.h"
 #include "IrrCompileConfig.h"
@@ -251,3 +254,4 @@ void CXMLWriter::writeLineBreak()
 } // end namespace irr
 } // end namespace io
 
+#endif // _IRR_COMPILE_WITH_XML_

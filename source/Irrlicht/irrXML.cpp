@@ -3,6 +3,9 @@
 // For conditions of distribution and use, see copyright notice in irrlicht.h and/or irrXML.h
 
 #include "irrXML.h"
+
+#ifdef _IRR_COMPILE_WITH_XML_
+
 #include "irrString.h"
 #include "irrArray.h"
 #include "fast_atof.h"
@@ -178,3 +181,5 @@ IRRLICHT_API IrrXMLReaderUTF32* IRRCALLCONV createIrrXMLReaderUTF32(IFileReadCal
 
 } // end namespace io
 } // end namespace irr
+
+#endif // _IRR_COMPILE_WITH_XML_

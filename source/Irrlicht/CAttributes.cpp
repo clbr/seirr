@@ -7,6 +7,7 @@
 #include "ITexture.h"
 #include "IXMLWriter.h"
 #include "IVideoDriver.h"
+#include "CXMLReader.h"
 
 namespace irr
 {
@@ -1320,6 +1321,7 @@ void CAttributes::setAttribute(s32 index, void* userPointer)
 bool CAttributes::read(io::IXMLReader* reader, bool readCurrentElementOnly,
 					    const wchar_t* nonDefaultElementName)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	if (!reader)
 		return false;
 
@@ -1352,11 +1354,16 @@ bool CAttributes::read(io::IXMLReader* reader, bool readCurrentElementOnly,
 	}
 
 	return true;
+#else
+	noXML();
+	return false;
+#endif
 }
 
 
 void CAttributes::readAttributeFromXML(io::IXMLReader* reader)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	core::stringw element = reader->getNodeName();
 	core::stringc name = reader->getAttributeValue(L"name");
 
@@ -1493,12 +1500,16 @@ void CAttributes::readAttributeFromXML(io::IXMLReader* reader)
 		// It's debatable if a pointer should be set or not, but it's more likely that adding it now would wreck user-applications.
 		// Also it probably doesn't makes sense setting this to a value when it comes from file.
 	}
+#else
+	noXML();
+#endif
 }
 
 //! Write these attributes into a xml file
 bool CAttributes::write(io::IXMLWriter* writer, bool writeXMLHeader,
 						const wchar_t* nonDefaultElementName)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	if (!writer)
 		return false;
 
@@ -1557,6 +1568,10 @@ bool CAttributes::write(io::IXMLWriter* writer, bool writeXMLHeader,
 	writer->writeLineBreak();
 
 	return true;
+#else
+	noXML();
+	return false;
+#endif
 }
 
 

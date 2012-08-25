@@ -2,8 +2,11 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#include "CXMLReaderImpl.h"
 #include "CXMLReader.h"
+
+#ifdef _IRR_COMPILE_WITH_XML_
+
+#include "CXMLReaderImpl.h"
 #include "IReadFile.h"
 
 namespace irr
@@ -68,3 +71,13 @@ namespace io
 
 } // end namespace
 } // end namespace
+
+#else // _IRR_COMPILE_WITH_XML_
+
+#include "os.h"
+
+void noXML() {
+	irr::os::Printer::log("XML support disabled in IrrCompileConfig.", irr::ELL_ERROR);
+}
+
+#endif // _IRR_COMPILE_WITH_XML_

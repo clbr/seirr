@@ -99,6 +99,9 @@
 //! Maximum number of texture an SMaterial can have, up to 8 are supported by Irrlicht.
 #define _IRR_MATERIAL_MAX_TEXTURES_ 4
 
+//! Whether to support XML and XML-based formats (irrmesh, collada...)
+//#define _IRR_COMPILE_WITH_XML_
+
 //! Define _IRR_COMPILE_WITH_DIRECT3D_8_ and _IRR_COMPILE_WITH_DIRECT3D_9_ to
 //! compile the Irrlicht engine with Direct3D8 and/or DIRECT3D9.
 /** If you only want to use the software device or opengl you can disable those defines.
@@ -499,6 +502,14 @@ precision will be lower but speed higher. currently X86 only
 
 #if defined(_IRR_SOLARIS_PLATFORM_)
 	#undef _IRR_COMPILE_WITH_JOYSTICK_EVENTS_
+#endif
+
+// These depend on XML
+#ifndef _IRR_COMPILE_WITH_XML_
+	#undef _IRR_COMPILE_WITH_IRR_MESH_LOADER_
+	#undef _IRR_COMPILE_WITH_IRR_WRITER_
+	#undef _IRR_COMPILE_WITH_COLLADA_WRITER_
+	#undef _IRR_COMPILE_WITH_COLLADA_LOADER_
 #endif
 
 #endif // __IRR_COMPILE_CONFIG_H_INCLUDED__

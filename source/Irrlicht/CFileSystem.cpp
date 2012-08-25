@@ -757,6 +757,7 @@ bool CFileSystem::existFile(const io::path& filename) const
 //! Creates a XML Reader from a file.
 IXMLReader* CFileSystem::createXMLReader(const io::path& filename)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	IReadFile* file = createAndOpenFile(filename);
 	if (!file)
 		return 0;
@@ -764,22 +765,32 @@ IXMLReader* CFileSystem::createXMLReader(const io::path& filename)
 	IXMLReader* reader = createXMLReader(file);
 	file->drop();
 	return reader;
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
 //! Creates a XML Reader from a file.
 IXMLReader* CFileSystem::createXMLReader(IReadFile* file)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	if (!file)
 		return 0;
 
 	return createIXMLReader(file);
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
 //! Creates a XML Reader from a file.
 IXMLReaderUTF8* CFileSystem::createXMLReaderUTF8(const io::path& filename)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	IReadFile* file = createAndOpenFile(filename);
 	if (!file)
 		return 0;
@@ -787,33 +798,52 @@ IXMLReaderUTF8* CFileSystem::createXMLReaderUTF8(const io::path& filename)
 	IXMLReaderUTF8* reader = createIXMLReaderUTF8(file);
 	file->drop();
 	return reader;
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
 //! Creates a XML Reader from a file.
 IXMLReaderUTF8* CFileSystem::createXMLReaderUTF8(IReadFile* file)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	if (!file)
 		return 0;
 
 	return createIXMLReaderUTF8(file);
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
 //! Creates a XML Writer from a file.
 IXMLWriter* CFileSystem::createXMLWriter(const io::path& filename)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	IWriteFile* file = createAndWriteFile(filename);
 	IXMLWriter* writer = createXMLWriter(file);
 	file->drop();
 	return writer;
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
 //! Creates a XML Writer from a file.
 IXMLWriter* CFileSystem::createXMLWriter(IWriteFile* file)
 {
+#ifdef _IRR_COMPILE_WITH_XML_
 	return new CXMLWriter(file);
+#else
+	noXML();
+	return 0;
+#endif
 }
 
 
