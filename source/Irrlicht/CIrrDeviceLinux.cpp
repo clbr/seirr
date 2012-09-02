@@ -133,6 +133,7 @@ CIrrDeviceLinux::~CIrrDeviceLinux()
 		XFree(StdHints);
 	// Disable cursor and free it later on
 	CursorControl->setVisible(false);
+
 	if (display)
 	{
 		#ifdef _IRR_COMPILE_WITH_OPENGL_
@@ -144,6 +145,8 @@ CIrrDeviceLinux::~CIrrDeviceLinux()
 		GUIEnvironment = NULL;
 		SceneManager->drop();
 		SceneManager = NULL;
+		CursorControl->drop();
+		CursorControl = NULL;
 
 		if (Context)
 		{

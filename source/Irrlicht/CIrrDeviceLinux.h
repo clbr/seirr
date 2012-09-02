@@ -182,6 +182,12 @@ namespace irr
 #endif
 			}
 
+			~CCursorControl() {
+#ifdef _IRR_COMPILE_WITH_X11_
+				XFreeCursor(Device->display, invisCursor);
+#endif
+			}
+
 			//! Changes the visible state of the mouse cursor.
 			virtual void setVisible(bool visible)
 			{
