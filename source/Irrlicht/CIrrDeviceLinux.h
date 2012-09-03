@@ -184,7 +184,9 @@ namespace irr
 
 			~CCursorControl() {
 #ifdef _IRR_COMPILE_WITH_X11_
-				XFreeCursor(Device->display, invisCursor);
+				if (!Null) {
+					XFreeCursor(Device->display, invisCursor);
+				}
 #endif
 			}
 
