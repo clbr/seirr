@@ -461,6 +461,7 @@ namespace video
 
 		bool Doublebuffer;
 		bool Stereo;
+		bool DepthMask;
 
 		//! All the lights that have been requested; a hardware limited
 		//! number of them will be used at once.

@@ -38,6 +38,7 @@ COpenGLDriver::COpenGLDriver(const irr::SIrrlichtCreationParameters& params,
 	CurrentRendertargetSize(0,0), ColorFormat(ECF_R8G8B8),
 	CurrentTarget(ERT_FRAME_BUFFER),
 	Doublebuffer(params.Doublebuffer), Stereo(params.Stereobuffer),
+	DepthMask(true),
 	HDc(0), Window(static_cast<HWND>(params.WindowId)), Device(device),
 	DeviceType(EIDT_WIN32)
 {
@@ -806,8 +807,11 @@ void COpenGLDriver::clearBuffers(bool backBuffer, bool zBuffer, bool stencilBuff
 
 	if (zBuffer)
 	{
-		glDepthMask(GL_TRUE);
+		if (!DepthMask)
+			glDepthMask(GL_TRUE);
+
 		LastMaterial.ZWriteEnable=true;
+		DepthMask = true;
 		mask |= GL_DEPTH_BUFFER_BIT;
 	}
 
@@ -2698,10 +2702,20 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 	{
 		if (material.ZWriteEnable && (AllowZWriteOnTransparent || !material.isTransparent()))
 		{
-			glDepthMask(GL_TRUE);
+			if (!DepthMask)
+			{
+				glDepthMask(GL_TRUE);
+				DepthMask = true;
+			}
 		}
 		else
-			glDepthMask(GL_FALSE);
+		{
+			if (DepthMask)
+			{
+				glDepthMask(GL_FALSE);
+				DepthMask = false;
+			}
+		}
 	}
 
 	// back face culling
@@ -3205,6 +3219,7 @@ void COpenGLDriver::drawStencilShadowVolume(const core::vector3df* triangles, s3
 	glDisable(GL_FOG);
 	glDepthFunc(GL_LEQUAL);
 	glDepthMask(GL_FALSE); // no depth buffer writing
+	DepthMask = false;
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE); // no color buffer drawing
 	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_POLYGON_OFFSET_FILL);
@@ -3345,6 +3360,7 @@ void COpenGLDriver::drawStencilShadow(bool clearStencilBuffer, video::SColor lef
 	glDisable(GL_LIGHTING);
 	glDisable(GL_FOG);
 	glDepthMask(GL_FALSE);
+	DepthMask = false;
 
 	glShadeModel(GL_FLAT);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
