@@ -2456,6 +2456,9 @@ void COpenGLDriver::setWrapMode(const SMaterial& material)
 	// Has to be checked always because it depends on the textures
 	for (u32 u=0; u<MaxTextureUnits; ++u)
 	{
+		if (!CurrentTexture[u])
+			continue;
+
 		if (MultiTextureExtension)
 			extGlActiveTexture(GL_TEXTURE0_ARB + u);
 		else if (u>0)
