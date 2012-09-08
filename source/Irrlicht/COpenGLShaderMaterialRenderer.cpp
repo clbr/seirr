@@ -159,7 +159,8 @@ void COpenGLShaderMaterialRenderer::OnSetMaterial(const video::SMaterial& materi
 		}
 
 		if (BaseMaterial)
-			BaseMaterial->OnSetMaterial(material, material, true, services);
+			BaseMaterial->OnSetMaterial(material, lastMaterial,
+							resetAllRenderstates, services);
 	}
 
 	//let callback know used material

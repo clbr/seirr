@@ -180,7 +180,8 @@ void COpenGLSLMaterialRenderer::OnSetMaterial(const video::SMaterial& material,
 			Driver->extGlUseProgramObject(Program);
 
 		if (BaseMaterial)
-			BaseMaterial->OnSetMaterial(material, material, true, this);
+			BaseMaterial->OnSetMaterial(material, lastMaterial,
+							resetAllRenderstates, this);
 	}
 
 	//let callback know used material
