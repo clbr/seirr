@@ -327,6 +327,8 @@ bool COpenGLSLMaterialRenderer::linkProgram()
 		UniformInfo.push_back(ui);
 	}
 
+	UniformInfo.sort();
+
 	delete [] buf;
 
 	return true;
@@ -360,16 +362,11 @@ void COpenGLSLMaterialRenderer::setVertexShaderConstant(const f32* data, s32 sta
 
 bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const f32* floats, int count)
 {
-	u32 i;
-	const u32 num = UniformInfo.size();
+	const SUniformInfo target = { name, 0, -1 };
 
-	for (i=0; i < num; ++i)
-	{
-		if (UniformInfo[i].name == name)
-			break;
-	}
+	const s32 i = UniformInfo.binary_search(target);
 
-	if (i == num)
+	if (i == -1)
 		return false;
 
 #ifdef GL_ARB_shader_objects
@@ -416,16 +413,11 @@ bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const f32
 
 bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const s32* ints, int count)
 {
-	u32 i;
-	const u32 num = UniformInfo.size();
+	const SUniformInfo target = { name, 0, -1 };
 
-	for (i=0; i < num; ++i)
-	{
-		if (UniformInfo[i].name == name)
-			break;
-	}
+	const s32 i = UniformInfo.binary_search(target);
 
-	if (i == num)
+	if (i == -1)
 		return false;
 
 #if defined(GL_VERSION_2_0)||defined(GL_ARB_shader_objects)

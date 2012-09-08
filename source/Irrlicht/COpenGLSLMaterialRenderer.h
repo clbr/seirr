@@ -123,6 +123,11 @@ protected:
 		core::stringc name;
 		GLenum type;
 		GLint location;
+
+		bool operator < (const SUniformInfo &other) const
+		{
+			return name < other.name;
+		}
 	};
 
 	GLhandleARB Program;
