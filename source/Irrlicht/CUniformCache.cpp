@@ -26,7 +26,7 @@ CUniformCache::~CUniformCache()
 
 // Position-dependent fast hash:
 // hash(ab) != hash(ba)
-u8 CUniformCache::hash(const char *in)
+u8 CUniformCache::hash(const char *in) const
 {
 	u16 sum = 0;
 	u8 pos = 2;
@@ -42,7 +42,7 @@ u8 CUniformCache::hash(const char *in)
 	return out;
 }
 
-s32 CUniformCache::get(const char *in)
+s32 CUniformCache::get(const char *in) const
 {
 	const u8 hashed = hash(in);
 

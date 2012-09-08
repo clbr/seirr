@@ -31,8 +31,8 @@ namespace video
 		CUniformCache();
 		~CUniformCache();
 
-		u8 hash(const char *in);
-		s32 get(const char *in);
+		u8 hash(const char *in) const;
+		s32 get(const char *in) const;
 		void add(const char *in, s32 value);
 
 	protected:
