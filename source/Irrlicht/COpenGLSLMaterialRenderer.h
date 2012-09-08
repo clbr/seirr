@@ -35,7 +35,6 @@
 #include "IGPUProgrammingServices.h"
 #include "irrArray.h"
 #include "irrString.h"
-#include "CUniformCache.h"
 
 namespace irr
 {
@@ -118,12 +117,12 @@ protected:
 	COpenGLDriver* Driver;
 	IShaderConstantSetCallBack* CallBack;
 	IMaterialRenderer* BaseMaterial;
-	CUniformCache *UniformCache;
 
 	struct SUniformInfo
 	{
 		core::stringc name;
 		GLenum type;
+		GLint location;
 	};
 
 	GLhandleARB Program;

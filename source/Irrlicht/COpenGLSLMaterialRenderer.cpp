@@ -60,8 +60,6 @@ COpenGLSLMaterialRenderer::COpenGLSLMaterialRenderer(video::COpenGLDriver* drive
 	if (CallBack)
 		CallBack->grab();
 
-	UniformCache = new CUniformCache();
-
 	if (!Driver->queryFeature(EVDF_ARB_GLSL))
 		return;
 
@@ -106,9 +104,6 @@ COpenGLSLMaterialRenderer::~COpenGLSLMaterialRenderer()
 
 	if (BaseMaterial)
 		BaseMaterial->drop();
-
-	if (UniformCache)
-		UniformCache->drop();
 }
 
 
@@ -327,6 +322,8 @@ bool COpenGLSLMaterialRenderer::linkProgram()
 		Driver->extGlGetActiveUniformARB(Program, i, maxlen, 0, &size, &ui.type, reinterpret_cast<GLcharARB*>(buf));
 		ui.name = buf;
 
+		ui.location = -1;
+
 		UniformInfo.push_back(ui);
 	}
 
@@ -376,11 +373,11 @@ bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const f32
 		return false;
 
 #ifdef GL_ARB_shader_objects
-	GLint Location = UniformCache->get(name);
+	GLint Location = UniformInfo[i].location;
 	if (Location < 0)
 	{
 		Location = Driver->extGlGetUniformLocationARB(Program,name);
-		UniformCache->add(name, Location);
+		UniformInfo[i].location = Location;
 	}
 
 	switch (UniformInfo[i].type)
@@ -433,11 +430,11 @@ bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const s32
 
 #if defined(GL_VERSION_2_0)||defined(GL_ARB_shader_objects)
 
-	GLint Location = UniformCache->get(name);
+	GLint Location = UniformInfo[i].location;
 	if (Location < 0)
 	{
 		Location = Driver->extGlGetUniformLocationARB(Program,name);
-		UniformCache->add(name, Location);
+		UniformInfo[i].location = Location;
 	}
 
 	Driver->extGlUniform1iv(Location, count, ints);
