@@ -632,7 +632,10 @@ bool COpenGLDriver::genericDriverInit(const core::dimension2d<u32>& screenSize, 
 
 	u32 i;
 	for (i=0; i<MATERIAL_MAX_TEXTURES; ++i)
+	{
 		CurrentTexture[i]=0;
+		TexUnitParams[i].LodBias = 0;
+	}
 	// load extensions
 	initExtensions(stencilBuffer);
 	if (queryFeature(EVDF_ARB_GLSL))
@@ -2612,10 +2615,20 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 			if (material.TextureLayer[i].LODBias)
 			{
 				const float tmp = core::clamp(material.TextureLayer[i].LODBias * 0.125f, -MaxTextureLODBias, MaxTextureLODBias);
-				glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, tmp);
+				if (TexUnitParams[i].LodBias != tmp)
+				{
+					glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, tmp);
+					TexUnitParams[i].LodBias = tmp;
+				}
 			}
 			else
-				glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, 0.f);
+			{
+				if (fabsf(TexUnitParams[i].LodBias) > 0.01f)
+				{
+					glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, GL_TEXTURE_LOD_BIAS_EXT, 0.f);
+					TexUnitParams[i].LodBias = 0;
+				}
+			}
 		}
 #endif
 

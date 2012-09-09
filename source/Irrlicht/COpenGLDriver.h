@@ -472,6 +472,13 @@ namespace video
 		bool Stereo;
 		bool DepthMask;
 
+		//! Struct for tracking the per-unit texture params
+		struct STexUnitParams
+		{
+			f32 LodBias;
+		};
+		STexUnitParams TexUnitParams[MATERIAL_MAX_TEXTURES];
+
 		//! All the lights that have been requested; a hardware limited
 		//! number of them will be used at once.
 		struct RequestedLight
