@@ -895,7 +895,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 		const bool isRTT = Material.getTexture(i) && Material.getTexture(i)->isRenderTarget();
 
 		if (MultiTextureExtension)
-			extGlActiveTexture(GL_TEXTURE0_ARB + i);
+			setActiveTexture(GL_TEXTURE0_ARB + i);
 
 		setMatrixMode(GL_TEXTURE);
 		if (!isRTT && mat.isIdentity() )
@@ -2168,7 +2168,7 @@ bool COpenGLDriver::setActiveTexture(u32 stage, const video::ITexture* texture)
 		return true;
 
 	if (MultiTextureExtension)
-		extGlActiveTexture(GL_TEXTURE0_ARB + stage);
+		setActiveTexture(GL_TEXTURE0_ARB + stage);
 
 	CurrentTexture[stage]=texture;
 
@@ -2466,7 +2466,7 @@ void COpenGLDriver::setWrapMode(const SMaterial& material)
 			continue;
 
 		if (MultiTextureExtension)
-			extGlActiveTexture(GL_TEXTURE0_ARB + u);
+			setActiveTexture(GL_TEXTURE0_ARB + u);
 		else if (u>0)
 			break; // stop loop
 
@@ -2594,7 +2594,7 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 			continue;
 
 		if (MultiTextureExtension)
-			extGlActiveTexture(GL_TEXTURE0_ARB + i);
+			setActiveTexture(GL_TEXTURE0_ARB + i);
 		else if (i>0)
 			break;
 
@@ -2836,7 +2836,7 @@ void COpenGLDriver::setBasicRenderStates(const SMaterial& material, const SMater
 
 	// be sure to leave in texture stage 0
 	if (MultiTextureExtension)
-		extGlActiveTexture(GL_TEXTURE0_ARB);
+		setActiveTexture(GL_TEXTURE0_ARB);
 }
 
 
@@ -2876,7 +2876,7 @@ void COpenGLDriver::setRenderStates2DMode(bool alpha, bool texture, bool alphaCh
 
 			// Make sure we set first texture matrix
 			if (MultiTextureExtension)
-				extGlActiveTexture(GL_TEXTURE0_ARB);
+				setActiveTexture(GL_TEXTURE0_ARB);
 
 			Transformation3DChanged = false;
 		}

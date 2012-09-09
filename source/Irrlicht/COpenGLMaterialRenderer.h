@@ -186,7 +186,7 @@ public:
 		{
 			if (Driver->queryFeature(EVDF_MULTITEXTURE))
 			{
-				Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+				Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 				glTexEnvf(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_ARB, GL_REPLACE);
@@ -214,14 +214,14 @@ public:
 	{
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+			Driver->setActiveTexture(GL_TEXTURE1_ARB);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 #ifdef GL_ARB_texture_env_combine
 			glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND2_RGB_ARB, GL_SRC_COLOR);
 #else
 			glTexEnvf(GL_TEXTURE_ENV, GL_OPERAND2_RGB_EXT, GL_SRC_COLOR);
 #endif
-			Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+			Driver->setActiveTexture(GL_TEXTURE0_ARB);
 		}
 	}
 };
@@ -453,7 +453,7 @@ public:
 			{
 				// lightmap
 
-				Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+				Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 				glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 
@@ -507,7 +507,7 @@ public:
 						glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE_EXT, 1.0f);
 #endif
 				}
-				Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+				Driver->setActiveTexture(GL_TEXTURE0_ARB);
 			}
 		}
 	}
@@ -516,14 +516,14 @@ public:
 	{
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+			Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 			glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE_ARB, 1.f );
 #else
 			glTexEnvf(GL_TEXTURE_ENV, GL_RGB_SCALE_EXT, 1.f );
 #endif
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+			Driver->setActiveTexture(GL_TEXTURE0_ARB);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		}
 	}
@@ -552,7 +552,7 @@ public:
 			// detail map on second layer
 			if (Driver->queryFeature(EVDF_MULTITEXTURE))
 			{
-				Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+				Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 				glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 				glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB, GL_ADD_SIGNED_ARB);
@@ -572,9 +572,9 @@ public:
 	{
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+			Driver->setActiveTexture(GL_TEXTURE1_ARB);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+			Driver->setActiveTexture(GL_TEXTURE0_ARB);
 		}
 	}
 };
@@ -634,7 +634,7 @@ public:
 		{
 			if (Driver->queryFeature(EVDF_MULTITEXTURE))
 			{
-				Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+				Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 				glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 				glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB, GL_MODULATE);
@@ -658,14 +658,14 @@ public:
 	{
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+			Driver->setActiveTexture(GL_TEXTURE1_ARB);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		}
 		glDisable(GL_TEXTURE_GEN_S);
 		glDisable(GL_TEXTURE_GEN_T);
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+			Driver->setActiveTexture(GL_TEXTURE0_ARB);
 		}
 	}
 };
@@ -689,7 +689,7 @@ public:
 		{
 			if (Driver->queryFeature(EVDF_MULTITEXTURE))
 			{
-				Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+				Driver->setActiveTexture(GL_TEXTURE1_ARB);
 #ifdef GL_ARB_texture_env_combine
 				glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
 				glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB, GL_MODULATE);
@@ -716,14 +716,14 @@ public:
 	{
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE1_ARB);
+			Driver->setActiveTexture(GL_TEXTURE1_ARB);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		}
 		glDisable(GL_TEXTURE_GEN_S);
 		glDisable(GL_TEXTURE_GEN_T);
 		if (Driver->queryFeature(EVDF_MULTITEXTURE))
 		{
-			Driver->extGlActiveTexture(GL_TEXTURE0_ARB);
+			Driver->setActiveTexture(GL_TEXTURE0_ARB);
 		}
 		glDisable(GL_BLEND);
 	}
