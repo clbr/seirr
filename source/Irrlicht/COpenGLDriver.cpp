@@ -35,7 +35,8 @@ COpenGLDriver::COpenGLDriver(const irr::SIrrlichtCreationParameters& params,
 : CNullDriver(io, params.WindowSize), COpenGLExtensionHandler(),
 	CurrentRenderMode(ERM_NONE), ResetRenderStates(true), Transformation3DChanged(true),
 	AntiAlias(params.AntiAlias), RenderTargetTexture(0),
-	CurrentRendertargetSize(0,0), ColorFormat(ECF_R8G8B8),
+	CurrentRendertargetSize(0,0), CurrentMatrixMode(GL_MODELVIEW),
+	ColorFormat(ECF_R8G8B8),
 	CurrentTarget(ERT_FRAME_BUFFER),
 	Doublebuffer(params.Doublebuffer), Stereo(params.Stereobuffer),
 	DepthMask(true),
@@ -4137,6 +4138,14 @@ GLenum COpenGLDriver::primitiveTypeToGL(scene::E_PRIMITIVE_TYPE type) const
 #endif
 	}
 	return GL_TRIANGLES;
+}
+
+void COpenGLDriver::setMatrixMode(GLenum mode)
+{
+	if (CurrentMatrixMode != mode) {
+		glMatrixMode(mode);
+		CurrentMatrixMode = mode;
+	}
 }
 
 } // end namespace

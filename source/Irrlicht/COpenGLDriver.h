@@ -416,6 +416,9 @@ namespace video
 		void renderArray(const void* indexList, u32 primitiveCount,
 				scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType);
 
+		//! Set the gl matrix mode, if not set already
+		void setMatrixMode(GLenum mode);
+
 		core::stringw Name;
 		core::matrix4 Matrices[ETS_COUNT];
 		core::array<u8> ColorBuffer;
@@ -452,6 +455,8 @@ namespace video
 		core::stringc VendorName;
 
 		core::matrix4 TextureFlipMatrix;
+
+		GLenum CurrentMatrixMode;
 
 		//! Color buffer format
 		ECOLOR_FORMAT ColorFormat;
