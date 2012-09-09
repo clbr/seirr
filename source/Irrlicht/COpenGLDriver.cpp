@@ -36,6 +36,7 @@ COpenGLDriver::COpenGLDriver(const irr::SIrrlichtCreationParameters& params,
 	CurrentRenderMode(ERM_NONE), ResetRenderStates(true), Transformation3DChanged(true),
 	AntiAlias(params.AntiAlias), RenderTargetTexture(0),
 	CurrentRendertargetSize(0,0), CurrentMatrixMode(GL_MODELVIEW),
+	CurrentActiveTexture(GL_TEXTURE0),
 	ColorFormat(ECF_R8G8B8),
 	CurrentTarget(ERT_FRAME_BUFFER),
 	Doublebuffer(params.Doublebuffer), Stereo(params.Stereobuffer),
@@ -4145,6 +4146,14 @@ void COpenGLDriver::setMatrixMode(GLenum mode)
 	if (CurrentMatrixMode != mode) {
 		glMatrixMode(mode);
 		CurrentMatrixMode = mode;
+	}
+}
+
+void COpenGLDriver::setActiveTexture(GLenum tex)
+{
+	if (CurrentActiveTexture != tex) {
+		extGlActiveTexture(tex);
+		CurrentActiveTexture = tex;
 	}
 }
 

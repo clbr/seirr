@@ -365,6 +365,9 @@ namespace video
 
 		u32 getGLBlend ( E_BLEND_FACTOR factor ) const;
 
+		//! Set the gl active texture, if not set already
+		void setActiveTexture(GLenum tex);
+
 	private:
 
 		//! clears the zbuffer and color buffer
@@ -457,6 +460,7 @@ namespace video
 		core::matrix4 TextureFlipMatrix;
 
 		GLenum CurrentMatrixMode;
+		GLenum CurrentActiveTexture;
 
 		//! Color buffer format
 		ECOLOR_FORMAT ColorFormat;
