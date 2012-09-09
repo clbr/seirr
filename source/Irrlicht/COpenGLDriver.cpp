@@ -865,7 +865,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 	case ETS_WORLD:
 		{
 			// OpenGL only has a model matrix, view and world is not existent. so lets fake these two.
-			glMatrixMode(GL_MODELVIEW);
+			setMatrixMode(GL_MODELVIEW);
 			glLoadMatrixf((Matrices[ETS_VIEW] * Matrices[ETS_WORLD]).pointer());
 			// we have to update the clip planes to the latest view matrix
 			for (u32 i=0; i<MaxUserClipPlanes; ++i)
@@ -879,7 +879,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 			createGLMatrix(glmat, mat);
 			// flip z to compensate OpenGLs right-hand coordinate system
 			glmat[12] *= -1.0f;
-			glMatrixMode(GL_PROJECTION);
+			setMatrixMode(GL_PROJECTION);
 			glLoadMatrixf(glmat);
 		}
 		break;
@@ -896,7 +896,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 		if (MultiTextureExtension)
 			extGlActiveTexture(GL_TEXTURE0_ARB + i);
 
-		glMatrixMode(GL_TEXTURE);
+		setMatrixMode(GL_TEXTURE);
 		if (!isRTT && mat.isIdentity() )
 			glLoadIdentity();
 		else
@@ -2317,13 +2317,13 @@ void COpenGLDriver::setRenderStates3DMode()
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 
 		// switch back the matrices
-		glMatrixMode(GL_MODELVIEW);
+		setMatrixMode(GL_MODELVIEW);
 		glLoadMatrixf((Matrices[ETS_VIEW] * Matrices[ETS_WORLD]).pointer());
 
 		GLfloat glmat[16];
 		createGLMatrix(glmat, Matrices[ETS_PROJECTION]);
 		glmat[12] *= -1.0f;
-		glMatrixMode(GL_PROJECTION);
+		setMatrixMode(GL_PROJECTION);
 		glLoadMatrixf(glmat);
 
 		ResetRenderStates = true;
@@ -2861,7 +2861,7 @@ void COpenGLDriver::setRenderStates2DMode(bool alpha, bool texture, bool alphaCh
 		}
 		if (Transformation3DChanged)
 		{
-			glMatrixMode(GL_PROJECTION);
+			setMatrixMode(GL_PROJECTION);
 
 			const core::dimension2d<u32>& renderTargetSize = getCurrentRenderTargetSize();
 			core::matrix4 m;
@@ -2869,7 +2869,7 @@ void COpenGLDriver::setRenderStates2DMode(bool alpha, bool texture, bool alphaCh
 			m.setTranslation(core::vector3df(-1,1,0));
 			glLoadMatrixf(m.pointer());
 
-			glMatrixMode(GL_MODELVIEW);
+			setMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 			glTranslatef(0.375, 0.375, 0.0);
 
@@ -3374,10 +3374,10 @@ void COpenGLDriver::drawStencilShadow(bool clearStencilBuffer, video::SColor lef
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
 	// draw a shadow rectangle covering the entire screen using stencil buffer
-	glMatrixMode(GL_MODELVIEW);
+	setMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	glMatrixMode(GL_PROJECTION);
+	setMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 
@@ -3401,7 +3401,7 @@ void COpenGLDriver::drawStencilShadow(bool clearStencilBuffer, video::SColor lef
 
 	// restore settings
 	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
+	setMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 	glPopAttrib();
 }
