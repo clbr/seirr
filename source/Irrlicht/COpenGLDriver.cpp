@@ -457,9 +457,12 @@ COpenGLDriver::COpenGLDriver(const SIrrlichtCreationParameters& params,
 : CNullDriver(io, params.WindowSize), COpenGLExtensionHandler(),
 	CurrentRenderMode(ERM_NONE), ResetRenderStates(true), Transformation3DChanged(true),
 	AntiAlias(params.AntiAlias), RenderTargetTexture(0),
-	CurrentRendertargetSize(0,0), ColorFormat(ECF_R8G8B8),
+	CurrentRendertargetSize(0,0), CurrentMatrixMode(GL_MODELVIEW),
+	CurrentActiveTexture(GL_TEXTURE0),
+	ColorFormat(ECF_R8G8B8),
 	CurrentTarget(ERT_FRAME_BUFFER),
 	Doublebuffer(params.Doublebuffer), Stereo(params.Stereobuffer),
+	DepthMask(true),
 	Device(device), DeviceType(EIDT_OSX)
 {
 	#ifdef _DEBUG
@@ -480,9 +483,13 @@ COpenGLDriver::COpenGLDriver(const SIrrlichtCreationParameters& params,
 : CNullDriver(io, params.WindowSize), COpenGLExtensionHandler(),
 	CurrentRenderMode(ERM_NONE), ResetRenderStates(true),
 	Transformation3DChanged(true), AntiAlias(params.AntiAlias),
-	RenderTargetTexture(0), CurrentRendertargetSize(0,0), ColorFormat(ECF_R8G8B8),
+	RenderTargetTexture(0),
+	CurrentRendertargetSize(0,0), CurrentMatrixMode(GL_MODELVIEW),
+	CurrentActiveTexture(GL_TEXTURE0),
+	ColorFormat(ECF_R8G8B8),
 	CurrentTarget(ERT_FRAME_BUFFER),
 	Doublebuffer(params.Doublebuffer), Stereo(params.Stereobuffer),
+	DepthMask(true),
 	Device(device), DeviceType(EIDT_X11)
 {
 	#ifdef _DEBUG
