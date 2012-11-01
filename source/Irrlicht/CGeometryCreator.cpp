@@ -364,7 +364,7 @@ IMesh* CGeometryCreator::createSphereMesh(f32 radius, u32 polyCountX, u32 polyCo
 
 	buffer->Indices.reallocate((polyCountX * polyCountY) * 6);
 
-	const video::SColor clr(100, 255,255,255);
+	const video::SColor clr(255, 255,255,255);
 
 	u32 level = 0;
 
