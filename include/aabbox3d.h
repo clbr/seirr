@@ -113,7 +113,7 @@ class aabbox3d
 		T getRadius() const
 		{
 			const vector3d<T> extents = getExtent();
-			return core::max_(extents.x, extents.y, extents.z) / 2;
+			return core::max_(extents.X, extents.Y, extents.Z) / 2;
 		}
 
 		//! Get extent of the box (maximal distance of two points in the box)
