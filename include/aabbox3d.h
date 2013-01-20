@@ -112,7 +112,7 @@ class aabbox3d
 		/** \return Radius of the bounding sphere. */
 		T getRadius() const
 		{
-			vector3d<T> extents = getExtent();
+			const vector3d<T> extents = getExtent();
 			return core::max_(extents.x, extents.y, extents.z) / 2;
 		}
 
