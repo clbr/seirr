@@ -1140,9 +1140,24 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 			return !(tbox.intersectsWithBox(cam->getViewFrustum()->getBoundingBox() ));
 		}
 
-		// can be seen by a bounding sphere
+		// can be seen by a bounding sphere?
 		case scene::EAC_FRUSTUM_SPHERE:
-		{ // requires bbox diameter
+		{
+			const core::aabbox3df nbox = node->getTransformedBoundingBox();
+			const float rad = nbox.getRadius();
+			const core::vector3df center = nbox.getCenter();
+
+			const core::aabbox3df cambox =
+				cam->getViewFrustum()->getBoundingBox();
+			const float camrad =
+				cambox.getRadius();
+			const core::vector3df camcenter =
+				cambox.getCenter();
+
+			const float dist = (center - camcenter).getLengthSQ();
+			const float maxdist = (rad + camrad) * (rad + camrad);
+
+			return dist > maxdist;
 		}
 		break;
 
