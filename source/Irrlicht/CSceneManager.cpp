@@ -1147,12 +1147,10 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 			const float rad = nbox.getRadius();
 			const core::vector3df center = nbox.getCenter();
 
-			const core::aabbox3df cambox =
-				cam->getViewFrustum()->getBoundingBox();
 			const float camrad =
-				cambox.getRadius();
+				cam->getViewFrustum()->getBoundingRadius();
 			const core::vector3df camcenter =
-				cambox.getCenter();
+				cam->getViewFrustum()->getBoundingCenter();
 
 			const float dist = (center - camcenter).getLengthSQ();
 			const float maxdist = (rad + camrad) * (rad + camrad);
