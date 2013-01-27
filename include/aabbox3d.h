@@ -112,8 +112,8 @@ class aabbox3d
 		/** \return Radius of the bounding sphere. */
 		T getRadius() const
 		{
-			const vector3d<T> extents = getExtent();
-			return core::max_(extents.X, extents.Y, extents.Z) / 2;
+			const T radius = getExtent().getLength() / 2;
+			return radius;
 		}
 
 		//! Get extent of the box (maximal distance of two points in the box)
