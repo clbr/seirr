@@ -87,8 +87,14 @@ namespace scene
 		//! returns a bounding box enclosing the whole view frustum
 		const core::aabbox3d<f32> &getBoundingBox() const;
 
-		//! recalculates the bounding box member based on the planes
+		//! recalculates the bounding box and sphere based on the planes
 		inline void recalculateBoundingBox();
+
+		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
+		float getBoundingRadius() const;
+
+		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
+		core::vector3df getBoundingCenter() const;
 
 		//! get the given state's matrix based on frustum E_TRANSFORMATION_STATE
 		core::matrix4& getTransform( video::E_TRANSFORMATION_STATE state);
@@ -110,6 +116,9 @@ namespace scene
 		core::aabbox3d<f32> boundingBox;
 
 	private:
+		//! recalculates the bounding sphere based on the planes
+		inline void recalculateBoundingSphere();
+
 		//! Hold a copy of important transform matrices
 		enum E_TRANSFORMATION_STATE_FRUSTUM
 		{
@@ -120,6 +129,9 @@ namespace scene
 
 		//! Hold a copy of important transform matrices
 		core::matrix4 Matrices[ETS_COUNT_FRUSTUM];
+
+		float boundingRadius;
+		core::vector3df boundingCenter;
 	};
 
 
@@ -240,6 +252,16 @@ namespace scene
 		return boundingBox;
 	}
 
+	inline float SViewFrustum::getBoundingRadius() const
+	{
+		return boundingRadius;
+	}
+
+	inline core::vector3df SViewFrustum::getBoundingCenter() const
+	{
+		return boundingCenter;
+	}
+
 	inline void SViewFrustum::recalculateBoundingBox()
 	{
 		boundingBox.reset ( cameraPosition );
@@ -248,6 +270,54 @@ namespace scene
 		boundingBox.addInternalPoint(getFarRightUp());
 		boundingBox.addInternalPoint(getFarLeftDown());
 		boundingBox.addInternalPoint(getFarRightDown());
+
+		// Also recalculate the bounding sphere when the bbox changes
+		recalculateBoundingSphere();
+	}
+
+	inline void SViewFrustum::recalculateBoundingSphere()
+	{
+		/* We get the radius and center of an optimum circle
+		   by finding the longest diameter. Since we have eight
+		   points, we have to do four comparisons. */
+
+		const core::vector3df dir1 = getFarLeftUp() - getNearRightDown();
+		const core::vector3df dir2 = getFarRightUp() - getNearLeftDown();
+		const core::vector3df dir3 = getFarLeftDown() - getNearRightUp();
+		const core::vector3df dir4 = getFarRightDown() - getNearLeftUp();
+
+		const float diam1 = dir1.getLengthSQ();
+		const float diam2 = dir2.getLengthSQ();
+		const float diam3 = dir3.getLengthSQ();
+		const float diam4 = dir4.getLengthSQ();
+
+		const float &max1 = core::max_(diam1, diam2);
+		const float &max2 = core::max_(diam3, diam4);
+		const float &max = core::max_(max1, max2);
+
+		// Cool, we have the radius
+		boundingRadius = sqrtf(max) / 2;
+
+		// Now find the center.
+		core::vector3df dir, start;
+		if (max == diam1) {
+			start = getNearRightDown();
+			dir = dir1;
+		} else if (max == diam2) {
+			start = getNearLeftDown();
+			dir = dir2;
+		} else if (max == diam3) {
+			start = getNearRightUp();
+			dir = dir3;
+		} else {
+			start = getNearLeftUp();
+			dir = dir4;
+		}
+		dir.normalize();
+
+		// Add some leeway for float rounding errors.
+		// Since near flicker matters more, go 0.1% closer.
+		boundingCenter = start + dir*(boundingRadius * 0.999f);
 	}
 
 	//! This constructor creates a view frustum based on a projection
