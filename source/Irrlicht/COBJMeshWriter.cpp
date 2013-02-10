@@ -64,10 +64,31 @@ bool COBJMeshWriter::writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 fla
 
 	// write OBJ MESH header
 
-	const core::stringc name(FileSystem->getFileBasename(SceneManager->getMeshCache()->getMeshName(mesh), false)+".mtl");
+	const char * const origname = file->getFileName().c_str();
+	const u32 origlen = strlen(origname);
+
+	char *name = NULL;
+
+	if (origname[origlen - 1] == 'j' &&
+		origname[origlen - 2] == 'b' &&
+		origname[origlen - 3] == 'o') {
+
+		name = strdup(origname);
+
+		name[origlen - 3] = 'm';
+		name[origlen - 2] = 't';
+		name[origlen - 1] = 'l';
+	} else {
+		name = (char *) calloc(origlen + 5, 1);
+		memcpy(name, origname, origlen);
+		strcat(name, ".mtl");
+	}
+
+	const u32 namelen = strlen(name);
+
 	file->write("# exported by Irrlicht\n",23);
 	file->write("mtllib ",7);
-	file->write(name.c_str(),name.size());
+	file->write(name, namelen);
 	file->write("\n\n",2);
 
 	// write mesh buffers
@@ -161,8 +182,10 @@ bool COBJMeshWriter::writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 fla
 		}
 	}
 
-	if (mat.size() == 0)
+	if (mat.size() == 0) {
+		free(name);
 		return true;
+	}
 
 	file = FileSystem->createAndWriteFile( name );
 	if (file)
@@ -199,6 +222,7 @@ bool COBJMeshWriter::writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 fla
 		}
 		file->drop();
 	}
+	free(name);
 	return true;
 }
 
