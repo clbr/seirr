@@ -173,7 +173,6 @@ bool COBJMeshWriter::writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 fla
 				file->write(num.c_str(), num.size());
 				file->write("/",1);
 				file->write(num.c_str(), num.size());
-				file->write(" ",1);
 
 				file->write("\n",1);
 			}
