@@ -23,13 +23,23 @@ class aabbox3d
 	public:
 
 		//! Default Constructor.
-		aabbox3d(): MinEdge(-1,-1,-1), MaxEdge(1,1,1) {}
+		aabbox3d(): MinEdge(-1,-1,-1), MaxEdge(1,1,1)
+		{
+			refreshCaches();
+		}
 		//! Constructor with min edge and max edge.
-		aabbox3d(const vector3d<T>& min, const vector3d<T>& max): MinEdge(min), MaxEdge(max) {}
+		aabbox3d(const vector3d<T>& min, const vector3d<T>& max): MinEdge(min), MaxEdge(max)
+		{
+			refreshCaches();
+		}
 		//! Constructor with only one point.
-		aabbox3d(const vector3d<T>& init): MinEdge(init), MaxEdge(init) {}
+		aabbox3d(const vector3d<T>& init): MinEdge(init), MaxEdge(init) {
+			refreshCaches();
+		}
 		//! Constructor with min edge and max edge as single values, not vectors.
-		aabbox3d(T minx, T miny, T minz, T maxx, T maxy, T maxz): MinEdge(minx, miny, minz), MaxEdge(maxx, maxy, maxz) {}
+		aabbox3d(T minx, T miny, T minz, T maxx, T maxy, T maxz): MinEdge(minx, miny, minz), MaxEdge(maxx, maxy, maxz) {
+			refreshCaches();
+		}
 
 		// operators
 		//! Equality operator
@@ -51,6 +61,7 @@ class aabbox3d
 		{
 			MaxEdge.set(x,y,z);
 			MinEdge = MaxEdge;
+			refreshCaches();
 		}
 
 		//! Resets the bounding box.
@@ -66,6 +77,7 @@ class aabbox3d
 		{
 			MaxEdge = initValue;
 			MinEdge = initValue;
+			refreshCaches();
 		}
 
 		//! Adds a point to the bounding box
@@ -99,6 +111,8 @@ class aabbox3d
 			if (x<MinEdge.X) MinEdge.X = x;
 			if (y<MinEdge.Y) MinEdge.Y = y;
 			if (z<MinEdge.Z) MinEdge.Z = z;
+
+			refreshCaches();
 		}
 
 		//! Get center of the bounding box
@@ -112,7 +126,6 @@ class aabbox3d
 		/** \return Radius of the bounding sphere. */
 		T getRadius() const
 		{
-			const T radius = getExtent().getLength() / 2;
 			return radius;
 		}
 
@@ -187,6 +200,8 @@ class aabbox3d
 				{ t=MinEdge.Y; MinEdge.Y = MaxEdge.Y; MaxEdge.Y=t; }
 			if (MinEdge.Z > MaxEdge.Z)
 				{ t=MinEdge.Z; MinEdge.Z = MaxEdge.Z; MaxEdge.Z=t; }
+
+			refreshCaches();
 		}
 
 		//! Calculates a new interpolated bounding box.
@@ -326,6 +341,15 @@ class aabbox3d
 
 		//! The far edge
 		vector3d<T> MaxEdge;
+
+	private:
+		void refreshCaches()
+		{
+			radius = getExtent().getLength() / 2;
+		}
+
+		//! cached radius
+		T radius;
 };
 
 	//! Typedef for a f32 3d bounding box.
