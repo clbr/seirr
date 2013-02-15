@@ -18,7 +18,8 @@ namespace scene
 		EAC_OFF = 0,
 		EAC_BOX = 1,
 		EAC_FRUSTUM_BOX = 2,
-		EAC_FRUSTUM_SPHERE = 4
+		EAC_FRUSTUM_SPHERE = 4,
+		EAC_CONE_SPHERE = 8
 	};
 
 	//! Names for culling type
@@ -27,7 +28,8 @@ namespace scene
 		"false",
 		"box",			// camera box against node box
 		"frustum_box",		// camera frustum against node box
-		"frustum_sphere",	// camera frustum against node sphere
+		"frustum_sphere",	// camera frustum sphere against node sphere
+		"cone_sphere",		// camera frustum cone against node sphere
 		0
 	};
 

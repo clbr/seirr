@@ -1190,6 +1190,51 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 		}
 		break;
 
+		// can be seen by a frustum cone?
+		// Algorithm from www.geometrictools.com/Documentation/IntersectionSphereCone.pdf
+		case scene::EAC_CONE_SPHERE:
+		{
+			const float angle = cam->getViewFrustum()->getConeAngle();
+			const core::vector3df campos = cam->getAbsolutePosition();
+			core::vector3df dir = cam->getTarget() - campos;
+			dir.normalize();
+
+			const core::aabbox3df nbox = node->getTransformedBoundingBox();
+			const float rad = nbox.getRadius();
+			const core::vector3df center = nbox.getCenter();
+
+			float conesin, conecos;
+			sincosf(angle, &conesin, &conecos);
+
+			// Complementary cone
+			core::vector3df U = campos - (rad/conesin) * dir;
+			core::vector3df D = center - U;
+
+			float Dsqr = D.dotProduct(D);
+			float e = dir.dotProduct(D);
+
+			if (e > 0 && e*e >= Dsqr * conecos * conecos) {
+				// Center is inside the extended cone
+				D = center - campos;
+				Dsqr = D.dotProduct(D);
+				e = -D.dotProduct(dir);
+
+				if (e > 0 && e*e >= Dsqr * conesin * conesin) {
+					// It's in the intersection of the extended and
+					// complementary cone - ie behind you. Only render
+					// if its radius is enough to intersect you.
+					return Dsqr > rad*rad;
+				}
+
+				// Center is inside the inner cone - rendered
+				return false;
+			}
+
+			// Center is outside the extended cone - culled
+			return true;
+		}
+		break;
+
 		case scene::EAC_OFF:
 		break;
 	}

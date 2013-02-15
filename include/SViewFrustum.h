@@ -93,6 +93,9 @@ namespace scene
 		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
 		float getBoundingRadius() const;
 
+		//! get the bounding cone's radius
+		float getConeAngle() const;
+
 		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
 		core::vector3df getBoundingCenter() const;
 
@@ -122,6 +125,9 @@ namespace scene
 		//! recalculates the bounding sphere based on the planes
 		inline void recalculateBoundingSphere();
 
+		//! recalculates the bounding cone based on the planes
+		inline void recalculateBoundingCone();
+
 		//! Hold a copy of important transform matrices
 		enum E_TRANSFORMATION_STATE_FRUSTUM
 		{
@@ -135,6 +141,7 @@ namespace scene
 
 		float boundingRadius;
 		float farneardistance;
+		float coneangle;
 		core::vector3df boundingCenter;
 	};
 
@@ -261,6 +268,11 @@ namespace scene
 		return boundingRadius;
 	}
 
+	inline float SViewFrustum::getConeAngle() const
+	{
+		return coneangle;
+	}
+
 	inline core::vector3df SViewFrustum::getBoundingCenter() const
 	{
 		return boundingCenter;
@@ -280,8 +292,19 @@ namespace scene
 		boundingBox.addInternalPoint(getFarLeftDown());
 		boundingBox.addInternalPoint(getFarRightDown());
 
-		// Also recalculate the bounding sphere when the bbox changes
+		// Also recalculate the bounding sphere, cone when the bbox changes
 		recalculateBoundingSphere();
+		recalculateBoundingCone();
+	}
+
+	inline void SViewFrustum::recalculateBoundingCone()
+	{
+		// We need the angle for the cone that encompasses the full frustum
+		const core::vector3df farradius = (getFarLeftUp() - getFarRightDown()) / 2;
+		coneangle = atanf(farradius.getLength() / farneardistance);
+
+		// That's pretty much it, the other defining parts are cam position
+		// and view direction.
 	}
 
 	inline void SViewFrustum::recalculateBoundingSphere()
