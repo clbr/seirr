@@ -1194,7 +1194,8 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 		// Algorithm from www.geometrictools.com/Documentation/IntersectionSphereCone.pdf
 		case scene::EAC_CONE_SPHERE:
 		{
-			const float angle = cam->getViewFrustum()->getConeAngle();
+			float conesin, conecos;
+			cam->getViewFrustum()->getConeAngle(&conesin, &conecos);
 			const core::vector3df campos = cam->getAbsolutePosition();
 			core::vector3df dir = cam->getTarget() - campos;
 			dir.normalize();
@@ -1202,9 +1203,6 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 			const core::aabbox3df nbox = node->getTransformedBoundingBox();
 			const float rad = nbox.getRadius();
 			const core::vector3df center = nbox.getCenter();
-
-			float conesin, conecos;
-			sincosf(angle, &conesin, &conecos);
 
 			// Complementary cone
 			core::vector3df U = campos - (rad/conesin) * dir;

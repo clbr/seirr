@@ -94,7 +94,7 @@ namespace scene
 		float getBoundingRadius() const;
 
 		//! get the bounding cone's radius
-		float getConeAngle() const;
+		float getConeAngle(float *sine, float *cosine) const;
 
 		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
 		core::vector3df getBoundingCenter() const;
@@ -141,7 +141,7 @@ namespace scene
 
 		float boundingRadius;
 		float farneardistance;
-		float coneangle;
+		float coneangle, conesine, conecosine;
 		core::vector3df boundingCenter;
 	};
 
@@ -268,8 +268,13 @@ namespace scene
 		return boundingRadius;
 	}
 
-	inline float SViewFrustum::getConeAngle() const
+	inline float SViewFrustum::getConeAngle(float *sine, float *cosine) const
 	{
+		if (sine)
+			*sine = conesine;
+		if (cosine)
+			*cosine = conecosine;
+
 		return coneangle;
 	}
 
@@ -302,6 +307,8 @@ namespace scene
 		// We need the angle for the cone that encompasses the full frustum
 		const core::vector3df farradius = (getFarLeftUp() - getFarRightDown()) / 2;
 		coneangle = atanf(farradius.getLength() / farneardistance);
+
+		sincosf(coneangle, &conesine, &conecosine);
 
 		// That's pretty much it, the other defining parts are cam position
 		// and view direction.
