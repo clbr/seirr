@@ -201,6 +201,7 @@ void CCameraSceneNode::setNearValue(f32 f)
 {
 	ZNear = f;
 	recalculateProjectionMatrix();
+	ViewArea.setFarNearDistance(ZFar - ZNear);
 }
 
 
@@ -208,6 +209,7 @@ void CCameraSceneNode::setFarValue(f32 f)
 {
 	ZFar = f;
 	recalculateProjectionMatrix();
+	ViewArea.setFarNearDistance(ZFar - ZNear);
 }
 
 

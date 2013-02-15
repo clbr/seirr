@@ -96,6 +96,9 @@ namespace scene
 		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
 		core::vector3df getBoundingCenter() const;
 
+		//! the cam should tell the frustum the distance between far and near
+		void setFarNearDistance(float in);
+
 		//! get the given state's matrix based on frustum E_TRANSFORMATION_STATE
 		core::matrix4& getTransform( video::E_TRANSFORMATION_STATE state);
 
@@ -131,6 +134,7 @@ namespace scene
 		core::matrix4 Matrices[ETS_COUNT_FRUSTUM];
 
 		float boundingRadius;
+		float farneardistance;
 		core::vector3df boundingCenter;
 	};
 
@@ -262,6 +266,11 @@ namespace scene
 		return boundingCenter;
 	}
 
+	inline void SViewFrustum::setFarNearDistance(float in)
+	{
+		farneardistance = in;
+	}
+
 	inline void SViewFrustum::recalculateBoundingBox()
 	{
 		boundingBox.reset ( cameraPosition );
@@ -281,12 +290,12 @@ namespace scene
 		const float shortlen = (getNearLeftUp() - getNearRightUp()).getLength();
 		const float longlen = (getFarLeftUp() - getFarRightUp()).getLength();
 
-		const float farlen = planes[VF_FAR_PLANE].getDistanceTo(cameraPosition);
+		const float farlen = farneardistance;
 		const float fartocenter = (farlen + (shortlen - longlen) *
 						(shortlen + longlen)/(4*farlen)) / 2;
 		const float neartocenter = farlen - fartocenter;
 
-		boundingCenter = cameraPosition + planes[VF_NEAR_PLANE].Normal * neartocenter;
+		boundingCenter = cameraPosition + -planes[VF_NEAR_PLANE].Normal * neartocenter;
 
 		// Find the radius
 		core::vector3df dir[8];
