@@ -1194,8 +1194,9 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 		// Algorithm from www.geometrictools.com/Documentation/IntersectionSphereCone.pdf
 		case scene::EAC_CONE_SPHERE:
 		{
-			float conesin, conecos;
-			cam->getViewFrustum()->getConeAngle(&conesin, &conecos);
+			float conesinsq, conecossq, coneinvsin;
+			cam->getViewFrustum()->getConeAngle(&conesinsq, &conecossq,
+							&coneinvsin);
 			const core::vector3df campos = cam->getAbsolutePosition();
 			core::vector3df dir = cam->getTarget() - campos;
 			dir.normalize();
@@ -1205,19 +1206,19 @@ bool CSceneManager::isCulled(const ISceneNode* node) const
 			const core::vector3df center = nbox.getCenter();
 
 			// Complementary cone
-			core::vector3df U = campos - (rad/conesin) * dir;
+			core::vector3df U = campos - (rad*coneinvsin) * dir;
 			core::vector3df D = center - U;
 
 			float Dsqr = D.dotProduct(D);
 			float e = dir.dotProduct(D);
 
-			if (e > 0 && e*e >= Dsqr * conecos * conecos) {
+			if (e > 0 && e*e >= Dsqr * conecossq) {
 				// Center is inside the extended cone
 				D = center - campos;
 				Dsqr = D.dotProduct(D);
 				e = -D.dotProduct(dir);
 
-				if (e > 0 && e*e >= Dsqr * conesin * conesin) {
+				if (e > 0 && e*e >= Dsqr * conesinsq) {
 					// It's in the intersection of the extended and
 					// complementary cone - ie behind you. Only render
 					// if its radius is enough to intersect you.

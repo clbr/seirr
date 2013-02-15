@@ -94,7 +94,7 @@ namespace scene
 		float getBoundingRadius() const;
 
 		//! get the bounding cone's radius
-		float getConeAngle(float *sine, float *cosine) const;
+		float getConeAngle(float *sinesq, float *cosinesq, float *invsine) const;
 
 		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
 		core::vector3df getBoundingCenter() const;
@@ -141,7 +141,7 @@ namespace scene
 
 		float boundingRadius;
 		float farneardistance;
-		float coneangle, conesine, conecosine;
+		float coneangle, conesinesq, conecosinesq, coneinvsine;
 		core::vector3df boundingCenter;
 	};
 
@@ -268,12 +268,15 @@ namespace scene
 		return boundingRadius;
 	}
 
-	inline float SViewFrustum::getConeAngle(float *sine, float *cosine) const
+	inline float SViewFrustum::getConeAngle(float *sinesq, float *cosinesq,
+						float *invsine) const
 	{
-		if (sine)
-			*sine = conesine;
-		if (cosine)
-			*cosine = conecosine;
+		if (sinesq)
+			*sinesq = conesinesq;
+		if (cosinesq)
+			*cosinesq = conecosinesq;
+		if (invsine)
+			*invsine = coneinvsine;
 
 		return coneangle;
 	}
@@ -308,7 +311,11 @@ namespace scene
 		const core::vector3df farradius = (getFarLeftUp() - getFarRightDown()) / 2;
 		coneangle = atanf(farradius.getLength() / farneardistance);
 
-		sincosf(coneangle, &conesine, &conecosine);
+		sincosf(coneangle, &conesinesq, &conecosinesq);
+
+		coneinvsine = 1.0 / conesinesq;
+		conesinesq *= conesinesq;
+		conecosinesq *= conecosinesq;
 
 		// That's pretty much it, the other defining parts are cam position
 		// and view direction.
