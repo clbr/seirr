@@ -277,47 +277,42 @@ namespace scene
 
 	inline void SViewFrustum::recalculateBoundingSphere()
 	{
-		/* We get the radius and center of an optimum circle
-		   by finding the longest diameter. Since we have eight
-		   points, we have to do four comparisons. */
+		// Find the center
+		const float shortlen = (getNearLeftUp() - getNearRightUp()).getLength();
+		const float longlen = (getFarLeftUp() - getFarRightUp()).getLength();
 
-		const core::vector3df dir1 = getFarLeftUp() - getNearRightDown();
-		const core::vector3df dir2 = getFarRightUp() - getNearLeftDown();
-		const core::vector3df dir3 = getFarLeftDown() - getNearRightUp();
-		const core::vector3df dir4 = getFarRightDown() - getNearLeftUp();
+		const float farlen = planes[VF_FAR_PLANE].getDistanceTo(cameraPosition);
+		const float fartocenter = (farlen + (shortlen - longlen) *
+						(shortlen + longlen)/(4*farlen)) / 2;
+		const float neartocenter = farlen - fartocenter;
 
-		const float diam1 = dir1.getLengthSQ();
-		const float diam2 = dir2.getLengthSQ();
-		const float diam3 = dir3.getLengthSQ();
-		const float diam4 = dir4.getLengthSQ();
+		boundingCenter = cameraPosition + planes[VF_NEAR_PLANE].Normal * neartocenter;
 
-		const float &max1 = core::max_(diam1, diam2);
-		const float &max2 = core::max_(diam3, diam4);
-		const float &max = core::max_(max1, max2);
+		// Find the radius
+		core::vector3df dir[8];
+		dir[0] = getFarLeftUp() - boundingCenter;
+		dir[1] = getFarRightUp() - boundingCenter;
+		dir[2] = getFarLeftDown() - boundingCenter;
+		dir[3] = getFarRightDown() - boundingCenter;
+		dir[4] = getNearRightDown() - boundingCenter;
+		dir[5] = getNearLeftDown() - boundingCenter;
+		dir[6] = getNearRightUp() - boundingCenter;
+		dir[7] = getNearLeftUp() - boundingCenter;
 
-		// Cool, we have the radius
-		boundingRadius = sqrtf(max) / 2;
+		float diam[8];
+		u32 i;
 
-		// Now find the center.
-		core::vector3df dir, start;
-		if (max == diam1) {
-			start = getNearRightDown();
-			dir = dir1;
-		} else if (max == diam2) {
-			start = getNearLeftDown();
-			dir = dir2;
-		} else if (max == diam3) {
-			start = getNearRightUp();
-			dir = dir3;
-		} else {
-			start = getNearLeftUp();
-			dir = dir4;
+		for (i = 0; i < 8; i++) {
+			diam[i] = dir[i].getLengthSQ();
 		}
-		dir.normalize();
 
-		// Add some leeway for float rounding errors.
-		// Since near flicker matters more, go 0.1% closer.
-		boundingCenter = start + dir*(boundingRadius * 0.999f);
+		float longest = 0;
+		for (i = 0; i < 8; i++) {
+			if (diam[i] > longest)
+				longest = diam[i];
+		}
+
+		boundingRadius = sqrtf(longest);
 	}
 
 	//! This constructor creates a view frustum based on a projection
