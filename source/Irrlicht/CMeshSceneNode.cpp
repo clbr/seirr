@@ -158,7 +158,7 @@ void CMeshSceneNode::render()
 			if (mb)
 			{
 				// If there's more than one MB, do a per-mb AABB check
-				if (mbcount > 1 && AutomaticCullingState == EAC_BOX)
+				if (mbcount > 1 && AutomaticCullingState != EAC_OFF)
 				{
 					core::aabbox3df mybox = mb->getBoundingBox();
 					AbsoluteTransformation.transformBoxEx(mybox);
