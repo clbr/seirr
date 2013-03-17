@@ -2147,7 +2147,7 @@ core::stringc CXMeshFileLoader::getNextToken()
 		if (P >= End)
 			return s;
 
-		while((P < End) && !core::isspace(P[0]))
+		while((P < End) && !isspace(P[0]))
 		{
 			// either keep token delimiters when already holding a token, or return if first valid char
 			if (P[0]==';' || P[0]=='}' || P[0]=='{' || P[0]==',')
@@ -2175,7 +2175,7 @@ void CXMeshFileLoader::findNextNoneWhiteSpaceNumber()
 		return;
 
 	while((P < End) && (P[0] != '-') && (P[0] != '.') &&
-		!( core::isdigit(P[0])))
+		!( isdigit(P[0])))
 	{
 		// check if this is a comment
 		if ((P[0] == '/' && P[1] == '/') || P[0] == '#')
@@ -2194,7 +2194,7 @@ void CXMeshFileLoader::findNextNoneWhiteSpace()
 
 	while(true)
 	{
-		while((P < End) && core::isspace(P[0]))
+		while((P < End) && isspace(P[0]))
 		{
 			if (*P=='\n')
 				++Line;

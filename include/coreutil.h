@@ -8,6 +8,8 @@
 #include "irrString.h"
 #include "path.h"
 
+#include <ctype.h>
+
 namespace irr
 {
 namespace core
@@ -137,15 +139,6 @@ inline s32 isInSameDirectory ( const io::path& path, const io::path& file )
 
 	return subB - subA;
 }
-
-
-//! some standard function ( to remove dependencies )
-#undef isdigit
-#undef isspace
-#undef isupper
-inline s32 isdigit(s32 c) { return c >= '0' && c <= '9'; }
-inline s32 isspace(s32 c) { return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v'; }
-inline s32 isupper(s32 c) { return c >= 'A' && c <= 'Z'; }
 
 
 } // end namespace core

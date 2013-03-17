@@ -377,10 +377,10 @@ const c8* COBJMeshFileLoader::readTextures(const c8* bufPtr, const c8* const buf
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
 			// next parameters are optional, so skip rest of loop if no number is found
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 		}
 		else
@@ -389,10 +389,10 @@ const c8* COBJMeshFileLoader::readTextures(const c8* bufPtr, const c8* const buf
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
 			// next parameters are optional, so skip rest of loop if no number is found
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 		}
 		else
@@ -401,17 +401,17 @@ const c8* COBJMeshFileLoader::readTextures(const c8* bufPtr, const c8* const buf
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
 			// next parameters are optional, so skip rest of loop if no number is found
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 			bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-			if (!core::isdigit(textureNameBuf[0]))
+			if (!isdigit(textureNameBuf[0]))
 				continue;
 		}
 		// get next word
 		bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
 	}
 
-	if ((type==1) && (core::isdigit(textureNameBuf[0])))
+	if ((type==1) && (isdigit(textureNameBuf[0])))
 	{
 		currMaterial->Meshbuffer->Material.MaterialTypeParam=core::fast_atof(textureNameBuf);
 		bufPtr = goAndCopyNextWord(textureNameBuf, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
@@ -755,10 +755,10 @@ const c8* COBJMeshFileLoader::goFirstWord(const c8* buf, const c8* const bufEnd,
 {
 	// skip space characters
 	if (acrossNewlines)
-		while((buf != bufEnd) && core::isspace(*buf))
+		while((buf != bufEnd) && isspace(*buf))
 			++buf;
 	else
-		while((buf != bufEnd) && core::isspace(*buf) && (*buf != '\n'))
+		while((buf != bufEnd) && isspace(*buf) && (*buf != '\n'))
 			++buf;
 
 	return buf;
@@ -769,7 +769,7 @@ const c8* COBJMeshFileLoader::goFirstWord(const c8* buf, const c8* const bufEnd,
 const c8* COBJMeshFileLoader::goNextWord(const c8* buf, const c8* const bufEnd, bool acrossNewlines)
 {
 	// skip current word
-	while(( buf != bufEnd ) && !core::isspace(*buf))
+	while(( buf != bufEnd ) && !isspace(*buf))
 		++buf;
 
 	return goFirstWord(buf, bufEnd, acrossNewlines);
@@ -804,7 +804,7 @@ u32 COBJMeshFileLoader::copyWord(c8* outBuf, const c8* const inBuf, u32 outBufLe
 	u32 i = 0;
 	while(inBuf[i])
 	{
-		if (core::isspace(inBuf[i]) || &(inBuf[i]) == bufEnd)
+		if (isspace(inBuf[i]) || &(inBuf[i]) == bufEnd)
 			break;
 		++i;
 	}
@@ -851,7 +851,7 @@ bool COBJMeshFileLoader::retrieveVertexIndices(c8* vertexData, s32* idx, const c
 	u32 i = 0;
 	while ( p != bufEnd )
 	{
-		if ( ( core::isdigit(*p)) || (*p == '-') )
+		if ( ( isdigit(*p)) || (*p == '-') )
 		{
 			// build up the number
 			word[i++] = *p;

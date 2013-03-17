@@ -220,7 +220,7 @@ void CImageLoaderPPM::getNextToken(io::IReadFile* file, core::stringc& token) co
 			while (c!='\n' && c!='\r' && (file->getPos()<file->getSize()))
 				file->read(&c, 1);
 		}
-		else if (!core::isspace(c))
+		else if (!isspace(c))
 		{
 			token.append(c);
 			break;
@@ -234,7 +234,7 @@ void CImageLoaderPPM::getNextToken(io::IReadFile* file, core::stringc& token) co
 			while (c!='\n' && c!='\r' && (file->getPos()<file->getSize()))
 				file->read(&c, 1);
 		}
-		else if (!core::isspace(c))
+		else if (!isspace(c))
 			token.append(c);
 		else
 			break;
@@ -254,7 +254,7 @@ void CImageLoaderPPM::skipToNextToken(io::IReadFile* file) const
 			while (c!='\n' && c!='\r' && (file->getPos()<file->getSize()))
 				file->read(&c, 1);
 		}
-		else if (!core::isspace(c))
+		else if (!isspace(c))
 		{
 			file->seek(-1, true); // put back
 			break;

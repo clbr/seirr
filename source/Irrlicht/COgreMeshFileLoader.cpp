@@ -824,7 +824,7 @@ void COgreMeshFileLoader::getMaterialToken(io::IReadFile* file, core::stringc& t
 
 	file->read(&c, sizeof(c8));
 	// search for word beginning
-	while ( core::isspace(c) && (file->getPos() < file->getSize()))
+	while ( isspace(c) && (file->getPos() < file->getSize()))
 	{
 		if (noNewLine && c=='\n')
 		{
@@ -869,7 +869,7 @@ void COgreMeshFileLoader::getMaterialToken(io::IReadFile* file, core::stringc& t
 				// else append first slash and check if second char
 				// ends this token
 				token.append('/');
-				if ((!parseString && core::isspace(c)) ||
+				if ((!parseString && isspace(c)) ||
 						(parseString && (c=='"')))
 					return;
 			}
@@ -878,7 +878,7 @@ void COgreMeshFileLoader::getMaterialToken(io::IReadFile* file, core::stringc& t
 		file->read(&c, sizeof(c8));
 		// read until a token delimiter is found
 	}
-	while (((!parseString && !core::isspace(c)) || (parseString && (c!='"'))) &&
+	while (((!parseString && !isspace(c)) || (parseString && (c!='"'))) &&
 			(file->getPos() < file->getSize()));
 	// we want to skip the last quotes of a string , but other chars might be the next
 	// token already.

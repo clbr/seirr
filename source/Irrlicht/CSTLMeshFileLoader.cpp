@@ -210,7 +210,7 @@ const core::stringc& CSTLMeshFileLoader::getNextToken(io::IReadFile* file, core:
 	{
 		file->read(&c, 1);
 		// found it, so leave
-		if (core::isspace(c))
+		if (isspace(c))
 			break;
 		token.append(c);
 	}
@@ -226,7 +226,7 @@ void CSTLMeshFileLoader::goNextWord(io::IReadFile* file) const
 	{
 		file->read(&c, 1);
 		// found it, so leave
-		if (!core::isspace(c))
+		if (!isspace(c))
 		{
 			file->seek(-1, true);
 			break;
