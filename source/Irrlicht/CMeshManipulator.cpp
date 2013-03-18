@@ -711,13 +711,31 @@ IMesh* CMeshManipulator::createMeshWelded(IMesh *mesh, f32 tolerance) const
 			break;
 		}
 
-		// write the buffer's index list
+		// Clean up any degenerate tris
 		core::array<u16> &Indices = *outIdx;
+		Indices.clear();
+		Indices.reallocate(indexCount);
 
-		Indices.set_used(indexCount);
-		for (u32 i=0; i<indexCount; ++i)
+		for (u32 i = 0; i < indexCount; i+=3)
 		{
-			Indices[i] = redirects[ indices[i] ];
+			u16 a, b, c;
+			a = redirects[indices[i]];
+			b = redirects[indices[i+1]];
+			c = redirects[indices[i+2]];
+
+			bool drop = false;
+
+			if (a == b || b == c || a == c)
+				drop = true;
+
+			// Open for other checks
+
+			if (!drop)
+			{
+				Indices.push_back(a);
+				Indices.push_back(b);
+				Indices.push_back(c);
+			}
 		}
 	}
 	return clone;
