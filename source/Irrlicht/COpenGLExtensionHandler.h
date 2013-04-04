@@ -847,6 +847,14 @@ class COpenGLExtensionHandler
 	void extGlCompressedTexImage2D(GLenum target, GLint level,
 		GLenum internalformat, GLsizei width, GLsizei height,
 		GLint border, GLsizei imageSize, const void* data);
+	void extGlTexImage3D(GLenum target, GLint level,
+		GLenum internalformat,
+		GLsizei width, GLsizei height, GLsizei depth,
+		GLint border, GLenum format, GLenum type, const void* data);
+	void extGlTexSubImage3D(GLenum target, GLint level,
+		GLint xoffset, GLint yoffset, GLint zoffset,
+		GLsizei width, GLsizei height, GLsizei depth,
+		GLenum format, GLenum type, const void* data);
 
 	// shader programming
 	void extGlGenPrograms(GLsizei n, GLuint *programs);
@@ -959,6 +967,8 @@ class COpenGLExtensionHandler
 		PFNGLSTENCILFUNCSEPARATEATIPROC pGlStencilFuncSeparateATI;
 		PFNGLSTENCILOPSEPARATEATIPROC pGlStencilOpSeparateATI;
 		PFNGLCOMPRESSEDTEXIMAGE2DPROC pGlCompressedTexImage2D;
+		PFNGLTEXIMAGE3DPROC pGlTexImage3D;
+		PFNGLTEXSUBIMAGE3DPROC pGlTexSubImage3D;
 		#if defined(_IRR_LINUX_PLATFORM_) && defined(GLX_SGI_swap_control)
 		PFNGLXSWAPINTERVALSGIPROC glxSwapIntervalSGI;
 		#endif
@@ -1448,6 +1458,36 @@ inline void COpenGLExtensionHandler::extGlCompressedTexImage2D (GLenum target, G
 	glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 #else
 	os::Printer::log("glCompressedTexImage2D not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlTexImage3D (GLenum target, GLint level,
+		GLenum internalformat,
+		GLsizei width, GLsizei height, GLsizei depth,
+		GLint border, GLenum format, GLenum type, const void* data)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlTexImage3D)
+		pGlTexImage3D(target, level, internalformat, width, height, depth, border, format, type, data);
+#elif defined(GL_VERSION_1_2)
+	glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, data);
+#else
+	os::Printer::log("glTexImage3D not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlTexSubImage3D (GLenum target, GLint level,
+		GLint xoffset, GLint yoffset, GLint zoffset,
+		GLsizei width, GLsizei height, GLsizei depth,
+		GLenum format, GLenum type, const void* data)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlTexSubImage3D)
+		pGlTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data);
+#elif defined(GL_VERSION_1_2)
+	glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data);
+#else
+	os::Printer::log("glTexImage3D not supported", ELL_ERROR);
 #endif
 }
 

@@ -43,6 +43,7 @@ COpenGLExtensionHandler::COpenGLExtensionHandler() :
 	pGlStencilFuncSeparate(0), pGlStencilOpSeparate(0),
 	pGlStencilFuncSeparateATI(0), pGlStencilOpSeparateATI(0),
 	pGlCompressedTexImage2D(0),
+	pGlTexImage3D(0), pGlTexSubImage3D(0),
 #if defined(GLX_SGI_swap_control)
 	glxSwapIntervalSGI(0),
 #endif
@@ -177,6 +178,10 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 
 	// compressed textures
 	pGlCompressedTexImage2D = (PFNGLCOMPRESSEDTEXIMAGE2DPROC) wglGetProcAddress("glCompressedTexImage2D");
+
+	// 3d & array textures
+	pGlTexImage3D = (PFNGLTEXIMAGE3DPROC) wglGetProcAddress("glTexImage3D");
+	pGlTexSubImage3D = (PFNGLTEXSUBIMAGE3DPROC) wglGetProcAddress("glTexSubImage3D");
 
 	// FrameBufferObjects
 	pGlBindFramebufferEXT = (PFNGLBINDFRAMEBUFFEREXTPROC) wglGetProcAddress("glBindFramebufferEXT");
@@ -368,6 +373,12 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 	// compressed textures
 	pGlCompressedTexImage2D = (PFNGLCOMPRESSEDTEXIMAGE2DPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glCompressedTexImage2D"));
+
+	// 3d & array textures
+	pGlTexImage3D = (PFNGLTEXIMAGE3DPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glTexImage3D"));
+	pGlTexSubImage3D = (PFNGLTEXSUBIMAGE3DPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glTexSubImage3D"));
 
 	#if defined(GLX_SGI_swap_control) && !defined(_IRR_COMPILE_WITH_SDL_DEVICE_)
 		// get vsync extension
