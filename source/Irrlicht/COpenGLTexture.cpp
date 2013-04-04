@@ -865,7 +865,7 @@ void COpenGLTextureArray::uploadTexture(const core::array<ITexture*> &surfaces)
 		os::Printer::log("Could not bind Texture", ELL_ERROR);
 
 	// Define it
-	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, InternalFormat, w, h, nfiles, 0,
+	Driver->extGlTexImage3D(GL_TEXTURE_2D_ARRAY, 0, InternalFormat, w, h, nfiles, 0,
 			PixelFormat, PixelType, NULL);
 
 	for (i = 0; i < nfiles; i++)
@@ -876,7 +876,7 @@ void COpenGLTextureArray::uploadTexture(const core::array<ITexture*> &surfaces)
 		if (Driver->testGLError())
 			os::Printer::log("Could not bind Texture", ELL_ERROR);
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, w, h, 1,
+		Driver->extGlTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, w, h, 1,
 				PixelFormat, PixelType, src);
 
 		if (Driver->testGLError())
