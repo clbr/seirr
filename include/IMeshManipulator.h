@@ -253,6 +253,32 @@ namespace scene
 
 		virtual IMesh* createForsythOptimizedMesh(const IMesh *m) const = 0;
 
+		//! Optimize the mesh with an algorithm tuned for heightmaps.
+		/**
+		This differs from usual simplification methods in two ways:
+		- it's intended to be lossless
+		- it has special care for the borders, which are useful with heightmap tiles
+
+		This function is thread-safe. Remember to weld afterwards - this
+		function only moves vertices, it does not weld.
+
+		\param mesh Mesh to operate on.
+		*/
+		virtual void heightmapOptimizeMesh(IMesh * const mesh, const f32 tolerance = core::ROUNDING_ERROR_f32) const;
+
+		//! Optimize the meshbuffer with an algorithm tuned for heightmaps.
+		/**
+		This differs from usual simplification methods in two ways:
+		- it's intended to be lossless
+		- it has special care for the borders, which are useful with heightmap tiles
+
+		This function is thread-safe. Remember to weld afterwards - this
+		function only moves vertices, it does not weld.
+
+		\param mb Meshbuffer to operate on.
+		*/
+		virtual void heightmapOptimizeMesh(IMeshBuffer * const mb, const f32 tolerance = core::ROUNDING_ERROR_f32) const;
+
 		//! Apply a manipulator on the Meshbuffer
 		/** \param func A functor defining the mesh manipulation.
 		\param buffer The Meshbuffer to apply the manipulator to.
