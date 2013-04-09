@@ -291,6 +291,8 @@ B3D, MS3D or X meshes */
 #define _IRR_COMPILE_WITH_STL_LOADER_
 //! Define _IRR_COMPILE_WITH_PLY_LOADER_ if you want to load Polygon (Stanford Triangle) files
 #define _IRR_COMPILE_WITH_PLY_LOADER_
+//! Define _IRR_COMPILE_WITH_SM1_LOADER_ if you want to load SM1 files
+#define _IRR_COMPILE_WITH_SM1_LOADER_
 
 //! Define _IRR_COMPILE_WITH_IRR_WRITER_ if you want to write static .irrMesh files
 //#define _IRR_COMPILE_WITH_IRR_WRITER_
@@ -302,6 +304,8 @@ B3D, MS3D or X meshes */
 #define _IRR_COMPILE_WITH_OBJ_WRITER_
 //! Define _IRR_COMPILE_WITH_PLY_WRITER_ if you want to write .ply files
 //#define _IRR_COMPILE_WITH_PLY_WRITER_
+//! Define _IRR_COMPILE_WITH_SM1_WRITER_ if you want to write .sm1 files
+#define _IRR_COMPILE_WITH_SM1_WRITER_
 
 //! Define _IRR_COMPILE_WITH_BMP_LOADER_ if you want to load .bmp files
 //! Disabling this loader will also disable the built-in font

@@ -93,6 +93,10 @@
 #include "CPLYMeshFileLoader.h"
 #endif
 
+#ifdef _IRR_COMPILE_WITH_SM1_LOADER_
+#include "CSM1MeshFileLoader.h"
+#endif
+
 #ifdef _IRR_COMPILE_WITH_COLLADA_WRITER_
 #include "CColladaMeshWriter.h"
 #endif
@@ -111,6 +115,10 @@
 
 #ifdef _IRR_COMPILE_WITH_PLY_WRITER_
 #include "CPLYMeshWriter.h"
+#endif
+
+#ifdef _IRR_COMPILE_WITH_SM1_WRITER_
+#include "CSM1MeshWriter.h"
 #endif
 
 #include "CCubeSceneNode.h"
@@ -266,6 +274,9 @@ CSceneManager::CSceneManager(video::IVideoDriver* driver, io::IFileSystem* fs,
 	#endif
 	#ifdef _IRR_COMPILE_WITH_PLY_LOADER_
 	MeshLoaderList.push_back(new CPLYMeshFileLoader());
+	#endif
+	#ifdef _IRR_COMPILE_WITH_SM1_LOADER_
+	MeshLoaderList.push_back(new CSM1MeshFileLoader(Driver));
 	#endif
 
 	// factories
@@ -2687,6 +2698,12 @@ IMeshWriter* CSceneManager::createMeshWriter(EMESH_WRITER_TYPE type)
 	case EMWT_PLY:
 #ifdef _IRR_COMPILE_WITH_PLY_WRITER_
 		return new CPLYMeshWriter();
+#else
+		return 0;
+#endif
+	case EMWT_SM1:
+#ifdef _IRR_COMPILE_WITH_SM1_WRITER_
+		return new CSM1MeshWriter(FileSystem);
 #else
 		return 0;
 #endif
