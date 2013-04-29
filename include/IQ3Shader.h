@@ -270,7 +270,7 @@ namespace quake3
 					// gl_zero gl_src_color == gl_dst_color gl_zero
 					case video::EBF_SRC_COLOR:
 						blendfunc.type = video::EMT_ONETEXTURE_BLEND;
-						blendfunc.param0 = video::pack_texureBlendFunc ( video::EBF_DST_COLOR, video::EBF_ZERO, blendfunc.modulate );
+						blendfunc.param0 = video::pack_textureBlendFunc ( video::EBF_DST_COLOR, video::EBF_ZERO, blendfunc.modulate );
 						blendfunc.isTransparent = 1;
 						resolved = 1;
 						break;
@@ -315,7 +315,7 @@ namespace quake3
 			case 12:
 				// filter = gl_dst_color gl_zero or gl_zero gl_src_color
 				blendfunc.type = video::EMT_ONETEXTURE_BLEND;
-				blendfunc.param0 = video::pack_texureBlendFunc ( video::EBF_DST_COLOR, video::EBF_ZERO, blendfunc.modulate );
+				blendfunc.param0 = video::pack_textureBlendFunc ( video::EBF_DST_COLOR, video::EBF_ZERO, blendfunc.modulate );
 				blendfunc.isTransparent = 1;
 				resolved = 1;
 				break;
@@ -347,7 +347,7 @@ namespace quake3
 		if ( 0 == resolved )
 		{
 			blendfunc.type = video::EMT_ONETEXTURE_BLEND;
-			blendfunc.param0 = video::pack_texureBlendFunc (
+			blendfunc.param0 = video::pack_textureBlendFunc (
 					(video::E_BLEND_FACTOR) srcFact,
 					(video::E_BLEND_FACTOR) dstFact,
 					blendfunc.modulate);
