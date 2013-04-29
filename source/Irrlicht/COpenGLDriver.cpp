@@ -887,7 +887,7 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 	case ETS_PROJECTION:
 		{
 			GLfloat glmat[16];
-			createGLMatrix(glmat, mat);
+			getGLMatrix(glmat, mat);
 			// flip z to compensate OpenGLs right-hand coordinate system
 			glmat[12] *= -1.0f;
 			setMatrixMode(GL_PROJECTION);
@@ -914,9 +914,9 @@ void COpenGLDriver::setTransform(E_TRANSFORMATION_STATE state, const core::matri
 		{
 			GLfloat glmat[16];
 			if (isRTT)
-				createGLTextureMatrix(glmat, mat * TextureFlipMatrix);
+				getGLTextureMatrix(glmat, mat * TextureFlipMatrix);
 			else
-				createGLTextureMatrix(glmat, mat);
+				getGLTextureMatrix(glmat, mat);
 
 			glLoadMatrixf(glmat);
 		}
@@ -1259,7 +1259,7 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 	CNullDriver::drawVertexPrimitiveList(vertices, vertexCount, indexList, primitiveCount, vType, pType, iType);
 
 	if (vertices && !FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
-		createColorBuffer(vertices, vertexCount, vType);
+		getColorBuffer(vertices, vertexCount, vType);
 
 	// draw everything
 	setRenderStates3DMode();
@@ -1422,7 +1422,7 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 }
 
 
-void COpenGLDriver::createColorBuffer(const void* vertices, u32 vertexCount, E_VERTEX_TYPE vType)
+void COpenGLDriver::getColorBuffer(const void* vertices, u32 vertexCount, E_VERTEX_TYPE vType)
 {
 	// convert colors to gl color format.
 	vertexCount *= 4; //reused as color component count
@@ -1585,7 +1585,7 @@ void COpenGLDriver::draw2DVertexPrimitiveList(const void* vertices, u32 vertexCo
 	CNullDriver::draw2DVertexPrimitiveList(vertices, vertexCount, indexList, primitiveCount, vType, pType, iType);
 
 	if (vertices && !FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
-		createColorBuffer(vertices, vertexCount, vType);
+		getColorBuffer(vertices, vertexCount, vType);
 
 	// draw everything
 	this->setActiveTexture(0, Material.getTexture(0));
@@ -2281,14 +2281,14 @@ bool COpenGLDriver::disableTextures(u32 fromStage)
 
 
 //! creates a matrix in supplied GLfloat array to pass to OpenGL
-inline void COpenGLDriver::createGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m)
+inline void COpenGLDriver::getGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m)
 {
 	memcpy(gl_matrix, m.pointer(), 16 * sizeof(f32));
 }
 
 
 //! creates a opengltexturematrix from a D3D style texture matrix
-inline void COpenGLDriver::createGLTextureMatrix(GLfloat *o, const core::matrix4& m)
+inline void COpenGLDriver::getGLTextureMatrix(GLfloat *o, const core::matrix4& m)
 {
 	o[0] = m[0];
 	o[1] = m[1];
@@ -2396,7 +2396,7 @@ void COpenGLDriver::setRenderStates3DMode()
 		glLoadMatrixf((Matrices[ETS_VIEW] * Matrices[ETS_WORLD]).pointer());
 
 		GLfloat glmat[16];
-		createGLMatrix(glmat, Matrices[ETS_PROJECTION]);
+		getGLMatrix(glmat, Matrices[ETS_PROJECTION]);
 		glmat[12] *= -1.0f;
 		setMatrixMode(GL_PROJECTION);
 		glLoadMatrixf(glmat);

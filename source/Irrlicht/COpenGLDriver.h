@@ -387,8 +387,8 @@ namespace video
 		virtual video::ITexture* createDeviceDependentTexture(const core::array<ITexture*> &surfaces, const io::path& name, void* mipmapData);
 
 		//! creates a transposed matrix in supplied GLfloat array to pass to OpenGL
-		inline void createGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m);
-		inline void createGLTextureMatrix(GLfloat gl_matrix[16], const core::matrix4& m);
+		inline void getGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m);
+		inline void getGLTextureMatrix(GLfloat gl_matrix[16], const core::matrix4& m);
 
 		//! Set GL pipeline to desired texture wrap modes of the material
 		void setWrapMode(const SMaterial& material);
@@ -413,7 +413,7 @@ namespace video
 		void assignHardwareLight(u32 lightIndex);
 
 		//! helper function for render setup.
-		void createColorBuffer(const void* vertices, u32 vertexCount, E_VERTEX_TYPE vType);
+		void getColorBuffer(const void* vertices, u32 vertexCount, E_VERTEX_TYPE vType);
 
 		//! helper function doing the actual rendering.
 		void renderArray(const void* indexList, u32 primitiveCount,
