@@ -1040,7 +1040,7 @@ void CMeshManipulator::heightmapOptimizeMesh(IMeshBuffer * const mb, const f32 t
 	// First an acceleration structure: given this vert, which triangles touch it?
 	// Using this drops two exponents off the algorightm complexity, O(n^4) > O(n^2)
 	// Other optimizations brought it down to O(n).
-	u32 *accel[verts];
+	u32 **accel = (u32 **) calloc(verts, sizeof(u32 *));
 	for (u32 i = 0; i < verts; i++) {
 		accel[i] = (u32 *) calloc(HEIGHT_TRIACCEL_MAX, sizeof(u32));
 
@@ -1049,8 +1049,7 @@ void CMeshManipulator::heightmapOptimizeMesh(IMeshBuffer * const mb, const f32 t
 		}
 	}
 
-	u16 cur[verts];
-	memset(cur, 0, verts * sizeof(u16));
+	u16 *cur = (u16 *) calloc(verts, sizeof(u16));
 	for (u32 j = 0; j < idxs; j+=3) {
 
 		u32 v = ind[j];
@@ -1084,6 +1083,7 @@ void CMeshManipulator::heightmapOptimizeMesh(IMeshBuffer * const mb, const f32 t
 		accel[v][cur[v]] = j;
 		cur[v]++;
 	}
+	free(cur);
 
 	// Built, go
 	for (u32 i = 0; i < verts; i++) {
@@ -1269,6 +1269,7 @@ donehere:
 	for (u32 i = 0; i < verts; i++) {
 		free(accel[i]);
 	}
+	free(accel);
 }
 
 
