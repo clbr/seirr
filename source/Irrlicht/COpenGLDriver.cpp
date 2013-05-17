@@ -1549,31 +1549,58 @@ void COpenGLDriver::renderArray(const void* indexList, u32 primitiveCount,
 		}
 			break;
 		case scene::EPT_LINE_STRIP:
-			glDrawElements(GL_LINE_STRIP, primitiveCount+1, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_LINE_STRIP, primitiveCount+1, indexSize, indexList, num);
+			else
+				glDrawElements(GL_LINE_STRIP, primitiveCount+1, indexSize, indexList);
 			break;
 		case scene::EPT_LINE_LOOP:
-			glDrawElements(GL_LINE_LOOP, primitiveCount, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_LINE_LOOP, primitiveCount, indexSize, indexList, num);
+			else
+				glDrawElements(GL_LINE_LOOP, primitiveCount, indexSize, indexList);
 			break;
 		case scene::EPT_LINES:
-			glDrawElements(GL_LINES, primitiveCount*2, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_LINES, primitiveCount*2, indexSize, indexList, num);
+			else
+				glDrawElements(GL_LINES, primitiveCount*2, indexSize, indexList);
 			break;
 		case scene::EPT_TRIANGLE_STRIP:
-			glDrawElements(GL_TRIANGLE_STRIP, primitiveCount+2, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_TRIANGLE_STRIP, primitiveCount+2, indexSize, indexList, num);
+			else
+				glDrawElements(GL_TRIANGLE_STRIP, primitiveCount+2, indexSize, indexList);
 			break;
 		case scene::EPT_TRIANGLE_FAN:
-			glDrawElements(GL_TRIANGLE_FAN, primitiveCount+2, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_TRIANGLE_FAN, primitiveCount+2, indexSize, indexList, num);
+			else
+				glDrawElements(GL_TRIANGLE_FAN, primitiveCount+2, indexSize, indexList);
 			break;
 		case scene::EPT_TRIANGLES:
-			glDrawElements(GL_TRIANGLES, primitiveCount*3, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_TRIANGLES, primitiveCount*3, indexSize, indexList, num);
+			else
+				glDrawElements(GL_TRIANGLES, primitiveCount*3, indexSize, indexList);
 			break;
 		case scene::EPT_QUAD_STRIP:
-			glDrawElements(GL_QUAD_STRIP, primitiveCount*2+2, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_QUAD_STRIP, primitiveCount*2+2, indexSize, indexList, num);
+			else
+				glDrawElements(GL_QUAD_STRIP, primitiveCount*2+2, indexSize, indexList);
 			break;
 		case scene::EPT_QUADS:
-			glDrawElements(GL_QUADS, primitiveCount*4, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_QUADS, primitiveCount*4, indexSize, indexList, num);
+			else
+				glDrawElements(GL_QUADS, primitiveCount*4, indexSize, indexList);
 			break;
 		case scene::EPT_POLYGON:
-			glDrawElements(GL_POLYGON, primitiveCount, indexSize, indexList);
+			if (num > 1)
+				extGlDrawElementsInstanced(GL_POLYGON, primitiveCount, indexSize, indexList, num);
+			else
+				glDrawElements(GL_POLYGON, primitiveCount, indexSize, indexList);
 			break;
 	}
 }
