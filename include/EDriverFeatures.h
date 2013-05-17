@@ -109,6 +109,9 @@ namespace video
 		//! Supports geometry shaders
 		EVDF_GEOMETRY_SHADER,
 
+		//! Supports instancing
+		EVDF_INSTANCING,
+
 		//! Only used for counting the elements of this enum
 		EVDF_COUNT
 	};
