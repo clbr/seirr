@@ -891,6 +891,7 @@ class COpenGLExtensionHandler
 	void extGlUniformMatrix4fv(GLint loc, GLsizei count, GLboolean transpose, const GLfloat *v);
 	void extGlGetActiveUniformARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
 	void extGlGetActiveAttribARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
+	GLint extGlGetAttribLocationARB(GLhandleARB program, const char *name);
 
 	// framebuffer objects
 	void extGlBindFramebuffer(GLenum target, GLuint framebuffer);
@@ -964,6 +965,7 @@ class COpenGLExtensionHandler
 		PFNGLUNIFORMMATRIX4FVARBPROC pGlUniformMatrix4fvARB;
 		PFNGLGETACTIVEUNIFORMARBPROC pGlGetActiveUniformARB;
 		PFNGLGETACTIVEATTRIBARBPROC pGlGetActiveAttribARB;
+		PFNGLGETATTRIBLOCATIONARBPROC pGlGetAttribLocationARB;
 		PFNGLPOINTPARAMETERFARBPROC  pGlPointParameterfARB;
 		PFNGLPOINTPARAMETERFVARBPROC pGlPointParameterfvARB;
 		PFNGLSTENCILFUNCSEPARATEPROC pGlStencilFuncSeparate;
@@ -1433,6 +1435,20 @@ inline void COpenGLExtensionHandler::extGlGetActiveAttribARB(GLhandleARB program
 #else
 	os::Printer::log("glGetActiveAttrib not supported", ELL_ERROR);
 #endif
+}
+
+inline GLint COpenGLExtensionHandler::extGlGetAttribLocationARB(GLhandleARB program,
+		const char *name)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlGetAttribLocationARB)
+		return pGlGetAttribLocationARB(program, name);
+#elif defined(GL_ARB_shader_objects)
+	return glGetAttribLocationARB(program, name);
+#else
+	os::Printer::log("glGetAttribLocation not supported", ELL_ERROR);
+#endif
+	return 0;
 }
 
 inline void COpenGLExtensionHandler::extGlPointParameterf(GLint loc, GLfloat f)
