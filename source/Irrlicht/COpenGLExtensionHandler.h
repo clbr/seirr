@@ -890,6 +890,7 @@ class COpenGLExtensionHandler
 	void extGlUniformMatrix3fv(GLint loc, GLsizei count, GLboolean transpose, const GLfloat *v);
 	void extGlUniformMatrix4fv(GLint loc, GLsizei count, GLboolean transpose, const GLfloat *v);
 	void extGlGetActiveUniformARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
+	void extGlGetActiveAttribARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
 
 	// framebuffer objects
 	void extGlBindFramebuffer(GLenum target, GLuint framebuffer);
@@ -962,6 +963,7 @@ class COpenGLExtensionHandler
 		PFNGLUNIFORMMATRIX3FVARBPROC pGlUniformMatrix3fvARB;
 		PFNGLUNIFORMMATRIX4FVARBPROC pGlUniformMatrix4fvARB;
 		PFNGLGETACTIVEUNIFORMARBPROC pGlGetActiveUniformARB;
+		PFNGLGETACTIVEATTRIBARBPROC pGlGetActiveAttribARB;
 		PFNGLPOINTPARAMETERFARBPROC  pGlPointParameterfARB;
 		PFNGLPOINTPARAMETERFVARBPROC pGlPointParameterfvARB;
 		PFNGLSTENCILFUNCSEPARATEPROC pGlStencilFuncSeparate;
@@ -1414,6 +1416,22 @@ inline void COpenGLExtensionHandler::extGlGetActiveUniformARB(GLhandleARB progra
 	glGetActiveUniformARB(program, index, maxlength, length, size, type, name);
 #else
 	os::Printer::log("glGetActiveUniform not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlGetActiveAttribARB(GLhandleARB program,
+		GLuint index, GLsizei maxlength, GLsizei *length,
+		GLint *size, GLenum *type, GLcharARB *name)
+{
+	if (length)
+		*length = 0;
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlGetActiveAttribARB)
+		pGlGetActiveAttribARB(program, index, maxlength, length, size, type, name);
+#elif defined(GL_ARB_shader_objects)
+	glGetActiveAttribARB(program, index, maxlength, length, size, type, name);
+#else
+	os::Printer::log("glGetActiveAttrib not supported", ELL_ERROR);
 #endif
 }
 
