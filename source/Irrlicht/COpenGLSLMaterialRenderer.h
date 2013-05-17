@@ -93,6 +93,8 @@ public:
 	virtual void setPixelShaderConstant(const f32* data, s32 startRegister, s32 constantAmount=1);
 	virtual IVideoDriver* getVideoDriver();
 
+	virtual s32 getAttribLocation(const c8 *name);
+	virtual s32 getAttribType(const c8 *name);
 protected:
 
 	//! constructor only for use by derived classes who want to

@@ -228,6 +228,16 @@ void CInstancedMeshSceneNode::render()
 		const IMaterialRenderer* rnd = driver->getMaterialRenderer(mat.MaterialType);
 		const bool transparent = (rnd && rnd->isTransparent());
 
+#define GL_UNSIGNED_BYTE 0x1401
+#define GL_FLOAT 0x1406
+		driver->setCustomVertexAttribute(mat.MaterialType,
+				ColorName, GL_UNSIGNED_BYTE, 1, true,
+				4, Colors);
+		driver->setCustomVertexAttribute(mat.MaterialType,
+				ModelName, GL_FLOAT, 1, false,
+				16*4, Matrices);
+
+
 		// only render transparent buffer if this is the transparent render pass
 		// and solid only in solid pass
 		if (transparent == isTransparentPass)

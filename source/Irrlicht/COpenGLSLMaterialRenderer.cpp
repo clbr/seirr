@@ -484,6 +484,30 @@ IVideoDriver* COpenGLSLMaterialRenderer::getVideoDriver()
 	return Driver;
 }
 
+s32 COpenGLSLMaterialRenderer::getAttribLocation(const c8 * name)
+{
+	const SUniformInfo target = { name, 0, -1 };
+
+	const s32 i = AttribInfo.binary_search(target);
+
+	if (i == -1)
+		return -1;
+
+	return AttribInfo[i].location;
+}
+
+s32 COpenGLSLMaterialRenderer::getAttribType(const c8 * name)
+{
+	const SUniformInfo target = { name, 0, -1 };
+
+	const s32 i = AttribInfo.binary_search(target);
+
+	if (i == -1)
+		return -1;
+
+	return AttribInfo[i].type;
+}
+
 } // end namespace video
 } // end namespace irr
 

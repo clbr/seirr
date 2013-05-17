@@ -548,6 +548,20 @@ namespace video
 		/** \return Rectangle of the current viewport. */
 		virtual const core::rect<s32>& getViewPort() const =0;
 
+		//! Setup a custom vertex attribute
+		/** Setup this vertex attribute for the next drawcall.
+		    It will be turned off automatically afterwards.
+		    \param materialtype The shader's material type
+		    \param name The attribute's name
+		    \param datatype A driver-specific value, e.g. GL_FLOAT
+		    \param divisor Whether to instance this array, use 0 not to
+		    \param normalize Whether to normalize these values
+		    \param stride How many bytes to skip between values
+		    \param ptr The array itself. */
+		virtual void setCustomVertexAttribute(u32 materialtype, const char *name,
+				u32 datatype, u32 divisor,
+				bool normalize, u32 stride, const void *ptr) = 0;
+
 		//! Draws a vertex primitive list
 		/** Note that, depending on the index type, some vertices might be not
 		accessible through the index list. The limit is at 65535 vertices for 16bit

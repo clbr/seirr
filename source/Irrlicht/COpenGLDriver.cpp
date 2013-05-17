@@ -1426,6 +1426,14 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	const u32 max = EnabledAttributes.size();
+	for (u32 i = 0; i < max; i++)
+	{
+		extGlDisableVertexAttribArray(EnabledAttributes[i]);
+	}
+
+	EnabledAttributes.clear();
 }
 
 
@@ -2380,6 +2388,81 @@ void COpenGLDriver::setMaterial(const SMaterial& material)
 	}
 }
 
+//! Setup a custom vertex attribute
+void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+		u32 div, bool normalize, u32 stride, const void *ptr)
+{
+	if (!name || mtype >= MaterialRenderers.size())
+		return;
+
+	COpenGLSLMaterialRenderer * const rend = (COpenGLSLMaterialRenderer *)
+	                                MaterialRenderers[mtype].Renderer;
+
+	const s32 index = rend->getAttribLocation(name);
+	if (index < 0)
+		return;
+
+	const GLenum attribtype = rend->getAttribType(name);
+
+	u32 size = 4;
+	bool matrix = false;
+
+	switch (attribtype)
+	{
+		case GL_FLOAT:
+			size = 1;
+		break;
+		case GL_FLOAT_VEC2:
+			size = 2;
+		break;
+		case GL_FLOAT_VEC3:
+			size = 3;
+		break;
+		case GL_FLOAT_VEC4:
+			if (normalize && datatype == GL_UNSIGNED_BYTE)
+				size = GL_BGRA;
+			else
+				size = 4;
+		break;
+		case GL_FLOAT_MAT2:
+			size = 2;
+			matrix = true;
+		break;
+		case GL_FLOAT_MAT3:
+			size = 3;
+			matrix = true;
+		break;
+		case GL_FLOAT_MAT4:
+			size = 4;
+			matrix = true;
+		break;
+		default:
+			os::Printer::log("Unknown attrib type", ELL_WARNING);
+	}
+
+	if (!matrix)
+	{
+		extGlVertexAttribDivisor(index, div);
+
+		extGlVertexAttribPointerARB(index, size, datatype, normalize, stride, ptr);
+
+		EnabledAttributes.push_back(index);
+		extGlEnableVertexAttribArray(index);
+	} else
+	{
+		for (u32 i = 0; i < size; i++)
+		{
+			extGlVertexAttribDivisor(index + i, div);
+
+			extGlVertexAttribPointerARB(index + i, size, datatype,
+						normalize, stride, ((char *) ptr) + i * sizeof(float) * size);
+
+			EnabledAttributes.push_back(index + i);
+			extGlEnableVertexAttribArray(index + i);
+		}
+	}
+
+}
 
 //! prints error if an error happened.
 bool COpenGLDriver::testGLError()

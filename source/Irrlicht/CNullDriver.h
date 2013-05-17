@@ -111,6 +111,11 @@ namespace video
 		//! gets the area of the current viewport
 		virtual const core::rect<s32>& getViewPort() const;
 
+		//! Setup a custom vertex attribute
+		virtual void setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+			u32 divisor,
+			bool normalize, u32 stride, const void *ptr);
+
 		//! draws a vertex primitive list
 		virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primitiveCount,

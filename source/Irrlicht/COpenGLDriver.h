@@ -125,6 +125,10 @@ namespace video
 		//! \param material: Material to be used from now on.
 		virtual void setMaterial(const SMaterial& material);
 
+		//! Setup a custom vertex attribute
+		virtual void setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+			u32 div, bool normalize, u32 stride, const void *ptr);
+
 		//! draws a set of 2d images, using a color and the alpha channel of the
 		//! texture if desired.
 		void draw2DImageBatch(const video::ITexture* texture,
@@ -496,6 +500,8 @@ namespace video
 			bool	DesireToBeOn;
 		};
 		core::array<RequestedLight> RequestedLights;
+
+		core::array<u32> EnabledAttributes;
 
 		#ifdef _IRR_WINDOWS_API_
 			HDC HDc; // Private GDI Device Context
