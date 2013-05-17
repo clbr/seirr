@@ -101,6 +101,7 @@ COpenGLSLMaterialRenderer::~COpenGLSLMaterialRenderer()
 	}
 
 	UniformInfo.clear();
+	AttribInfo.clear();
 
 	if (BaseMaterial)
 		BaseMaterial->drop();
@@ -311,9 +312,11 @@ bool COpenGLSLMaterialRenderer::linkProgram()
 	c8 *buf = new c8[maxlen];
 
 	UniformInfo.clear();
+	AttribInfo.clear();
 	UniformInfo.reallocate(num);
 
-	for (int i=0; i < num; ++i)
+	s32 i;
+	for (i=0; i < num; ++i)
 	{
 		SUniformInfo ui;
 		memset(buf, 0, maxlen);
@@ -327,7 +330,40 @@ bool COpenGLSLMaterialRenderer::linkProgram()
 		UniformInfo.push_back(ui);
 	}
 
+	// Get attribute information
+	num = 0;
+#ifdef GL_ARB_shader_objects
+	Driver->extGlGetObjectParameteriv(Program, GL_OBJECT_ACTIVE_ATTRIBUTES_ARB, &num);
+#endif
+	maxlen = 0;
+#ifdef GL_ARB_shader_objects
+	Driver->extGlGetObjectParameteriv(Program, GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB, &maxlen);
+#endif
+
+	// seems that some implementations use an extra null terminator
+	++maxlen;
+	delete [] buf;
+	buf = new c8[maxlen];
+
+	AttribInfo.reallocate(num);
+	for (i = 0; i < num; i++) {
+		SUniformInfo ui;
+		memset(buf, 0, maxlen);
+
+		GLint size;
+		Driver->extGlGetActiveAttribARB(Program, i, maxlen, 0, &size, &ui.type, reinterpret_cast<GLcharARB*>(buf));
+		ui.name = buf;
+
+		ui.location = Driver->extGlGetAttribLocationARB(Program, buf);
+
+		if (ui.location < 0)
+			continue;
+
+		AttribInfo.push_back(ui);
+	}
+
 	UniformInfo.sort();
+	AttribInfo.sort();
 
 	delete [] buf;
 

@@ -132,6 +132,7 @@ protected:
 
 	GLhandleARB Program;
 	core::array<SUniformInfo> UniformInfo;
+	core::array<SUniformInfo> AttribInfo;
 	s32 UserData;
 };
 
