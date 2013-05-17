@@ -892,6 +892,7 @@ class COpenGLExtensionHandler
 	void extGlGetActiveUniformARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
 	void extGlGetActiveAttribARB(GLhandleARB program, GLuint index, GLsizei maxlength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
 	GLint extGlGetAttribLocationARB(GLhandleARB program, const char *name);
+	void extGlVertexAttribPointerARB(GLuint, GLint, GLenum, GLboolean, GLsizei, const GLvoid *);
 
 	// framebuffer objects
 	void extGlBindFramebuffer(GLenum target, GLuint framebuffer);
@@ -966,6 +967,7 @@ class COpenGLExtensionHandler
 		PFNGLGETACTIVEUNIFORMARBPROC pGlGetActiveUniformARB;
 		PFNGLGETACTIVEATTRIBARBPROC pGlGetActiveAttribARB;
 		PFNGLGETATTRIBLOCATIONARBPROC pGlGetAttribLocationARB;
+		PFNGLVERTEXATTRIBPOINTERARBPROC pGlVertexAttribPointerARB;
 		PFNGLPOINTPARAMETERFARBPROC  pGlPointParameterfARB;
 		PFNGLPOINTPARAMETERFVARBPROC pGlPointParameterfvARB;
 		PFNGLSTENCILFUNCSEPARATEPROC pGlStencilFuncSeparate;
@@ -1434,6 +1436,20 @@ inline void COpenGLExtensionHandler::extGlGetActiveAttribARB(GLhandleARB program
 	glGetActiveAttribARB(program, index, maxlength, length, size, type, name);
 #else
 	os::Printer::log("glGetActiveAttrib not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlVertexAttribPointerARB(GLuint index,
+		GLint size, GLenum type, GLboolean normalized, GLsizei stride,
+		const GLvoid *ptr)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlVertexAttribPointerARB)
+		pGlVertexAttribPointerARB(index, size, type, normalized, stride, ptr);
+#elif defined(GL_ARB_shader_objects)
+	glVertexAttribPointerARB(index, size, type, normalized, stride, ptr);
+#else
+	os::Printer::log("glVertexAttribPointer not supported", ELL_ERROR);
 #endif
 }
 

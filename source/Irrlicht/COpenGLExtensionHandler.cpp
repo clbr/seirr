@@ -39,7 +39,7 @@ COpenGLExtensionHandler::COpenGLExtensionHandler() :
 	pGlUniform1ivARB(0), pGlUniform1fvARB(0), pGlUniform2fvARB(0), pGlUniform3fvARB(0), pGlUniform4fvARB(0), pGlUniformMatrix2fvARB(0),
 	pGlUniformMatrix3fvARB(0), pGlUniformMatrix4fvARB(0),
 	pGlGetActiveUniformARB(0), pGlGetActiveAttribARB(0),
-	pGlGetAttribLocationARB(0),
+	pGlGetAttribLocationARB(0), pGlVertexAttribPointerARB(0),
 	pGlPointParameterfARB(0), pGlPointParameterfvARB(0),
 	pGlStencilFuncSeparate(0), pGlStencilOpSeparate(0),
 	pGlStencilFuncSeparateATI(0), pGlStencilOpSeparateATI(0),
@@ -169,6 +169,7 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 	pGlGetActiveUniformARB = (PFNGLGETACTIVEUNIFORMARBPROC) wglGetProcAddress("glGetActiveUniformARB");
 	pGlGetActiveAttribARB = (PFNGLGETACTIVEATTRIBARBPROC) wglGetProcAddress("glGetActiveAttribARB");
 	pGlGetAttribLocationARB = (PFNGLGETATTRIBLOCATIONARBPROC) wglGetProcAddress("glGetAttribLocationARB");
+	pGlVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC) wglGetProcAddress("glVertexAttribPointerARB");
 
 	// get point parameter extension
 	pGlPointParameterfARB = (PFNGLPOINTPARAMETERFARBPROC) wglGetProcAddress("glPointParameterfARB");
@@ -372,6 +373,9 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 
 	pGlGetAttribLocationARB = (PFNGLGETATTRIBLOCATIONARBPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glGetAttribLocationARB"));
+
+	pGlVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glVertexAttribPointerARB"));
 
 	// get point parameter extension
 	pGlPointParameterfARB = (PFNGLPOINTPARAMETERFARBPROC)
