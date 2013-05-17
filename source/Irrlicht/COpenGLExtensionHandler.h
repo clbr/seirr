@@ -857,6 +857,8 @@ class COpenGLExtensionHandler
 		GLenum format, GLenum type, const void* data);
 	void extGlDrawElementsInstanced(GLenum, GLsizei, GLenum, const GLvoid *, GLsizei);
 	void extGlVertexAttribDivisor(GLuint index, GLuint div);
+	void extGlEnableVertexAttribArray(GLuint index);
+	void extGlDisableVertexAttribArray(GLuint index);
 
 	// shader programming
 	void extGlGenPrograms(GLsizei n, GLuint *programs);
@@ -968,6 +970,8 @@ class COpenGLExtensionHandler
 		PFNGLGETACTIVEATTRIBARBPROC pGlGetActiveAttribARB;
 		PFNGLGETATTRIBLOCATIONARBPROC pGlGetAttribLocationARB;
 		PFNGLVERTEXATTRIBPOINTERARBPROC pGlVertexAttribPointerARB;
+		PFNGLENABLEVERTEXATTRIBARRAYPROC pGlEnableVertexAttribArray;
+		PFNGLDISABLEVERTEXATTRIBARRAYPROC pGlDisableVertexAttribArray;
 		PFNGLPOINTPARAMETERFARBPROC  pGlPointParameterfARB;
 		PFNGLPOINTPARAMETERFVARBPROC pGlPointParameterfvARB;
 		PFNGLSTENCILFUNCSEPARATEPROC pGlStencilFuncSeparate;
@@ -1042,6 +1046,27 @@ inline void COpenGLExtensionHandler::extGlDrawElementsInstanced(GLenum mode, GLs
 		pGlDrawElementsInstancedARB(mode, count, type, ind, num);
 #else
 		glDrawElementsInstancedARB(mode, count, type, ind, num);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlEnableVertexAttribArray(GLuint index)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlEnableVertexAttribArray)
+		pGlEnableVertexAttribArray(index);
+#else
+		glEnableVertexAttribArray(index);
+#endif
+}
+
+
+inline void COpenGLExtensionHandler::extGlDisableVertexAttribArray(GLuint index)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlDisableVertexAttribArray)
+		pGlDisableVertexAttribArray(index);
+#else
+		glDisableVertexAttribArray(index);
 #endif
 }
 
