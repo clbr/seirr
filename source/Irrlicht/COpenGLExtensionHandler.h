@@ -855,6 +855,8 @@ class COpenGLExtensionHandler
 		GLint xoffset, GLint yoffset, GLint zoffset,
 		GLsizei width, GLsizei height, GLsizei depth,
 		GLenum format, GLenum type, const void* data);
+	void extGlDrawElementsInstanced(GLenum, GLsizei, GLenum, const GLvoid *, GLsizei);
+	void extGlVertexAttribDivisor(GLuint index, GLuint div);
 
 	// shader programming
 	void extGlGenPrograms(GLsizei n, GLuint *programs);
@@ -969,6 +971,8 @@ class COpenGLExtensionHandler
 		PFNGLCOMPRESSEDTEXIMAGE2DPROC pGlCompressedTexImage2D;
 		PFNGLTEXIMAGE3DPROC pGlTexImage3D;
 		PFNGLTEXSUBIMAGE3DPROC pGlTexSubImage3D;
+		PFNGLDRAWELEMENTSINSTANCEDARBPROC pGlDrawElementsInstancedARB;
+		PFNGLVERTEXATTRIBDIVISORARBPROC pGlVertexAttribDivisorARB;
 		#if defined(_IRR_LINUX_PLATFORM_) && defined(GLX_SGI_swap_control)
 		PFNGLXSWAPINTERVALSGIPROC glxSwapIntervalSGI;
 		#endif
@@ -1021,6 +1025,27 @@ inline void COpenGLExtensionHandler::extGlActiveTexture(GLenum texture)
 #else
 		glActiveTexture(texture);
 #endif
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlDrawElementsInstanced(GLenum mode, GLsizei count,
+	GLenum type, const GLvoid *ind, GLsizei num)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlDrawElementsInstancedARB)
+		pGlDrawElementsInstancedARB(mode, count, type, ind, num);
+#else
+		glDrawElementsInstancedARB(mode, count, type, ind, num);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlVertexAttribDivisor(GLuint index, GLuint div)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlVertexAttribDivisorARB)
+		pGlVertexAttribDivisorARB(index, div);
+#else
+		glVertexAttribDivisorARB(index, div);
 #endif
 }
 

@@ -44,6 +44,7 @@ COpenGLExtensionHandler::COpenGLExtensionHandler() :
 	pGlStencilFuncSeparateATI(0), pGlStencilOpSeparateATI(0),
 	pGlCompressedTexImage2D(0),
 	pGlTexImage3D(0), pGlTexSubImage3D(0),
+	pGlDrawElementsInstancedARB(0), pGlVertexAttribDivisorARB(0),
 #if defined(GLX_SGI_swap_control)
 	glxSwapIntervalSGI(0),
 #endif
@@ -219,6 +220,9 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 	pGlProgramParameteriARB= (PFNGLPROGRAMPARAMETERIARBPROC) wglGetProcAddress("glProgramParameteriARB");
 	pGlProgramParameteriEXT= (PFNGLPROGRAMPARAMETERIEXTPROC) wglGetProcAddress("glProgramParameteriEXT");
 
+	// Instancing
+	pGlDrawElementsInstancedARB = (PFNGLDRAWELEMENTSINSTANCEDARBPROC) wglGetProcAddress("glDrawElementsInstancedARB");
+	pGlVertexAttribDivisorARB = (PFNGLVERTEXATTRIBDIVISORARBPROC) wglGetProcAddress("glVertexAttribDivisorARB");
 
 #elif defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined (_IRR_COMPILE_WITH_SDL_DEVICE_)
 	#ifdef _IRR_OPENGL_USE_EXTPOINTER_
@@ -250,6 +254,12 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 		#define IRR_OGL_LOAD_EXTENSION glXGetProcAddressARB
 	#endif
 	#endif
+
+	pGlDrawElementsInstancedARB = (PFNGLDRAWELEMENTSINSTANCEDARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glDrawElementsInstancedARB"));
+
+	pGlVertexAttribDivisorARB = (PFNGLVERTEXATTRIBDIVISORARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glVertexAttribDivisorARB"));
 
 	pGlActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glActiveTextureARB"));
