@@ -95,6 +95,14 @@ namespace scene
 			const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f),
 			bool alsoAddIfMeshPointerZero=false);
 
+		//! adds a scene node for rendering an instanced static mesh
+		virtual IInstancedMeshSceneNode* addInstancedMeshSceneNode(IMesh* mesh,
+			u32 initialInstances = 0,
+			ISceneNode* parent=0, s32 id=-1,
+			const core::vector3df& position = core::vector3df(0,0,0),
+			const core::vector3df& rotation = core::vector3df(0,0,0),
+			const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
+
 		//! Adds a scene node for rendering a animated water surface mesh.
 		virtual ISceneNode* addWaterSurfaceSceneNode(IMesh* mesh, f32 waveHeight, f32 waveSpeed, f32 wlenght, ISceneNode* parent=0, s32 id=-1,
 			const core::vector3df& position = core::vector3df(0,0,0),

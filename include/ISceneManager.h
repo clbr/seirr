@@ -109,6 +109,7 @@ namespace scene
 	class IBillboardSceneNode;
 	class ITerrainSceneNode;
 	class IMeshSceneNode;
+	class IInstancedMeshSceneNode;
 	class IMeshLoader;
 	class ISceneCollisionManager;
 	class IParticleSystemSceneNode;
@@ -469,6 +470,24 @@ namespace scene
 			const core::vector3df& rotation = core::vector3df(0,0,0),
 			const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f),
 			bool alsoAddIfMeshPointerZero=false) = 0;
+
+		//! Adds a scene node for rendering an instanced static mesh.
+		/** \param mesh: Pointer to the loaded static mesh to be displayed.
+		\param initialInstances: how many instances to start with.
+		\param parent: Parent of the scene node. Can be NULL if no parent.
+		\param id: Id of the node. This id can be used to identify the scene node.
+		\param position: Position of the space relative to its parent where the
+		scene node will be placed.
+		\param rotation: Initital rotation of the scene node.
+		\param scale: Initial scale of the scene node.
+		See IInstancedMeshSceneNode docs for more details.
+		This pointer should not be dropped. See IReferenceCounted::drop() for more information. */
+		virtual IInstancedMeshSceneNode* addInstancedMeshSceneNode(IMesh* mesh,
+			u32 initialInstances = 0,
+			ISceneNode* parent=0, s32 id=-1,
+			const core::vector3df& position = core::vector3df(0,0,0),
+			const core::vector3df& rotation = core::vector3df(0,0,0),
+			const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f)) = 0;
 
 		//! Adds a scene node for rendering a animated water surface mesh.
 		/** Looks really good when the Material type EMT_TRANSPARENT_REFLECTION

@@ -130,6 +130,7 @@
 #include "CLightSceneNode.h"
 #include "CBillboardSceneNode.h"
 #include "CMeshSceneNode.h"
+#include "CInstancedMeshSceneNode.h"
 #include "CSkyBoxSceneNode.h"
 #include "CSkyDomeSceneNode.h"
 #include "CParticleSystemSceneNode.h"
@@ -581,6 +582,25 @@ IMeshSceneNode* CSceneManager::addMeshSceneNode(IMesh* mesh, ISceneNode* parent,
 		parent = this;
 
 	IMeshSceneNode* node = new CMeshSceneNode(mesh, parent, this, id, position, rotation, scale);
+	node->drop();
+
+	return node;
+}
+
+//! adds a scene node for rendering an instanced static mesh
+IInstancedMeshSceneNode* CSceneManager::addInstancedMeshSceneNode(IMesh* mesh,
+	u32 initialInstances,
+	ISceneNode* parent, s32 id,
+	const core::vector3df& position, const core::vector3df& rotation,
+	const core::vector3df& scale)
+{
+	if (!parent)
+		parent = this;
+
+	IInstancedMeshSceneNode* node =
+		new CInstancedMeshSceneNode(parent, this, id,
+			mesh, initialInstances,
+			position, rotation, scale);
 	node->drop();
 
 	return node;
