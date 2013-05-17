@@ -1201,7 +1201,7 @@ void COpenGLDriver::deleteHardwareBuffer(SHWBufferLink *_HWBuffer)
 
 
 //! Draw hardware buffer
-void COpenGLDriver::drawHardwareBuffer(SHWBufferLink *_HWBuffer)
+void COpenGLDriver::drawHardwareBuffer(SHWBufferLink *_HWBuffer, u32 num)
 {
 	if (!_HWBuffer)
 		return;
@@ -1228,7 +1228,7 @@ void COpenGLDriver::drawHardwareBuffer(SHWBufferLink *_HWBuffer)
 		indexList=0;
 	}
 
-	drawVertexPrimitiveList(vertices, mb->getVertexCount(), indexList, indiceToPrimitiveCount(mb->getPrimitiveType(), mb->getIndexCount()), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType());
+	drawVertexPrimitiveList(vertices, mb->getVertexCount(), indexList, indiceToPrimitiveCount(mb->getPrimitiveType(), mb->getIndexCount()), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType(), num);
 
 	if (HWBuffer->Mapped_Vertex!=scene::EHM_NEVER)
 		extGlBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -1248,7 +1248,8 @@ static inline u8* buffer_offset(const long offset)
 //! draws a vertex primitive list
 void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 		const void* indexList, u32 primitiveCount,
-		E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
+		E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType,
+		u32 num)
 {
 	if (!primitiveCount || !vertexCount)
 		return;
@@ -1256,7 +1257,13 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 	if (!checkPrimitiveCount(primitiveCount))
 		return;
 
-	CNullDriver::drawVertexPrimitiveList(vertices, vertexCount, indexList, primitiveCount, vType, pType, iType);
+	if (num > 1 && !queryFeature(EVDF_INSTANCING))
+	{
+		os::Printer::log("Instancing requested but no HW support", ELL_WARNING);
+		return;
+	}
+
+	CNullDriver::drawVertexPrimitiveList(vertices, vertexCount, indexList, primitiveCount, vType, pType, iType, num);
 
 	if (vertices && !FeatureAvailable[IRR_ARB_vertex_array_bgra] && !FeatureAvailable[IRR_EXT_vertex_array_bgra])
 		getColorBuffer(vertices, vertexCount, vType);
@@ -1399,7 +1406,7 @@ void COpenGLDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCoun
 			break;
 	}
 
-	renderArray(indexList, primitiveCount, pType, iType);
+	renderArray(indexList, primitiveCount, pType, iType, num);
 
 	if (MultiTextureExtension)
 	{
@@ -1466,7 +1473,8 @@ void COpenGLDriver::getColorBuffer(const void* vertices, u32 vertexCount, E_VERT
 
 
 void COpenGLDriver::renderArray(const void* indexList, u32 primitiveCount,
-		scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
+		scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType,
+		u32 num)
 {
 	GLenum indexSize=0;
 

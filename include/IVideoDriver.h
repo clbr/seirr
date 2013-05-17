@@ -562,12 +562,13 @@ namespace video
 		\param primCount Amount of Primitives
 		\param vType Vertex type, e.g. video::EVT_STANDARD for S3DVertex.
 		\param pType Primitive type, e.g. scene::EPT_TRIANGLE_FAN for a triangle fan.
-		\param iType Index type, e.g. video::EIT_16BIT for 16bit indices. */
+		\param iType Index type, e.g. video::EIT_16BIT for 16bit indices.
+		\param num Number of times to draw this, via instancing.  */
 		virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primCount,
 				E_VERTEX_TYPE vType=EVT_STANDARD,
 				scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES,
-				E_INDEX_TYPE iType=EIT_16BIT) =0;
+				E_INDEX_TYPE iType=EIT_16BIT, u32 num = 1) =0;
 
 		//! Draws a vertex primitive list in 2d
 		/** Compared to the general (3d) version of this method, this
@@ -943,8 +944,9 @@ namespace video
 			video::SColor rightDownEdge = video::SColor(255,0,0,0)) =0;
 
 		//! Draws a mesh buffer
-		/** \param mb Buffer to draw; */
-		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb) =0;
+		/** \param mb Buffer to draw;
+		\param num Number of times to draw this, via instancing.  */
+		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb, u32 num = 1) =0;
 
 		//! Sets the fog mode.
 		/** These are global values attached to each 3d object rendered,

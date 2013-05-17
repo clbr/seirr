@@ -634,11 +634,11 @@ const core::rect<s32>& CNullDriver::getViewPort() const
 
 
 //! draws a vertex primitive list
-void CNullDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCount, const void* indexList, u32 primitiveCount, E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
+void CNullDriver::drawVertexPrimitiveList(const void* vertices, u32 vertexCount, const void* indexList, u32 primitiveCount, E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType, u32 num)
 {
 	if ((iType==EIT_16BIT) && (vertexCount>65536))
 		os::Printer::log("Too many vertices for 16bit index type, render artifacts may occur.");
-	PrimitivesDrawn += primitiveCount;
+	PrimitivesDrawn += primitiveCount * num;
 }
 
 
@@ -1494,7 +1494,7 @@ void CNullDriver::getFog(SColor& color, E_FOG_TYPE& fogType, f32& start, f32& en
 }
 
 //! Draws a mesh buffer
-void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer* mb)
+void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer* mb, u32 num)
 {
 	if (!mb)
 		return;
@@ -1503,9 +1503,9 @@ void CNullDriver::drawMeshBuffer(const scene::IMeshBuffer* mb)
 	SHWBufferLink *HWBuffer=getBufferLink(mb);
 
 	if (HWBuffer)
-		drawHardwareBuffer(HWBuffer);
+		drawHardwareBuffer(HWBuffer, num);
 	else
-		drawVertexPrimitiveList(mb->getVertices(), mb->getVertexCount(), mb->getIndices(), indiceToPrimitiveCount(mb->getPrimitiveType(), mb->getIndexCount()), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType());
+		drawVertexPrimitiveList(mb->getVertices(), mb->getVertexCount(), mb->getIndices(), indiceToPrimitiveCount(mb->getPrimitiveType(), mb->getIndexCount()), mb->getVertexType(), mb->getPrimitiveType(), mb->getIndexType(), num);
 }
 
 

@@ -101,12 +101,13 @@ namespace video
 		virtual void deleteHardwareBuffer(SHWBufferLink *HWBuffer);
 
 		//! Draw hardware buffer
-		virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer);
+		virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer, u32 num = 1);
 
 		//! draws a vertex primitive list
 		virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primitiveCount,
-				E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType);
+				E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType,
+				E_INDEX_TYPE iType, u32 num = 1);
 
 		//! draws a vertex primitive list in 2d
 		virtual void draw2DVertexPrimitiveList(const void* vertices, u32 vertexCount,
@@ -420,7 +421,8 @@ namespace video
 
 		//! helper function doing the actual rendering.
 		void renderArray(const void* indexList, u32 primitiveCount,
-				scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType);
+				scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType,
+				u32 num = 1);
 
 		//! Set the gl matrix mode, if not set already
 		void setMatrixMode(GLenum mode);

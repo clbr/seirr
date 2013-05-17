@@ -114,7 +114,8 @@ namespace video
 		//! draws a vertex primitive list
 		virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primitiveCount,
-				E_VERTEX_TYPE vType=EVT_STANDARD, scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES, E_INDEX_TYPE iType=EIT_16BIT);
+				E_VERTEX_TYPE vType=EVT_STANDARD, scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES,
+				E_INDEX_TYPE iType=EIT_16BIT, u32 num = 1);
 
 		//! draws a vertex primitive list in 2d
 		virtual void draw2DVertexPrimitiveList(const void* vertices, u32 vertexCount,
@@ -364,7 +365,7 @@ namespace video
 				const core::dimension2d<u32>& size);
 
 		//! Draws a mesh buffer
-		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb);
+		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb, u32 num = 1);
 
 	protected:
 		struct SHWBufferLink
@@ -402,7 +403,7 @@ namespace video
 		virtual SHWBufferLink *createHardwareBuffer(const scene::IMeshBuffer* mb) {return 0;}
 
 		//! Draw hardware buffer (only some drivers can)
-		virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer) {}
+		virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer, u32 num = 1) {}
 
 		//! Update all hardware buffers, remove unused ones
 		virtual void updateAllHardwareBuffers();
