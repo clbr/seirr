@@ -524,7 +524,7 @@ class map
 	map() : Root(0), Size(0) {}
 
 	// Destructor
-	~map()
+	virtual ~map()
 	{
 		clear();
 	}
