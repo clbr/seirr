@@ -27,7 +27,8 @@ CInstancedMeshSceneNode::CInstancedMeshSceneNode(ISceneNode* parent, ISceneManag
 		const vector3df& scale)
 : IInstancedMeshSceneNode(parent, mgr, id, mesh, initialInstances, position, rotation, scale),
 	ReadOnlyMaterials(false), Colors(0), Matrices(0),
-	ModelName(0), ColorName(0), NeedsRebuild(false), RebuildBox(false)
+	ModelName(0), ColorName(0), NeedsRebuild(false), RebuildBox(false),
+	UseColors(false)
 {
 	#ifdef _DEBUG
 	setDebugName("CInstancedMeshSceneNode");
@@ -271,6 +272,9 @@ void CInstancedMeshSceneNode::addInstance(
 
 	SColors.push_back(col);
 
+	if (col != SColor(255, 255, 255, 255))
+		UseColors = true;
+
 	NeedsRebuild = true;
 	RebuildBox = true;
 }
@@ -326,6 +330,7 @@ void CInstancedMeshSceneNode::setInstanceColor(u32 num, const SColor& col)
 	SColors[num] = col;
 
 	NeedsRebuild = true;
+	UseColors = true;
 }
 
 void CInstancedMeshSceneNode::rebuildBoundingBox()

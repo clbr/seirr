@@ -115,6 +115,7 @@ namespace scene
 
 		bool NeedsRebuild;
 		bool RebuildBox;
+		bool UseColors;
 	};
 
 } // end namespace scene
