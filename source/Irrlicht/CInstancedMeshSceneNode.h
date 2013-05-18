@@ -105,7 +105,6 @@ namespace scene
 		// Multiple inheritance causes too much problems, so just replicate
 		core::array<video::SMaterial> Materials;
 		core::aabbox3df Box;
-		IMesh *Mesh;
 		bool ReadOnlyMaterials;
 
 		core::matrix4 OldAbsoluteTrans;

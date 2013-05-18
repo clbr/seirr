@@ -27,7 +27,7 @@ public:
 			const core::vector3df& position = core::vector3df(0,0,0),
 			const core::vector3df& rotation = core::vector3df(0,0,0),
 			const core::vector3df& scale = core::vector3df(1,1,1))
-		: ISceneNode(parent, mgr, id, position, rotation, scale) {}
+		: ISceneNode(parent, mgr, id, position, rotation, scale), Mesh(0) {}
 
 	//! Sets a new mesh to display
 	/** \param mesh Mesh to display. */
@@ -47,6 +47,9 @@ public:
 	/** This flag can be set by setReadOnlyMaterials().
 	\return Whether the materials are read-only. */
 	virtual bool isReadOnlyMaterials() const = 0;
+
+protected:
+	IMesh *Mesh;
 };
 
 } // end namespace scene

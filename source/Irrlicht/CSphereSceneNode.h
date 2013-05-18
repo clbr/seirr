@@ -71,7 +71,6 @@ namespace scene
 
 	private:
 
-		IMesh* Mesh;
 		core::aabbox3d<f32> Box;
 		f32 Radius;
 		u32 PolyCountX;

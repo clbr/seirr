@@ -24,7 +24,7 @@ COctreeSceneNode::COctreeSceneNode(ISceneNode* parent, ISceneManager* mgr,
 					 s32 id, s32 minimalPolysPerNode)
 	: IMeshSceneNode(parent, mgr, id), StdOctree(0), LightMapOctree(0),
 	TangentsOctree(0), VertexType((video::E_VERTEX_TYPE)-1),
-	MinimalPolysPerNode(minimalPolysPerNode), Mesh(0),
+	MinimalPolysPerNode(minimalPolysPerNode),
 	UseVBOs(OCTREE_USE_HARDWARE), UseVisibilityAndVBOs(OCTREE_USE_VISIBILITY),
 	BoxBased(OCTREE_BOX_BASED)
 {

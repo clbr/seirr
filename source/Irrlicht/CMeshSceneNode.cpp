@@ -23,7 +23,7 @@ namespace scene
 CMeshSceneNode::CMeshSceneNode(IMesh* mesh, ISceneNode* parent, ISceneManager* mgr, s32 id,
 			const core::vector3df& position, const core::vector3df& rotation,
 			const core::vector3df& scale)
-: IMeshSceneNode(parent, mgr, id, position, rotation, scale), Mesh(0), PassCount(0),
+: IMeshSceneNode(parent, mgr, id, position, rotation, scale), PassCount(0),
 	ReadOnlyMaterials(false)
 {
 	#ifdef _DEBUG

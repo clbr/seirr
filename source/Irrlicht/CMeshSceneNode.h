@@ -79,8 +79,6 @@ namespace scene
 		core::aabbox3d<f32> Box;
 		video::SMaterial ReadOnlyMaterial;
 
-		IMesh* Mesh;
-
 		s32 PassCount;
 		bool ReadOnlyMaterials;
 	};

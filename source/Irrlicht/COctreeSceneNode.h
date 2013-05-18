@@ -88,7 +88,6 @@ namespace scene
 		s32 MinimalPolysPerNode;
 		s32 PassCount;
 
-		IMesh * Mesh;
 		//! use VBOs for rendering where possible
 		bool UseVBOs;
 		//! use visibility information together with VBOs

@@ -26,7 +26,7 @@ CInstancedMeshSceneNode::CInstancedMeshSceneNode(ISceneNode* parent, ISceneManag
 		const vector3df& position, const vector3df& rotation,
 		const vector3df& scale)
 : IInstancedMeshSceneNode(parent, mgr, id, mesh, initialInstances, position, rotation, scale),
-	Mesh(0), ReadOnlyMaterials(false), Colors(0), Matrices(0),
+	ReadOnlyMaterials(false), Colors(0), Matrices(0),
 	ModelName(0), ColorName(0), NeedsRebuild(false), RebuildBox(false)
 {
 	#ifdef _DEBUG

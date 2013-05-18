@@ -71,7 +71,6 @@ namespace scene
 	private:
 		void setSize();
 
-		IMesh* Mesh;
 		f32 Size;
 	};
 
