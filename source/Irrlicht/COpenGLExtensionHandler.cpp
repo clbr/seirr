@@ -663,7 +663,7 @@ bool COpenGLExtensionHandler::queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
 	case EVDF_MRT_BLEND_FUNC:
 		return FeatureAvailable[IRR_ARB_draw_buffers_blend] || FeatureAvailable[IRR_AMD_draw_buffers_blend];
 	case EVDF_INSTANCING:
-		return FeatureAvailable[IRR_ARB_instanced_arrays] && FeatureAvailable[IRR_ARB_draw_instanced];
+		return FeatureAvailable[IRR_ARB_instanced_arrays];
 	default:
 		return false;
 	};
