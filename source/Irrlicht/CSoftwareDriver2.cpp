@@ -4,6 +4,9 @@
 
 #include "IrrCompileConfig.h"
 #include "CSoftwareDriver2.h"
+#include "IVideoDriver.h"
+#include "IFileSystem.h"
+#include "IImagePresenter.h"
 
 #ifdef _IRR_COMPILE_WITH_BURNINGSVIDEO_
 

@@ -5,6 +5,10 @@
 #ifndef __C_VIDEO_SOFTWARE_H_INCLUDED__
 #define __C_VIDEO_SOFTWARE_H_INCLUDED__
 
+#include "IrrCompileConfig.h"
+
+#ifdef _IRR_COMPILE_WITH_SOFTWARE_
+
 #include "ITriangleRenderer.h"
 #include "CNullDriver.h"
 #include "SViewFrustum.h"
@@ -180,5 +184,6 @@ namespace video
 } // end namespace irr
 
 
+#endif // _IRR_COMPILE_WITH_SOFTWARE_
 #endif
 

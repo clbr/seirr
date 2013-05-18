@@ -6,6 +6,9 @@
 #define __C_VIDEO_2_SOFTWARE_H_INCLUDED__
 
 #include "SoftwareDriver2_compile_config.h"
+
+#ifdef _IRR_COMPILE_WITH_BURNINGSVIDEO_
+
 #include "IBurningShader.h"
 #include "CNullDriver.h"
 #include "CImage.h"
@@ -278,5 +281,6 @@ namespace video
 } // end namespace irr
 
 
+#endif // _IRR_COMPILE_WITH_BURNINGSVIDEO_
 #endif
 
