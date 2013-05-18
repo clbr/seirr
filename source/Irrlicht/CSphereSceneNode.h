@@ -58,9 +58,6 @@ namespace scene
 		//! The mesh cannot be changed
 		virtual void setMesh(IMesh* mesh) {}
 
-		//! Returns the current mesh
-		virtual IMesh* getMesh() { return Mesh; }
-
 		//! Sets if the scene node should not copy the materials of the mesh but use them in a read only style.
 		/* In this way it is possible to change the materials a mesh causing all mesh scene nodes 
 		referencing this mesh to change too. */

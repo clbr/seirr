@@ -44,9 +44,6 @@ namespace scene
 		//! Sets a new mesh
 		virtual void setMesh(IMesh* mesh);
 
-		//! Returns the current mesh
-		virtual IMesh* getMesh(void) { return Mesh; }
-
 		//! Sets if the scene node should not copy the materials of the mesh but use them directly
 		virtual void setReadOnlyMaterials(bool ro) { ReadOnlyMaterials = ro; }
 

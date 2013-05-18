@@ -522,11 +522,6 @@ void COctreeSceneNode::setMesh(IMesh* mesh)
 	createTree(mesh);
 }
 
-IMesh* COctreeSceneNode::getMesh(void)
-{
-	return Mesh;
-}
-
 void COctreeSceneNode::setReadOnlyMaterials(bool readonly)
 {
 	// Do nothing
