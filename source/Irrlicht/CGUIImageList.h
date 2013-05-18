@@ -20,7 +20,7 @@ public:
 	CGUIImageList( video::IVideoDriver* Driver );
 
 	//! destructor
-	virtual ~CGUIImageList();
+	virtual ~CGUIImageList() _IRR_OVERRIDE_;
 
 	//! Creates the image list from texture.
 	//! \param texture: The texture to use
@@ -39,7 +39,7 @@ public:
 	//! \param clip: Optional pointer to a rectalgle against which the text will be clipped.
 	//! If the pointer is null, no clipping will be done.
 	virtual void draw( s32 index, const core::position2d<s32>& destPos, 
-		const core::rect<s32>* clip = 0 );
+		const core::rect<s32>* clip = 0 ) _IRR_OVERRIDE_;
 
 	//! Returns the count of Images in the list.
 	//! \return Returns the count of Images in the list.

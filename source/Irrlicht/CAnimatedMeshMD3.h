@@ -27,7 +27,7 @@ namespace scene
 		CAnimatedMeshMD3( );
 
 		//! destructor
-		virtual ~CAnimatedMeshMD3();
+		virtual ~CAnimatedMeshMD3() _IRR_OVERRIDE_;
 
 		//! loads a quake3 md3 file
 		virtual bool loadModelFile( u32 modelIndex, io::IReadFile* file, 
@@ -35,15 +35,15 @@ namespace scene
 									);
 
 		// IAnimatedMeshMD3
-		virtual void setInterpolationShift ( u32 shift, u32 loopMode );
-		virtual SMD3Mesh * getOriginalMesh ();
-		virtual SMD3QuaternionTagList *getTagList(s32 frame, s32 detailLevel, s32 startFrameLoop, s32 endFrameLoop);
+		virtual void setInterpolationShift ( u32 shift, u32 loopMode ) _IRR_OVERRIDE_;
+		virtual SMD3Mesh * getOriginalMesh () _IRR_OVERRIDE_;
+		virtual SMD3QuaternionTagList *getTagList(s32 frame, s32 detailLevel, s32 startFrameLoop, s32 endFrameLoop) _IRR_OVERRIDE_;
 
 		//IAnimatedMesh
-		virtual u32 getFrameCount() const;
-		virtual IMesh* getMesh(s32 frame, s32 detailLevel, s32 startFrameLoop, s32 endFrameLoop);
-		virtual const core::aabbox3d<f32>& getBoundingBox() const;
-		virtual E_ANIMATED_MESH_TYPE getMeshType() const;
+		virtual u32 getFrameCount() const _IRR_OVERRIDE_;
+		virtual IMesh* getMesh(s32 frame, s32 detailLevel, s32 startFrameLoop, s32 endFrameLoop) _IRR_OVERRIDE_;
+		virtual const core::aabbox3d<f32>& getBoundingBox() const _IRR_OVERRIDE_;
+		virtual E_ANIMATED_MESH_TYPE getMeshType() const _IRR_OVERRIDE_;
 
 		//! returns amount of mesh buffers.
 		virtual u32 getMeshBufferCount() const
@@ -72,10 +72,10 @@ namespace scene
 		}
 
 		//! set the hardware mapping hint, for driver
-		virtual void setHardwareMappingHint(E_HARDWARE_MAPPING newMappingHint, E_BUFFER_TYPE buffer=EBT_VERTEX_AND_INDEX);
+		virtual void setHardwareMappingHint(E_HARDWARE_MAPPING newMappingHint, E_BUFFER_TYPE buffer=EBT_VERTEX_AND_INDEX) _IRR_OVERRIDE_;
 
 		//! flags the meshbuffer as changed, reloads hardware buffers
-		virtual void setDirty(E_BUFFER_TYPE buffer=EBT_VERTEX_AND_INDEX);
+		virtual void setDirty(E_BUFFER_TYPE buffer=EBT_VERTEX_AND_INDEX) _IRR_OVERRIDE_;
 
 		//! set user axis aligned bounding box
 		virtual void setBoundingBox(const core::aabbox3df& box)

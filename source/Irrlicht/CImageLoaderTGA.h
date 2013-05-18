@@ -74,10 +74,10 @@ public:
 	virtual bool isALoadableFileExtension(const io::path& filename) const;
 
 	//! returns true if the file maybe is able to be loaded by this class
-	virtual bool isALoadableFileFormat(io::IReadFile* file) const;
+	virtual bool isALoadableFileFormat(io::IReadFile* file) const _IRR_OVERRIDE_;
 
 	//! creates a surface from the file
-	virtual IImage* loadImage(io::IReadFile* file) const;
+	virtual IImage* loadImage(io::IReadFile* file) const _IRR_OVERRIDE_;
 
 private:
 

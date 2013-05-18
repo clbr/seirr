@@ -40,107 +40,107 @@ namespace video
 		CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize);
 
 		//! destructor
-		virtual ~CNullDriver();
+		virtual ~CNullDriver() _IRR_OVERRIDE_;
 
 		virtual bool beginScene(bool backBuffer=true, bool zBuffer=true,
 				SColor color=SColor(255,0,0,0),
 				const SExposedVideoData& videoData=SExposedVideoData(),
-				core::rect<s32>* sourceRect=0);
+				core::rect<s32>* sourceRect=0) _IRR_OVERRIDE_;
 
-		virtual bool endScene();
+		virtual bool endScene() _IRR_OVERRIDE_;
 
 		//! Disable a feature of the driver.
-		virtual void disableFeature(E_VIDEO_DRIVER_FEATURE feature, bool flag=true);
+		virtual void disableFeature(E_VIDEO_DRIVER_FEATURE feature, bool flag=true) _IRR_OVERRIDE_;
 
 		//! queries the features of the driver, returns true if feature is available
-		virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const;
+		virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const _IRR_OVERRIDE_;
 
 		//! sets transformation
-		virtual void setTransform(E_TRANSFORMATION_STATE state, const core::matrix4& mat);
+		virtual void setTransform(E_TRANSFORMATION_STATE state, const core::matrix4& mat) _IRR_OVERRIDE_;
 
 		//! Retrieve the number of image loaders
-		virtual u32 getImageLoaderCount() const;
+		virtual u32 getImageLoaderCount() const _IRR_OVERRIDE_;
 
 		//! Retrieve the given image loader
-		virtual IImageLoader* getImageLoader(u32 n);
+		virtual IImageLoader* getImageLoader(u32 n) _IRR_OVERRIDE_;
 
 		//! Retrieve the number of image writers
-		virtual u32 getImageWriterCount() const;
+		virtual u32 getImageWriterCount() const _IRR_OVERRIDE_;
 
 		//! Retrieve the given image writer
-		virtual IImageWriter* getImageWriter(u32 n);
+		virtual IImageWriter* getImageWriter(u32 n) _IRR_OVERRIDE_;
 
 		//! sets a material
-		virtual void setMaterial(const SMaterial& material);
+		virtual void setMaterial(const SMaterial& material) _IRR_OVERRIDE_;
 
 		//! loads a Texture
-		virtual ITexture* getTexture(const io::path& filename);
+		virtual ITexture* getTexture(const io::path& filename) _IRR_OVERRIDE_;
 
 		//! loads a Texture
-		virtual ITexture* getTexture(io::IReadFile* file);
+		virtual ITexture* getTexture(io::IReadFile* file) _IRR_OVERRIDE_;
 
 		//! loads a texture array
-		virtual ITexture* getTexture(const core::array<io::path> &files);
+		virtual ITexture* getTexture(const core::array<io::path> &files) _IRR_OVERRIDE_;
 
 		//! Returns amount of textures currently loaded
-		virtual u32 getTextureCount() const;
+		virtual u32 getTextureCount() const _IRR_OVERRIDE_;
 
-		virtual u32 indiceToPrimitiveCount(scene::E_PRIMITIVE_TYPE pType, u32 count) const;
+		virtual u32 indiceToPrimitiveCount(scene::E_PRIMITIVE_TYPE pType, u32 count) const _IRR_OVERRIDE_;
 
 		//! Renames a texture
-		virtual void renameTexture(ITexture* texture, const io::path& newName);
+		virtual void renameTexture(ITexture* texture, const io::path& newName) _IRR_OVERRIDE_;
 
 		//! creates a Texture
-		virtual ITexture* addTexture(const core::dimension2d<u32>& size, const io::path& name, ECOLOR_FORMAT format = ECF_A8R8G8B8);
+		virtual ITexture* addTexture(const core::dimension2d<u32>& size, const io::path& name, ECOLOR_FORMAT format = ECF_A8R8G8B8) _IRR_OVERRIDE_;
 
 		//! sets a render target
 		virtual bool setRenderTarget(video::ITexture* texture, bool clearBackBuffer,
-						bool clearZBuffer, SColor color);
+						bool clearZBuffer, SColor color) _IRR_OVERRIDE_;
 
 		//! set or reset special render targets
 		virtual bool setRenderTarget(video::E_RENDER_TARGET target, bool clearTarget,
-					bool clearZBuffer, SColor color);
+					bool clearZBuffer, SColor color) _IRR_OVERRIDE_;
 
 		//! Sets multiple render targets
 		virtual bool setRenderTarget(const core::array<video::IRenderTarget>& texture,
-					bool clearBackBuffer=true, bool clearZBuffer=true, SColor color=SColor(0,0,0,0));
+					bool clearBackBuffer=true, bool clearZBuffer=true, SColor color=SColor(0,0,0,0)) _IRR_OVERRIDE_;
 
 		//! sets a viewport
-		virtual void setViewPort(const core::rect<s32>& area);
+		virtual void setViewPort(const core::rect<s32>& area) _IRR_OVERRIDE_;
 
 		//! gets the area of the current viewport
-		virtual const core::rect<s32>& getViewPort() const;
+		virtual const core::rect<s32>& getViewPort() const _IRR_OVERRIDE_;
 
 		//! Setup a custom vertex attribute
 		virtual void setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
 			u32 divisor,
-			bool normalize, u32 stride, const void *ptr);
+			bool normalize, u32 stride, const void *ptr) _IRR_OVERRIDE_;
 
 		//! draws a vertex primitive list
 		virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primitiveCount,
 				E_VERTEX_TYPE vType=EVT_STANDARD, scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES,
-				E_INDEX_TYPE iType=EIT_16BIT, u32 num = 1);
+				E_INDEX_TYPE iType=EIT_16BIT, u32 num = 1) _IRR_OVERRIDE_;
 
 		//! draws a vertex primitive list in 2d
 		virtual void draw2DVertexPrimitiveList(const void* vertices, u32 vertexCount,
 				const void* indexList, u32 primitiveCount,
-				E_VERTEX_TYPE vType=EVT_STANDARD, scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES, E_INDEX_TYPE iType=EIT_16BIT);
+				E_VERTEX_TYPE vType=EVT_STANDARD, scene::E_PRIMITIVE_TYPE pType=scene::EPT_TRIANGLES, E_INDEX_TYPE iType=EIT_16BIT) _IRR_OVERRIDE_;
 
 		//! Draws a 3d line.
 		virtual void draw3DLine(const core::vector3df& start,
-			const core::vector3df& end, SColor color = SColor(255,255,255,255));
+			const core::vector3df& end, SColor color = SColor(255,255,255,255)) _IRR_OVERRIDE_;
 
 		//! Draws a 3d triangle.
 		virtual void draw3DTriangle(const core::triangle3df& triangle,
-			SColor color = SColor(255,255,255,255));
+			SColor color = SColor(255,255,255,255)) _IRR_OVERRIDE_;
 
 		//! Draws a 3d axis aligned box.
 		virtual void draw3DBox(const core::aabbox3d<f32>& box,
-			SColor color = SColor(255,255,255,255));
+			SColor color = SColor(255,255,255,255)) _IRR_OVERRIDE_;
 
 		//! draws an 2d image
-		virtual void draw2DImage(const video::ITexture* texture, const core::position2d<s32>& destPos);
+		virtual void draw2DImage(const video::ITexture* texture, const core::position2d<s32>& destPos) _IRR_OVERRIDE_;
 
 		//! draws a set of 2d images, using a color and the alpha
 		/** channel of the texture if desired. The images are drawn
@@ -166,7 +166,7 @@ namespace video
 				s32 kerningWidth = 0,
 				const core::rect<s32>* clipRect = 0,
 				SColor color=SColor(255,255,255,255),
-				bool useAlphaChannelOfTexture=false);
+				bool useAlphaChannelOfTexture=false) _IRR_OVERRIDE_;
 
 		//! Draws a set of 2d images, using a color and the alpha channel of the texture.
 		/** All drawings are clipped against clipRect (if != 0).
@@ -189,101 +189,101 @@ namespace video
 				const core::array<core::rect<s32> >& sourceRects,
 				const core::rect<s32>* clipRect=0,
 				SColor color=SColor(255,255,255,255),
-				bool useAlphaChannelOfTexture=false);
+				bool useAlphaChannelOfTexture=false) _IRR_OVERRIDE_;
 
 		//! Draws a 2d image, using a color (if color is other then Color(255,255,255,255)) and the alpha channel of the texture if wanted.
 		virtual void draw2DImage(const video::ITexture* texture, const core::position2d<s32>& destPos,
 			const core::rect<s32>& sourceRect, const core::rect<s32>* clipRect = 0,
-			SColor color=SColor(255,255,255,255), bool useAlphaChannelOfTexture=false);
+			SColor color=SColor(255,255,255,255), bool useAlphaChannelOfTexture=false) _IRR_OVERRIDE_;
 
 		//! Draws a part of the texture into the rectangle.
 		virtual void draw2DImage(const video::ITexture* texture, const core::rect<s32>& destRect,
 			const core::rect<s32>& sourceRect, const core::rect<s32>* clipRect = 0,
-			const video::SColor* const colors=0, bool useAlphaChannelOfTexture=false);
+			const video::SColor* const colors=0, bool useAlphaChannelOfTexture=false) _IRR_OVERRIDE_;
 
 		//! Draws a 2d rectangle
-		virtual void draw2DRectangle(SColor color, const core::rect<s32>& pos, const core::rect<s32>* clip = 0);
+		virtual void draw2DRectangle(SColor color, const core::rect<s32>& pos, const core::rect<s32>* clip = 0) _IRR_OVERRIDE_;
 
 		//! Draws a 2d rectangle with a gradient.
 		virtual void draw2DRectangle(const core::rect<s32>& pos,
 			SColor colorLeftUp, SColor colorRightUp, SColor colorLeftDown, SColor colorRightDown,
-			const core::rect<s32>* clip = 0);
+			const core::rect<s32>* clip = 0) _IRR_OVERRIDE_;
 
 		//! Draws the outline of a 2d rectangle
-		virtual void draw2DRectangleOutline(const core::recti& pos, SColor color=SColor(255,255,255,255));
+		virtual void draw2DRectangleOutline(const core::recti& pos, SColor color=SColor(255,255,255,255)) _IRR_OVERRIDE_;
 
 		//! Draws a 2d line.
 		virtual void draw2DLine(const core::position2d<s32>& start,
 					const core::position2d<s32>& end,
-					SColor color=SColor(255,255,255,255));
+					SColor color=SColor(255,255,255,255)) _IRR_OVERRIDE_;
 
 		//! Draws a pixel
-		virtual void drawPixel(u32 x, u32 y, const SColor & color);
+		virtual void drawPixel(u32 x, u32 y, const SColor & color) _IRR_OVERRIDE_;
 
 		//! Draws a non filled concyclic reqular 2d polyon.
 		virtual void draw2DPolygon(core::position2d<s32> center,
-			f32 radius, video::SColor Color, s32 vertexCount);
+			f32 radius, video::SColor Color, s32 vertexCount) _IRR_OVERRIDE_;
 
 		virtual void setFog(SColor color=SColor(0,255,255,255),
 				E_FOG_TYPE fogType=EFT_FOG_LINEAR,
 				f32 start=50.0f, f32 end=100.0f, f32 density=0.01f,
-				bool pixelFog=false, bool rangeFog=false);
+				bool pixelFog=false, bool rangeFog=false) _IRR_OVERRIDE_;
 
 		virtual void getFog(SColor& color, E_FOG_TYPE& fogType,
 				f32& start, f32& end, f32& density,
-				bool& pixelFog, bool& rangeFog);
+				bool& pixelFog, bool& rangeFog) _IRR_OVERRIDE_;
 
 		//! get color format of the current color buffer
-		virtual ECOLOR_FORMAT getColorFormat() const;
+		virtual ECOLOR_FORMAT getColorFormat() const _IRR_OVERRIDE_;
 
 		//! get screen size
-		virtual const core::dimension2d<u32>& getScreenSize() const;
+		virtual const core::dimension2d<u32>& getScreenSize() const _IRR_OVERRIDE_;
 
 		//! get render target size
-		virtual const core::dimension2d<u32>& getCurrentRenderTargetSize() const;
+		virtual const core::dimension2d<u32>& getCurrentRenderTargetSize() const _IRR_OVERRIDE_;
 
 		// get current frames per second value
-		virtual s32 getFPS() const;
+		virtual s32 getFPS() const _IRR_OVERRIDE_;
 
 		//! returns amount of primitives (mostly triangles) were drawn in the last frame.
 		//! very useful method for statistics.
-		virtual u32 getPrimitiveCountDrawn( u32 param = 0 ) const;
+		virtual u32 getPrimitiveCountDrawn( u32 param = 0 ) const _IRR_OVERRIDE_;
 
 		//! deletes all dynamic lights there are
-		virtual void deleteAllDynamicLights();
+		virtual void deleteAllDynamicLights() _IRR_OVERRIDE_;
 
 		//! adds a dynamic light, returning an index to the light
 		//! \param light: the light data to use to create the light
 		//! \return An index to the light, or -1 if an error occurs
-		virtual s32 addDynamicLight(const SLight& light);
+		virtual s32 addDynamicLight(const SLight& light) _IRR_OVERRIDE_;
 
 		//! Turns a dynamic light on or off
 		//! \param lightIndex: the index returned by addDynamicLight
 		//! \param turnOn: true to turn the light on, false to turn it off
-		virtual void turnLightOn(s32 lightIndex, bool turnOn);
+		virtual void turnLightOn(s32 lightIndex, bool turnOn) _IRR_OVERRIDE_;
 
 		//! returns the maximal amount of dynamic lights the device can handle
-		virtual u32 getMaximalDynamicLightAmount() const;
+		virtual u32 getMaximalDynamicLightAmount() const _IRR_OVERRIDE_;
 
 		//! \return Returns the name of the video driver. Example: In case of the DIRECT3D8
 		//! driver, it would return "Direct3D8.1".
-		virtual const wchar_t* getName() const;
+		virtual const wchar_t* getName() const _IRR_OVERRIDE_;
 
 		//! Sets the dynamic ambient light color. The default color is
 		//! (0,0,0,0) which means it is dark.
 		//! \param color: New color of the ambient light.
-		virtual void setAmbientLight(const SColorf& color);
+		virtual void setAmbientLight(const SColorf& color) _IRR_OVERRIDE_;
 
 		//! Adds an external image loader to the engine.
-		virtual void addExternalImageLoader(IImageLoader* loader);
+		virtual void addExternalImageLoader(IImageLoader* loader) _IRR_OVERRIDE_;
 
 		//! Adds an external image writer to the engine.
-		virtual void addExternalImageWriter(IImageWriter* writer);
+		virtual void addExternalImageWriter(IImageWriter* writer) _IRR_OVERRIDE_;
 
 		//! Draws a shadow volume into the stencil buffer. To draw a stencil shadow, do
 		//! this: Frist, draw all geometry. Then use this method, to draw the shadow
 		//! volume. Then, use IVideoDriver::drawStencilShadow() to visualize the shadow.
-		virtual void drawStencilShadowVolume(const core::vector3df* triangles, s32 count, bool zfail=true);
+		virtual void drawStencilShadowVolume(const core::vector3df* triangles, s32 count, bool zfail=true) _IRR_OVERRIDE_;
 
 		//! Fills the stencil shadow with color. After the shadow volume has been drawn
 		//! into the stencil buffer using IVideoDriver::drawStencilShadowVolume(), use this
@@ -292,57 +292,57 @@ namespace video
 			video::SColor leftUpEdge = video::SColor(0,0,0,0),
 			video::SColor rightUpEdge = video::SColor(0,0,0,0),
 			video::SColor leftDownEdge = video::SColor(0,0,0,0),
-			video::SColor rightDownEdge = video::SColor(0,0,0,0));
+			video::SColor rightDownEdge = video::SColor(0,0,0,0)) _IRR_OVERRIDE_;
 
 		//! Returns current amount of dynamic lights set
 		//! \return Current amount of dynamic lights set
-		virtual u32 getDynamicLightCount() const;
+		virtual u32 getDynamicLightCount() const _IRR_OVERRIDE_;
 
 		//! Returns light data which was previously set with IVideDriver::addDynamicLight().
 		//! \param idx: Zero based index of the light. Must be greater than 0 and smaller
 		//! than IVideoDriver()::getDynamicLightCount.
 		//! \return Light data.
-		virtual const SLight& getDynamicLight(u32 idx) const;
+		virtual const SLight& getDynamicLight(u32 idx) const _IRR_OVERRIDE_;
 
 		//! Removes a texture from the texture cache and deletes it, freeing lot of
 		//! memory.
-		virtual void removeTexture(ITexture* texture);
+		virtual void removeTexture(ITexture* texture) _IRR_OVERRIDE_;
 
 		//! Removes all texture from the texture cache and deletes them, freeing lot of
 		//! memory.
-		virtual void removeAllTextures();
+		virtual void removeAllTextures() _IRR_OVERRIDE_;
 
 		//! Creates a render target texture.
 		virtual ITexture* addRenderTargetTexture(const core::dimension2d<u32>& size,
 			const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN,
-			const bool useStencil = false);
+			const bool useStencil = false) _IRR_OVERRIDE_;
 
 		//! Creates an 1bit alpha channel of the texture based of an color key.
-		virtual void makeColorKeyTexture(video::ITexture* texture, video::SColor color, bool zeroTexels) const;
+		virtual void makeColorKeyTexture(video::ITexture* texture, video::SColor color, bool zeroTexels) const _IRR_OVERRIDE_;
 
 		//! Creates an 1bit alpha channel of the texture based of an color key position.
-		virtual void makeColorKeyTexture(video::ITexture* texture, core::position2d<s32> colorKeyPixelPos, bool zeroTexels) const;
+		virtual void makeColorKeyTexture(video::ITexture* texture, core::position2d<s32> colorKeyPixelPos, bool zeroTexels) const _IRR_OVERRIDE_;
 
 		//! Creates a normal map from a height map texture.
 		//! \param amplitude: Constant value by which the height information is multiplied.
-		virtual void makeNormalMapTexture(video::ITexture* texture, f32 amplitude=1.0f) const;
+		virtual void makeNormalMapTexture(video::ITexture* texture, f32 amplitude=1.0f) const _IRR_OVERRIDE_;
 
 		//! Returns the maximum amount of primitives (mostly vertices) which
 		//! the device is able to render with one drawIndexedTriangleList
 		//! call.
-		virtual u32 getMaximalPrimitiveCount() const;
+		virtual u32 getMaximalPrimitiveCount() const _IRR_OVERRIDE_;
 
 		//! Enables or disables a texture creation flag.
-		virtual void setTextureCreationFlag(E_TEXTURE_CREATION_FLAG flag, bool enabled);
+		virtual void setTextureCreationFlag(E_TEXTURE_CREATION_FLAG flag, bool enabled) _IRR_OVERRIDE_;
 
 		//! Returns if a texture creation flag is enabled or disabled.
-		virtual bool getTextureCreationFlag(E_TEXTURE_CREATION_FLAG flag) const;
+		virtual bool getTextureCreationFlag(E_TEXTURE_CREATION_FLAG flag) const _IRR_OVERRIDE_;
 
 		//! Creates a software image from a file.
-		virtual IImage* createImageFromFile(const io::path& filename);
+		virtual IImage* createImageFromFile(const io::path& filename) _IRR_OVERRIDE_;
 
 		//! Creates a software image from a file.
-		virtual IImage* createImageFromFile(io::IReadFile* file);
+		virtual IImage* createImageFromFile(io::IReadFile* file) _IRR_OVERRIDE_;
 
 		//! Creates a software image from a byte array.
 		/** \param useForeignMemory: If true, the image will use the data pointer
@@ -350,27 +350,27 @@ namespace video
 		data when the image will be destructed. If false, the memory will by copied. */
 		virtual IImage* createImageFromData(ECOLOR_FORMAT format,
 			const core::dimension2d<u32>& size, void *data,
-			bool ownForeignMemory=true, bool deleteForeignMemory = true);
+			bool ownForeignMemory=true, bool deleteForeignMemory = true) _IRR_OVERRIDE_;
 
 		//! Creates an empty software image.
-		virtual IImage* createImage(ECOLOR_FORMAT format, const core::dimension2d<u32>& size);
+		virtual IImage* createImage(ECOLOR_FORMAT format, const core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 
 		//! Creates a software image from another image.
-		virtual IImage* createImage(ECOLOR_FORMAT format, IImage *imageToCopy);
+		virtual IImage* createImage(ECOLOR_FORMAT format, IImage *imageToCopy) _IRR_OVERRIDE_;
 
 		//! Creates a software image from part of another image.
 		virtual IImage* createImage(IImage* imageToCopy,
 				const core::position2d<s32>& pos,
-				const core::dimension2d<u32>& size);
+				const core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 		//! Creates a software image from part of a texture.
 		virtual IImage* createImage(ITexture* texture,
 				const core::position2d<s32>& pos,
-				const core::dimension2d<u32>& size);
+				const core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 		//! Draws a mesh buffer
-		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb, u32 num = 1);
+		virtual void drawMeshBuffer(const scene::IMeshBuffer* mb, u32 num = 1) _IRR_OVERRIDE_;
 
 	protected:
 		struct SHWBufferLink
@@ -428,23 +428,23 @@ namespace video
 	public:
 		//! Only used by the engine internally.
 		/** Used to notify the driver that the window was resized. */
-		virtual void OnResize(const core::dimension2d<u32>& size);
+		virtual void OnResize(const core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 		//! Adds a new material renderer to the video device.
 		virtual s32 addMaterialRenderer(IMaterialRenderer* renderer,
-				const char* name = 0);
+				const char* name = 0) _IRR_OVERRIDE_;
 
 		//! Returns driver and operating system specific data about the IVideoDriver.
-		virtual const SExposedVideoData& getExposedVideoData();
+		virtual const SExposedVideoData& getExposedVideoData() _IRR_OVERRIDE_;
 
 		//! Returns type of video driver
-		virtual E_DRIVER_TYPE getDriverType() const;
+		virtual E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_;
 
 		//! Returns the transformation set by setTransform
-		virtual const core::matrix4& getTransform(E_TRANSFORMATION_STATE state) const;
+		virtual const core::matrix4& getTransform(E_TRANSFORMATION_STATE state) const _IRR_OVERRIDE_;
 
 		//! Returns pointer to the IGPUProgrammingServices interface.
-		virtual IGPUProgrammingServices* getGPUProgrammingServices();
+		virtual IGPUProgrammingServices* getGPUProgrammingServices() _IRR_OVERRIDE_;
 
 		//! Adds a new material renderer to the VideoDriver, using pixel and/or
 		//! vertex shaders to render geometry.
@@ -452,7 +452,7 @@ namespace video
 			const c8* pixelShaderProgram = 0,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Like IGPUProgrammingServices::addShaderMaterial(), but tries to load the
 		//! programs from files.
@@ -460,7 +460,7 @@ namespace video
 			io::IReadFile* pixelShaderProgram = 0,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Like IGPUProgrammingServices::addShaderMaterial(), but tries to load the
 		//! programs from files.
@@ -468,16 +468,16 @@ namespace video
 			const io::path& pixelShaderProgramFileName,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Returns pointer to material renderer or null
-		virtual IMaterialRenderer* getMaterialRenderer(u32 idx);
+		virtual IMaterialRenderer* getMaterialRenderer(u32 idx) _IRR_OVERRIDE_;
 
 		//! Returns amount of currently available material renderers.
-		virtual u32 getMaterialRendererCount() const;
+		virtual u32 getMaterialRendererCount() const _IRR_OVERRIDE_;
 
 		//! Returns name of the material renderer
-		virtual const char* getMaterialRendererName(u32 idx) const;
+		virtual const char* getMaterialRendererName(u32 idx) const _IRR_OVERRIDE_;
 
 		//! Adds a new material renderer to the VideoDriver, based on a high level shading
 		//! language. Currently only HLSL in D3D9 is supported.
@@ -496,7 +496,7 @@ namespace video
 			u32 verticesOut = 0,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Like IGPUProgrammingServices::addShaderMaterial() (look there for a detailed description),
 		//! but tries to load the programs from files.
@@ -515,7 +515,7 @@ namespace video
 			u32 verticesOut = 0,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Like IGPUProgrammingServices::addShaderMaterial() (look there for a detailed description),
 		//! but tries to load the programs from files.
@@ -534,50 +534,50 @@ namespace video
 			u32 verticesOut = 0,
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
-			s32 userData=0);
+			s32 userData=0) _IRR_OVERRIDE_;
 
 		//! Returns a pointer to the mesh manipulator.
-		virtual scene::IMeshManipulator* getMeshManipulator();
+		virtual scene::IMeshManipulator* getMeshManipulator() _IRR_OVERRIDE_;
 
 		//! Clears the ZBuffer.
-		virtual void clearZBuffer();
+		virtual void clearZBuffer() _IRR_OVERRIDE_;
 
 		//! Returns an image created from the last rendered frame.
-		virtual IImage* createScreenShot();
+		virtual IImage* createScreenShot() _IRR_OVERRIDE_;
 
 		//! Writes the provided image to disk file
-		virtual bool writeImageToFile(IImage* image, const io::path& filename, u32 param = 0);
+		virtual bool writeImageToFile(IImage* image, const io::path& filename, u32 param = 0) _IRR_OVERRIDE_;
 
 		//! Writes the provided image to a file.
-		virtual bool writeImageToFile(IImage* image, io::IWriteFile * file, u32 param = 0);
+		virtual bool writeImageToFile(IImage* image, io::IWriteFile * file, u32 param = 0) _IRR_OVERRIDE_;
 
 		//! Sets the name of a material renderer.
-		virtual void setMaterialRendererName(s32 idx, const char* name);
+		virtual void setMaterialRendererName(s32 idx, const char* name) _IRR_OVERRIDE_;
 
 		//! Creates material attributes list from a material, usable for serialization and more.
-		virtual io::IAttributes* createAttributesFromMaterial(const video::SMaterial& material);
+		virtual io::IAttributes* createAttributesFromMaterial(const video::SMaterial& material) _IRR_OVERRIDE_;
 
 		//! Fills an SMaterial structure from attributes.
-		virtual void fillMaterialStructureFromAttributes(video::SMaterial& outMaterial, io::IAttributes* attributes);
+		virtual void fillMaterialStructureFromAttributes(video::SMaterial& outMaterial, io::IAttributes* attributes) _IRR_OVERRIDE_;
 
 		//! looks if the image is already loaded
-		virtual video::ITexture* findTexture(const io::path& filename);
+		virtual video::ITexture* findTexture(const io::path& filename) _IRR_OVERRIDE_;
 
 		//! Set/unset a clipping plane.
 		//! There are at least 6 clipping planes available for the user to set at will.
 		//! \param index: The plane index. Must be between 0 and MaxUserClipPlanes.
 		//! \param plane: The plane itself.
 		//! \param enable: If true, enable the clipping plane else disable it.
-		virtual bool setClipPlane(u32 index, const core::plane3df& plane, bool enable=false);
+		virtual bool setClipPlane(u32 index, const core::plane3df& plane, bool enable=false) _IRR_OVERRIDE_;
 
 		//! Enable/disable a clipping plane.
 		//! There are at least 6 clipping planes available for the user to set at will.
 		//! \param index: The plane index. Must be between 0 and MaxUserClipPlanes.
 		//! \param enable: If true, enable the clipping plane else disable it.
-		virtual void enableClipPlane(u32 index, bool enable);
+		virtual void enableClipPlane(u32 index, bool enable) _IRR_OVERRIDE_;
 
 		//! Returns the graphics card vendor name.
-		virtual core::stringc getVendorInfo() {return "Not available on this driver.";}
+		virtual core::stringc getVendorInfo() _IRR_OVERRIDE_ {return "Not available on this driver.";}
 
 		//! Set the minimum number of vertices for which a hw buffer will be created
 		/** \param count Number of vertices to set as minimum. */
@@ -587,13 +587,13 @@ namespace video
 		/** Depending on the enable flags, values from this Material
 		are used to override those of local materials of some
 		meshbuffer being rendered. */
-		virtual SOverrideMaterial& getOverrideMaterial();
+		virtual SOverrideMaterial& getOverrideMaterial() _IRR_OVERRIDE_;
 
 		//! Get the 2d override material for altering its values
-		virtual SMaterial& getMaterial2D();
+		virtual SMaterial& getMaterial2D() _IRR_OVERRIDE_;
 
 		//! Enable the 2d override material
-		virtual void enableMaterial2D(bool enable=true);
+		virtual void enableMaterial2D(bool enable=true) _IRR_OVERRIDE_;
 
 		//! Only used by the engine internally.
 		virtual void setAllowZWriteOnTransparent(bool flag)
@@ -606,7 +606,7 @@ namespace video
 		virtual ITexture* createRenderTargetTexture(const core::dimension2d<u32>& size,
 				const c8* name=0);
 
-		virtual bool checkDriverReset() {return false;}
+		virtual bool checkDriverReset() _IRR_OVERRIDE_ {return false;}
 	protected:
 
 		//! deletes all textures
@@ -619,7 +619,7 @@ namespace video
 		void addTexture(video::ITexture* surface);
 
 		//! Creates a texture from a loaded IImage.
-		virtual ITexture* addTexture(const io::path& name, IImage* image, void* mipmapData=0);
+		virtual ITexture* addTexture(const io::path& name, IImage* image, void* mipmapData=0) _IRR_OVERRIDE_;
 
 		//! returns a device dependent texture from a software surface (IImage)
 		//! THIS METHOD HAS TO BE OVERRIDDEN BY DERIVED DRIVERS WITH OWN TEXTURES
@@ -668,14 +668,14 @@ namespace video
 		{
 			SDummyTexture(const io::path& name) : ITexture(name), size(0,0) {};
 
-			virtual void* lock(bool readOnly = false, u32 mipmapLevel=0) { return 0; };
-			virtual void unlock(){}
-			virtual const core::dimension2d<u32>& getOriginalSize() const { return size; }
-			virtual const core::dimension2d<u32>& getSize() const { return size; }
-			virtual E_DRIVER_TYPE getDriverType() const { return video::EDT_NULL; }
-			virtual ECOLOR_FORMAT getColorFormat() const { return video::ECF_A1R5G5B5; };
-			virtual u32 getPitch() const { return 0; }
-			virtual void regenerateMipMapLevels(void* mipmapData=0) {};
+			virtual void* lock(bool readOnly = false, u32 mipmapLevel=0) _IRR_OVERRIDE_ { return 0; };
+			virtual void unlock()_IRR_OVERRIDE_ {}
+			virtual const core::dimension2d<u32>& getOriginalSize() const _IRR_OVERRIDE_ { return size; }
+			virtual const core::dimension2d<u32>& getSize() const _IRR_OVERRIDE_ { return size; }
+			virtual E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_ { return video::EDT_NULL; }
+			virtual ECOLOR_FORMAT getColorFormat() const _IRR_OVERRIDE_ { return video::ECF_A1R5G5B5; };
+			virtual u32 getPitch() const _IRR_OVERRIDE_ { return 0; }
+			virtual void regenerateMipMapLevels(void* mipmapData=0) _IRR_OVERRIDE_ {};
 			core::dimension2d<u32> size;
 		};
 

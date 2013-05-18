@@ -31,7 +31,7 @@ public:
 	CTerrainTriangleSelector(ITerrainSceneNode* node, s32 LOD);
 
 	//! Destructor
-	virtual ~CTerrainTriangleSelector();
+	virtual ~CTerrainTriangleSelector() _IRR_OVERRIDE_;
 
 	//! Clears and sets triangle data
 	virtual void setTriangleData (ITerrainSceneNode* node, s32 LOD);
@@ -47,10 +47,10 @@ public:
 	//! Gets all triangles which have or may have contact with a 3d line.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize,
 		s32& outTriangleCount, const core::line3d<f32>& line, 
-		const core::matrix4* transform=0) const;
+		const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 
 	//! Returns amount of all available triangles in this selector
-	virtual s32 getTriangleCount() const;
+	virtual s32 getTriangleCount() const _IRR_OVERRIDE_;
 
 	//! Return the scene node associated with a given triangle.
 	/** ITerrainSceneNode is an ISceneNode, we just don't know it yet. */

@@ -57,9 +57,9 @@ class CImageLoaderWAL : public irr::video::IImageLoader
 public:
 	virtual bool isALoadableFileExtension(const io::path& filename) const;
 
-	virtual bool isALoadableFileFormat(irr::io::IReadFile* file) const;
+	virtual bool isALoadableFileFormat(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
 
-	virtual irr::video::IImage* loadImage(irr::io::IReadFile* file) const;
+	virtual irr::video::IImage* loadImage(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
 
 private:
 	static s32 DefaultPaletteQ2[256];

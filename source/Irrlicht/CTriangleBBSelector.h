@@ -24,7 +24,7 @@ public:
 
 	//! Gets all triangles.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize, s32& outTriangleCount, 
-		const core::matrix4* transform=0) const;
+		const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 };
 
 } // end namespace scene
