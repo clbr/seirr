@@ -19,6 +19,8 @@ class COctreeTriangleSelector : public CTriangleSelector
 {
 public:
 
+	using CTriangleSelector::getTriangles;
+
 	//! Constructs a selector based on a mesh
 	COctreeTriangleSelector(const IMesh* mesh, const ISceneNode* node, s32 minimalPolysPerNode);
 

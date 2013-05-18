@@ -36,6 +36,9 @@ namespace video
 	{
 	public:
 
+		using CNullDriver::draw2DImage;
+		using CNullDriver::draw2DImageBatch;
+
 		#ifdef _IRR_COMPILE_WITH_WINDOWS_DEVICE_
 		COpenGLDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* io, CIrrDeviceWin32* device);
 		//! inits the windows specific parts of the open gl driver

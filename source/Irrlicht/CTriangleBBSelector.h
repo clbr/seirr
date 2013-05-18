@@ -17,6 +17,8 @@ class CTriangleBBSelector : public CTriangleSelector
 {
 public:
 
+	using CTriangleSelector::getTriangles;
+
 	//! Constructs a selector based on a mesh
 	CTriangleBBSelector(const ISceneNode* node);
 

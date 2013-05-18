@@ -21,6 +21,8 @@ class CBoolAttribute : public IAttribute
 {
 public:
 
+	using IAttribute::setString;
+
 	CBoolAttribute(const char* name, bool value)
 	{
 		Name = name;
@@ -84,6 +86,7 @@ public:
 class CIntAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CIntAttribute(const char* name, s32 value)
 	{
@@ -144,6 +147,7 @@ public:
 class CFloatAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CFloatAttribute(const char* name, f32 value)
 	{
@@ -211,6 +215,7 @@ public:
 class CNumbersAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CNumbersAttribute(const char* name, video::SColorf value) :
 		ValueI(), ValueF(), Count(4), IsFloat(true)
@@ -1206,6 +1211,7 @@ public:
 class CColorAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CColorAttribute(const char* name, const video::SColorf& value) : CNumbersAttribute(name, value) {}
 
@@ -1272,6 +1278,7 @@ public:
 class CVector3DAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CVector3DAttribute(const char* name, core::vector3df value) : CNumbersAttribute(name, value) {}
 
@@ -1298,6 +1305,7 @@ public:
 class CPosition2DAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CPosition2DAttribute(const char* name, core::position2di value) : CNumbersAttribute(name, value) {}
 
@@ -1318,6 +1326,7 @@ public:
 class CRectAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CRectAttribute(const char* name, core::rect<s32> value) : CNumbersAttribute(name, value) { }
 
@@ -1336,6 +1345,7 @@ public:
 class CMatrixAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CMatrixAttribute(const char* name, core::matrix4 value) : CNumbersAttribute(name, value) { }
 
@@ -1359,6 +1369,7 @@ public:
 class CQuaternionAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CQuaternionAttribute(const char* name, core::quaternion value) : CNumbersAttribute(name, value) { }
 
@@ -1383,6 +1394,7 @@ public:
 class CBBoxAttribute : public CNumbersAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CBBoxAttribute(const char* name, core::aabbox3df value) : CNumbersAttribute(name, value) { }
 
@@ -1487,6 +1499,7 @@ public:
 class CEnumAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CEnumAttribute(const char* name, const char* value, const char* const* literals)
 	{
@@ -1796,6 +1809,7 @@ public:
 class CTextureAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CTextureAttribute(const char* name, video::ITexture* value, video::IVideoDriver* driver)
 		: Value(0), Driver(driver)
@@ -1918,6 +1932,7 @@ public:
 class CUserPointerAttribute : public IAttribute
 {
 public:
+	using IAttribute::setString;
 
 	CUserPointerAttribute(const char* name, void* value)
 	{

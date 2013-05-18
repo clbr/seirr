@@ -17,6 +17,10 @@ namespace video
 	class CSoftwareDriver : public CNullDriver
 	{
 	public:
+		using CNullDriver::draw2DImage;
+		using CNullDriver::setRenderTarget;
+		using CNullDriver::addRenderTargetTexture;
+		using CNullDriver::createDeviceDependentTexture;
 
 		//! constructor
 		CSoftwareDriver(const core::dimension2d<u32>& windowSize, bool fullscreen, io::IFileSystem* io, video::IImagePresenter* presenter);
