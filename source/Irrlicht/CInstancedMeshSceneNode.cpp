@@ -11,6 +11,7 @@
 #include "IAnimatedMesh.h"
 #include "IMaterialRenderer.h"
 #include "SViewFrustum.h"
+#include "EVertexTypes.h"
 
 namespace irr
 {
@@ -229,15 +230,13 @@ void CInstancedMeshSceneNode::render()
 		const IMaterialRenderer* rnd = driver->getMaterialRenderer(mat.MaterialType);
 		const bool transparent = (rnd && rnd->isTransparent());
 
-#define GL_UNSIGNED_BYTE 0x1401
-#define GL_FLOAT 0x1406
 		if (UseColors)
 			driver->setCustomVertexAttribute(mat.MaterialType,
-					ColorName, GL_UNSIGNED_BYTE, 1, true,
+					ColorName, EVAT_UBYTE, 1, true,
 					4, Colors);
 
 		driver->setCustomVertexAttribute(mat.MaterialType,
-				ModelName, GL_FLOAT, 1, false,
+				ModelName, EVAT_FLOAT, 1, false,
 				16*4, Matrices);
 
 

@@ -2389,7 +2389,8 @@ void COpenGLDriver::setMaterial(const SMaterial& material)
 }
 
 //! Setup a custom vertex attribute
-void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name,
+		E_VERTEX_ATTRIBUTE_TYPE datatype,
 		u32 div, bool normalize, u32 stride, const void *ptr)
 {
 	if (!name || mtype >= MaterialRenderers.size())
@@ -2419,7 +2420,7 @@ void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 da
 			size = 3;
 		break;
 		case GL_FLOAT_VEC4:
-			if (normalize && datatype == GL_UNSIGNED_BYTE)
+			if (normalize && datatype == EVAT_UBYTE)
 				size = GL_BGRA;
 			else
 				size = 4;
@@ -2444,7 +2445,8 @@ void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 da
 	{
 		extGlVertexAttribDivisor(index, div);
 
-		extGlVertexAttribPointerARB(index, size, datatype, normalize, stride, ptr);
+		extGlVertexAttribPointerARB(index, size, vertexTypeToGL(datatype),
+				normalize, stride, ptr);
 
 		EnabledAttributes.push_back(index);
 		extGlEnableVertexAttribArray(index);
@@ -2454,7 +2456,7 @@ void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 da
 		{
 			extGlVertexAttribDivisor(index + i, div);
 
-			extGlVertexAttribPointerARB(index + i, size, datatype,
+			extGlVertexAttribPointerARB(index + i, size, vertexTypeToGL(datatype),
 						normalize, stride, ((char *) ptr) + i * sizeof(float) * size);
 
 			EnabledAttributes.push_back(index + i);

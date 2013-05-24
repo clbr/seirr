@@ -19,6 +19,7 @@
 #include "EDriverTypes.h"
 #include "EDriverFeatures.h"
 #include "SExposedVideoData.h"
+#include "EVertexTypes.h"
 
 namespace irr
 {
@@ -559,7 +560,7 @@ namespace video
 		    \param stride How many bytes to skip between values
 		    \param ptr The array itself. */
 		virtual void setCustomVertexAttribute(u32 materialtype, const char *name,
-				u32 datatype, u32 divisor,
+				E_VERTEX_ATTRIBUTE_TYPE datatype, u32 divisor,
 				bool normalize, u32 stride, const void *ptr) = 0;
 
 		//! Draws a vertex primitive list

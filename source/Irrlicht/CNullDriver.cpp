@@ -633,7 +633,8 @@ const core::rect<s32>& CNullDriver::getViewPort() const
 }
 
 //! Setup a custom vertex attribute
-void CNullDriver::setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+void CNullDriver::setCustomVertexAttribute(u32 mtype, const char *name,
+		E_VERTEX_ATTRIBUTE_TYPE datatype,
 		u32 div, bool normalize, u32 stride, const void *ptr)
 {
 	os::Printer::log("Shader attributes not supported by the NULL driver.", ELL_WARNING);

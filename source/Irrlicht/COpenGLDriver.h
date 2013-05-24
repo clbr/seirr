@@ -127,7 +127,8 @@ namespace video
 		virtual void setMaterial(const SMaterial& material);
 
 		//! Setup a custom vertex attribute
-		virtual void setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
+		virtual void setCustomVertexAttribute(u32 mtype, const char *name,
+			E_VERTEX_ATTRIBUTE_TYPE datatype,
 			u32 div, bool normalize, u32 stride, const void *ptr);
 
 		//! draws a set of 2d images, using a color and the alpha channel of the

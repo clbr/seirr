@@ -112,8 +112,8 @@ namespace video
 		virtual const core::rect<s32>& getViewPort() const;
 
 		//! Setup a custom vertex attribute
-		virtual void setCustomVertexAttribute(u32 mtype, const char *name, u32 datatype,
-			u32 divisor,
+		virtual void setCustomVertexAttribute(u32 mtype, const char *name,
+			E_VERTEX_ATTRIBUTE_TYPE datatype, u32 divisor,
 			bool normalize, u32 stride, const void *ptr);
 
 		//! draws a vertex primitive list
