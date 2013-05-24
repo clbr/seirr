@@ -51,6 +51,7 @@
 #include "ESceneNodeAnimatorTypes.h"
 #include "ESceneNodeTypes.h"
 #include "ETerrainElements.h"
+#include "EVertexTypes.h"
 #include "fast_atof.h"
 #include "heapsort.h"
 #include "IAnimatedMesh.h"
