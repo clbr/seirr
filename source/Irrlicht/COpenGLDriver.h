@@ -24,6 +24,7 @@ namespace irr
 // also includes the OpenGL stuff
 #include "COpenGLExtensionHandler.h"
 #include "COpenGLTexture.h"
+#include "EVertexTypes.h"
 
 namespace irr
 {
@@ -370,6 +371,8 @@ namespace video
 
 		//! Convert E_PRIMITIVE_TYPE to OpenGL equivalent
 		GLenum primitiveTypeToGL(scene::E_PRIMITIVE_TYPE type) const;
+
+		GLenum vertexTypeToGL(const E_VERTEX_ATTRIBUTE_TYPE type) const;
 
 		u32 getGLBlend ( E_BLEND_FACTOR factor ) const;
 

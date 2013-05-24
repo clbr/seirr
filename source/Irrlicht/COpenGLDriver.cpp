@@ -4348,6 +4348,35 @@ GLenum COpenGLDriver::primitiveTypeToGL(scene::E_PRIMITIVE_TYPE type) const
 	return GL_TRIANGLES;
 }
 
+GLenum COpenGLDriver::vertexTypeToGL(const E_VERTEX_ATTRIBUTE_TYPE type) const
+{
+	switch (type)
+	{
+		case EVAT_BYTE:
+			return GL_BYTE;
+		case EVAT_UBYTE:
+			return GL_UNSIGNED_BYTE;
+		case EVAT_SHORT:
+			return GL_SHORT;
+		case EVAT_USHORT:
+			return GL_UNSIGNED_SHORT;
+		case EVAT_INT:
+			return GL_INT;
+		case EVAT_UINT:
+			return GL_UNSIGNED_INT;
+		case EVAT_FLOAT:
+			return GL_FLOAT;
+		case EVAT_DOUBLE:
+			return GL_DOUBLE;
+#ifdef GL_ARB_half_float_vertex
+		case EVAT_HALF_FLOAT:
+			return GL_HALF_FLOAT;
+#endif
+		default:
+			return GL_FLOAT;
+	}
+}
+
 void COpenGLDriver::setMatrixMode(GLenum mode)
 {
 	if (CurrentMatrixMode != mode) {
