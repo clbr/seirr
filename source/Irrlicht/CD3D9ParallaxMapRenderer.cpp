@@ -227,7 +227,6 @@ namespace video
 		: CD3D9ShaderMaterialRenderer(d3ddev, driver, 0, baseMaterial),
 		CurrentScale(0.0f)
 	{
-
 		#ifdef _DEBUG
 		setDebugName("CD3D9ParallaxMapRenderer");
 		#endif
