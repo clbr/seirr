@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2011 Nikolaus Gebhardt / Thomas Alten
+// Copyright (C) 2002-2012 Nikolaus Gebhardt / Thomas Alten
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
@@ -465,7 +465,7 @@ static void RenderLine16_Blend(video::IImage *t,
 			d -= c;
 		}
 		run -= 1;
-	} 	while (run>=0);
+	} while (run>=0);
 
 	t->unlock();
 }
@@ -926,30 +926,13 @@ static void executeBlit_TextureBlendColor_32_to_32( const SBlitJob * job )
 */
 static void executeBlit_Color_16_to_16( const SBlitJob * job )
 {
+	const u16 c = video::A8R8G8B8toA1R5G5B5(job->argb);
 	u16 *dst = (u16*) job->dst;
 
-	u16 c0 = video::A8R8G8B8toA1R5G5B5( job->argb );
-	u32 c = c0 | c0 << 16;
-
-	if ( 0 == (job->srcPitch & 3 ) )
+	for ( s32 dy = 0; dy != job->height; ++dy )
 	{
-		for ( s32 dy = 0; dy != job->height; ++dy )
-		{
-			memset32( dst, c, job->srcPitch );
-			dst = (u16*) ( (u8*) (dst) + job->dstPitch );
-		}
-	}
-	else
-	{
-		s32 dx = job->width - 1;
-
-		for ( s32 dy = 0; dy != job->height; ++dy )
-		{
-			memset32( dst, c, job->srcPitch );
-			dst[dx] = c0;
-			dst = (u16*) ( (u8*) (dst) + job->dstPitch );
-		}
-
+		memset16(dst, c, job->srcPitch);
+		dst = (u16*) ( (u8*) (dst) + job->dstPitch );
 	}
 }
 
@@ -1077,7 +1060,7 @@ static inline tExecuteBlit getBlitter2( eBlitter operation,const video::IImage *
 
 // bounce clipping to texture
 inline void setClip ( AbsRectangle &out, const core::rect<s32> *clip,
-					 const video::IImage * tex, s32 passnative )
+					const video::IImage * tex, s32 passnative )
 {
 	if ( clip && 0 == tex && passnative )
 	{
@@ -1245,7 +1228,7 @@ static void drawRectangle(video::IImage* img, const core::rect<s32>& rect, const
 
 //! draws a line from to with color
 static void drawLine(video::IImage* img, const core::position2d<s32>& from,
-					 const core::position2d<s32>& to, const video::SColor &color)
+					const core::position2d<s32>& to, const video::SColor &color)
 {
 	AbsRectangle clip;
 	GetClip(clip, img);
