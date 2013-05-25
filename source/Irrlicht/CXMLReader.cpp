@@ -5,7 +5,6 @@
 #include "CXMLReader.h"
 
 #ifdef _IRR_COMPILE_WITH_XML_
-
 #include "CXMLReaderImpl.h"
 #include "IReadFile.h"
 
@@ -71,13 +70,15 @@ namespace io
 
 } // end namespace
 } // end namespace
-
-#else // _IRR_COMPILE_WITH_XML_
-
+#else // not _IRR_COMPILE_WITH_XML_
 #include "os.h"
+namespace irr
+{
 
-void noXML() {
+void noXML()
+{
 	irr::os::Printer::log("XML support disabled in IrrCompileConfig.", irr::ELL_ERROR);
 }
 
+} // end namespace
 #endif // _IRR_COMPILE_WITH_XML_
