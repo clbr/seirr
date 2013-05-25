@@ -41,7 +41,7 @@ namespace scene
 		//! optimal position for minimizing renderstate changes, but can also be used
 		//! to directly modify the material of a scene node.
 		virtual video::SMaterial& getMaterial(u32 i) _IRR_OVERRIDE_;
-		
+
 		//! returns amount of materials used by this scene node.
 		virtual u32 getMaterialCount() const _IRR_OVERRIDE_;
 
@@ -58,7 +58,7 @@ namespace scene
 		virtual void setMesh(IMesh* mesh);
 
 		//! Sets if the scene node should not copy the materials of the mesh but use them in a read only style.
-		/* In this way it is possible to change the materials a mesh causing all mesh scene nodes 
+		/* In this way it is possible to change the materials a mesh causing all mesh scene nodes
 		referencing this mesh to change too. */
 		virtual void setReadOnlyMaterials(bool readonly) _IRR_OVERRIDE_;
 

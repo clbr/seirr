@@ -31,7 +31,7 @@ public:
 		u32 lifeTimeMax=4000,
 		s32 maxAngleDegrees=0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) 
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f)
 		);
 
 	//! Prepares an array with new particles to emitt into the system

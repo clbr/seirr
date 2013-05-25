@@ -23,7 +23,7 @@ CXMLWriter::CXMLWriter(IWriteFile* file)
 	#ifdef _DEBUG
 	setDebugName("CXMLWriter");
 	#endif
-	
+
 	if (File)
 		File->grab();
 }
@@ -81,7 +81,7 @@ void CXMLWriter::writeElement(const wchar_t* name, bool empty,
 		for (int i=0; i<Tabs; ++i)
 			File->write(L"\t", sizeof(wchar_t));
 	}
-	
+
 	// write name
 
 	File->write(L"<", sizeof(wchar_t));
@@ -103,7 +103,7 @@ void CXMLWriter::writeElement(const wchar_t* name, bool empty,
 		File->write(L">", sizeof(wchar_t));
 		++Tabs;
 	}
-	
+
 	TextWrittenLast = false;
 }
 
@@ -120,7 +120,7 @@ void CXMLWriter::writeElement(const wchar_t* name, bool empty,
 		for (int i=0; i<Tabs; ++i)
 			File->write(L"\t", sizeof(wchar_t));
 	}
-	
+
 	// write name
 
 	File->write(L"<", sizeof(wchar_t));
@@ -139,7 +139,7 @@ void CXMLWriter::writeElement(const wchar_t* name, bool empty,
 		File->write(L">", sizeof(wchar_t));
 		++Tabs;
 	}
-	
+
 	TextWrittenLast = false;
 }
 
@@ -191,7 +191,7 @@ void CXMLWriter::writeClosingTag(const wchar_t* name)
 
 
 
-const CXMLWriter::XMLSpecialCharacters XMLWSChar[] = 
+const CXMLWriter::XMLSpecialCharacters XMLWSChar[] =
 {
 	{ L'&', L"&amp;" },
 	{ L'<', L"&lt;" },

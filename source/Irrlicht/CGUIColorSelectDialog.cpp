@@ -273,7 +273,7 @@ void CGUIColorSelectDialog::buildColorRing( const core::dimension2d<u32> & dim, 
 					{
 						const u32 alpha = (u32) ( (rTest - 0.5f ) * ( 255.f / 0.05f ) );
 						rgb.setAlpha(alpha);
-					} 
+					}
 					else if ( rTest >= 0.95f )
 					{
 						const u32 alpha = (u32) ( (rTest - 0.95f ) * ( 255.f / 0.05f ) );

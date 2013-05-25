@@ -1084,7 +1084,7 @@ void CGUIEditBox::breakText()
 			if (Text[i+1] == L'\n') // Windows breaks
 			{
 				// TODO: I (Michael) think that we shouldn't change the text given by the user for whatever reason.
-				// Instead rework the cursor positioning to be able to handle this (but not in stable release 
+				// Instead rework the cursor positioning to be able to handle this (but not in stable release
 				// branch as users might already expect this behaviour).
 				Text.erase(i+1);
 				--size;

@@ -173,7 +173,7 @@ void CTriangleSelector::update(void) const
 
 //! Gets all triangles.
 void CTriangleSelector::getTriangles(core::triangle3df* triangles,
-					s32 arraySize, s32& outTriangleCount, 
+					s32 arraySize, s32& outTriangleCount,
 					const core::matrix4* transform) const
 {
 	// Update my triangles if necessary
@@ -204,8 +204,8 @@ void CTriangleSelector::getTriangles(core::triangle3df* triangles,
 
 
 //! Gets all triangles which lie within a specific bounding box.
-void CTriangleSelector::getTriangles(core::triangle3df* triangles, 
-					s32 arraySize, s32& outTriangleCount, 
+void CTriangleSelector::getTriangles(core::triangle3df* triangles,
+					s32 arraySize, s32& outTriangleCount,
 					const core::aabbox3d<f32>& box,
 					const core::matrix4* transform) const
 {

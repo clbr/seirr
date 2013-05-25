@@ -41,7 +41,7 @@ public:
 	//! Creates a planar texture mapping on the mesh
 	/** \param mesh: Mesh on which the operation is performed.
 	\param resolution: resolution of the planar mapping. This is the value
-	specifying which is the relation between world space and 
+	specifying which is the relation between world space and
 	texture coordinate space. */
 	virtual void makePlanarTextureMapping(scene::IMesh* mesh, f32 resolution) const _IRR_OVERRIDE_;
 
@@ -88,9 +88,9 @@ public:
 	virtual void heightmapOptimizeMesh(IMeshBuffer * const m, const f32 tolerance = core::ROUNDING_ERROR_f32) const _IRR_OVERRIDE_;
 private:
 
-	static void calculateTangents(core::vector3df& normal, 
-		core::vector3df& tangent, 
-		core::vector3df& binormal, 
+	static void calculateTangents(core::vector3df& normal,
+		core::vector3df& tangent,
+		core::vector3df& binormal,
 		const core::vector3df& vt1, const core::vector3df& vt2, const core::vector3df& vt3,
 		const core::vector2df& tc1, const core::vector2df& tc2, const core::vector2df& tc3);
 };

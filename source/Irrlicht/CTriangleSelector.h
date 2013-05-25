@@ -36,16 +36,16 @@ public:
 	CTriangleSelector(const core::aabbox3d<f32>& box, const ISceneNode* node);
 
 	//! Gets all triangles.
-	void getTriangles(core::triangle3df* triangles, s32 arraySize, s32& outTriangleCount, 
+	void getTriangles(core::triangle3df* triangles, s32 arraySize, s32& outTriangleCount,
 		const core::matrix4* transform=0) const;
 
 	//! Gets all triangles which lie within a specific bounding box.
-	void getTriangles(core::triangle3df* triangles, s32 arraySize, s32& outTriangleCount, 
+	void getTriangles(core::triangle3df* triangles, s32 arraySize, s32& outTriangleCount,
 		const core::aabbox3d<f32>& box, const core::matrix4* transform=0) const;
 
 	//! Gets all triangles which have or may have contact with a 3d line.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize,
-		s32& outTriangleCount, const core::line3d<f32>& line, 
+		s32& outTriangleCount, const core::line3d<f32>& line,
 		const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 
 	//! Returns amount of all available triangles in this selector
@@ -56,13 +56,13 @@ public:
 
 protected:
 	//! Create from a mesh
-	virtual void createFromMesh(const IMesh* mesh); 
+	virtual void createFromMesh(const IMesh* mesh);
 
 	//! Update when the mesh has changed
-	virtual void updateFromMesh(const IMesh* mesh) const; 
+	virtual void updateFromMesh(const IMesh* mesh) const;
 
 	//! Update the triangle selector, which will only have an effect if it
-	//! was built from an animated mesh and that mesh's frame has changed 
+	//! was built from an animated mesh and that mesh's frame has changed
 	//! since the last time it was updated.
 	virtual void update(void) const;
 

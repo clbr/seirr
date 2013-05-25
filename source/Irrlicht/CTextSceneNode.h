@@ -44,7 +44,7 @@ namespace scene
 
 		//! sets the color of the text
 		virtual void setTextColor(video::SColor color) _IRR_OVERRIDE_;
-		
+
 		//! Returns type of the scene node
 		virtual ESCENE_NODE_TYPE getType() const _IRR_OVERRIDE_ { return ESNT_TEXT; }
 
@@ -61,7 +61,7 @@ namespace scene
 	{
 	public:
 
-		CBillboardTextSceneNode(ISceneNode* parent, ISceneManager* mgr, s32 id,	
+		CBillboardTextSceneNode(ISceneNode* parent, ISceneManager* mgr, s32 id,
 			gui::IGUIFont* font,const wchar_t* text,
 			const core::vector3df& position, const core::dimension2d<f32>& size,
 			video::SColor colorTop, video::SColor shade_bottom);
@@ -82,7 +82,7 @@ namespace scene
 
 		//! sets the color of the text
 		virtual void setTextColor(video::SColor color) _IRR_OVERRIDE_;
-		
+
 		//! sets the size of the billboard
 		virtual void setSize(const core::dimension2d<f32>& size) _IRR_OVERRIDE_;
 
@@ -90,7 +90,7 @@ namespace scene
 		virtual const core::dimension2d<f32>& getSize() const _IRR_OVERRIDE_;
 
 		virtual video::SMaterial& getMaterial(u32 i) _IRR_OVERRIDE_;
-		
+
 		//! returns amount of materials used by this scene node.
 		virtual u32 getMaterialCount() const _IRR_OVERRIDE_;
 

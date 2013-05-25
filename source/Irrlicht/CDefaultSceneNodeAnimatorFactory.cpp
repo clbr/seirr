@@ -125,7 +125,7 @@ ESCENE_NODE_ANIMATOR_TYPE CDefaultSceneNodeAnimatorFactory::getCreateableSceneNo
 }
 
 
-//! returns type name of a createable scene node animator type 
+//! returns type name of a createable scene node animator type
 const c8* CDefaultSceneNodeAnimatorFactory::getCreateableSceneNodeAnimatorTypeName(u32 idx) const
 {
 	if (idx<ESNAT_COUNT)
@@ -134,7 +134,7 @@ const c8* CDefaultSceneNodeAnimatorFactory::getCreateableSceneNodeAnimatorTypeNa
 		return 0;
 }
 
-//! returns type name of a createable scene node animator type 
+//! returns type name of a createable scene node animator type
 const c8* CDefaultSceneNodeAnimatorFactory::getCreateableSceneNodeAnimatorTypeName(ESCENE_NODE_ANIMATOR_TYPE type) const
 {
 	// for this factory: index == type

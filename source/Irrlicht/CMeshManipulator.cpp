@@ -160,21 +160,21 @@ void CMeshManipulator::recalculateTangents(IMesh* mesh, bool recalculateNormals,
 			for ( i=0; i<idxCnt; i+=3)
 			{
 				// if this triangle is degenerate, skip it!
-				if (v[idx[i+0]].Pos == v[idx[i+1]].Pos || 
-					v[idx[i+0]].Pos == v[idx[i+2]].Pos || 
-					v[idx[i+1]].Pos == v[idx[i+2]].Pos 
+				if (v[idx[i+0]].Pos == v[idx[i+1]].Pos ||
+					v[idx[i+0]].Pos == v[idx[i+2]].Pos ||
+					v[idx[i+1]].Pos == v[idx[i+2]].Pos
 					/*||
-					v[idx[i+0]].TCoords == v[idx[i+1]].TCoords || 
-					v[idx[i+0]].TCoords == v[idx[i+2]].TCoords || 
+					v[idx[i+0]].TCoords == v[idx[i+1]].TCoords ||
+					v[idx[i+0]].TCoords == v[idx[i+2]].TCoords ||
 					v[idx[i+1]].TCoords == v[idx[i+2]].TCoords */
-					) 
+					)
 					continue;
 
 				//Angle-weighted normals look better, but are slightly more CPU intensive to calculate
 				core::vector3df weight(1.f,1.f,1.f);
 				if (angleWeighted)
 					weight = getAngleWeight(v[i+0].Pos,v[i+1].Pos,v[i+2].Pos);
-				core::vector3df localNormal; 
+				core::vector3df localNormal;
 				core::vector3df localTangent;
 				core::vector3df localBinormal;
 
@@ -193,7 +193,7 @@ void CMeshManipulator::recalculateTangents(IMesh* mesh, bool recalculateNormals,
 					v[idx[i+0]].Normal += localNormal * weight.X;
 				v[idx[i+0]].Tangent += localTangent * weight.X;
 				v[idx[i+0]].Binormal += localBinormal * weight.X;
-				
+
 				calculateTangents(
 					localNormal,
 					localTangent,
@@ -241,7 +241,7 @@ void CMeshManipulator::recalculateTangents(IMesh* mesh, bool recalculateNormals,
 		}
 		else
 		{
-			core::vector3df localNormal; 
+			core::vector3df localNormal;
 			for (u32 i=0; i<idxCnt; i+=3)
 			{
 				calculateTangents(
@@ -617,7 +617,7 @@ IMesh* CMeshManipulator::createMeshWelded(IMesh *mesh, f32 tolerance) const
 					buffer->Vertices.push_back(v[i]);
 				}
 			}
-			
+
 			break;
 		}
 		case video::EVT_2TCOORDS:

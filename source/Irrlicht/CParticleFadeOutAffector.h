@@ -38,12 +38,12 @@ public:
 	virtual f32 getFadeOutTime() const _IRR_OVERRIDE_ { return FadeOutTime; }
 
 	//! Writes attributes of the object.
-	//! Implement this to expose the attributes of your scene node animator for 
+	//! Implement this to expose the attributes of your scene node animator for
 	//! scripting languages, editors, debuggers or xml serialization purposes.
 	virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options) const;
 
 	//! Reads attributes of the object.
-	//! Implement this to set the attributes of your scene node animator for 
+	//! Implement this to set the attributes of your scene node animator for
 	//! scripting languages, editors, debuggers or xml deserialization purposes.
 	//! \param startIndex: start index where to start reading attributes.
 	//! \return: returns last index of an attribute read by this affector
