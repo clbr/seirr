@@ -20,21 +20,21 @@ namespace scene
 		CDummyTransformationSceneNode(ISceneNode* parent, ISceneManager* mgr, s32 id);
 
 		//! returns the axis aligned bounding box of this node
-		virtual const core::aabbox3d<f32>& getBoundingBox() const;
+		virtual const core::aabbox3d<f32>& getBoundingBox() const _IRR_OVERRIDE_;
 
 		//! Returns a reference to the current relative transformation matrix.
 		//! This is the matrix, this scene node uses instead of scale, translation
 		//! and rotation.
-		virtual core::matrix4& getRelativeTransformationMatrix();
+		virtual core::matrix4& getRelativeTransformationMatrix() _IRR_OVERRIDE_;
 
 		//! Returns the relative transformation of the scene node.
-		virtual core::matrix4 getRelativeTransformation() const;
+		virtual core::matrix4 getRelativeTransformation() const _IRR_OVERRIDE_;
 
 		//! does nothing.
-		virtual void render() {}
+		virtual void render() _IRR_OVERRIDE_ {}
 
 		//! Returns type of the scene node
-		virtual ESCENE_NODE_TYPE getType() const { return ESNT_DUMMY_TRANSFORMATION; }
+		virtual ESCENE_NODE_TYPE getType() const _IRR_OVERRIDE_ { return ESNT_DUMMY_TRANSFORMATION; }
 
 	private:
 

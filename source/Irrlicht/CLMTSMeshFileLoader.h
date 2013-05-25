@@ -38,11 +38,11 @@ public:
 	CLMTSMeshFileLoader(io::IFileSystem* fs,
 		video::IVideoDriver* driver, io::IAttributes* parameters);
 
-	virtual ~CLMTSMeshFileLoader();
+	virtual ~CLMTSMeshFileLoader() _IRR_OVERRIDE_;
 
-	virtual bool isALoadableFileExtension(const io::path& filename) const;
+	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
 
-	virtual IAnimatedMesh* createMesh(io::IReadFile* file);
+	virtual IAnimatedMesh* createMesh(io::IReadFile* file) _IRR_OVERRIDE_;
 
 private:
 	void constructMesh(SMesh* mesh);

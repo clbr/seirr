@@ -29,23 +29,23 @@ public:
 				const quake3::IShader* shader
 			);
 
-	virtual ~CQuake3ShaderSceneNode();
+	virtual ~CQuake3ShaderSceneNode() _IRR_OVERRIDE_;
 
-	virtual void OnRegisterSceneNode();
-	virtual void render();
-	virtual void OnAnimate(u32 timeMs);
-	virtual const core::aabbox3d<f32>& getBoundingBox() const;
+	virtual void OnRegisterSceneNode() _IRR_OVERRIDE_;
+	virtual void render() _IRR_OVERRIDE_;
+	virtual void OnAnimate(u32 timeMs) _IRR_OVERRIDE_;
+	virtual const core::aabbox3d<f32>& getBoundingBox() const _IRR_OVERRIDE_;
 
-	virtual u32 getMaterialCount() const;
-	virtual video::SMaterial& getMaterial(u32 i);
+	virtual u32 getMaterialCount() const _IRR_OVERRIDE_;
+	virtual video::SMaterial& getMaterial(u32 i) _IRR_OVERRIDE_;
 
 	//! Returns type of the scene node
-	virtual ESCENE_NODE_TYPE getType() const { return ESNT_Q3SHADER_SCENE_NODE; }
+	virtual ESCENE_NODE_TYPE getType() const _IRR_OVERRIDE_ { return ESNT_Q3SHADER_SCENE_NODE; }
 
-	virtual void setMesh(IMesh* mesh){}
-	virtual IMesh* getMesh() { return Mesh; }
-	virtual void setReadOnlyMaterials(bool readonly) {}
-	virtual bool isReadOnlyMaterials() const { return true; }
+	virtual void setMesh(IMesh* mesh)_IRR_OVERRIDE_ {}
+	virtual IMesh* getMesh() _IRR_OVERRIDE_ { return Mesh; }
+	virtual void setReadOnlyMaterials(bool readonly) _IRR_OVERRIDE_ {}
+	virtual bool isReadOnlyMaterials() const _IRR_OVERRIDE_ { return true; }
 
 private:
 	const quake3::IShader* Shader;

@@ -23,22 +23,22 @@ namespace gui
 		CGUICheckBox(bool checked, IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle);
 
 		//! set if box is checked
-		virtual void setChecked(bool checked);
+		virtual void setChecked(bool checked) _IRR_OVERRIDE_;
 
 		//! returns if box is checked
-		virtual bool isChecked() const;
+		virtual bool isChecked() const _IRR_OVERRIDE_;
 
 		//! called if an event happened.
-		virtual bool OnEvent(const SEvent& event);
+		virtual bool OnEvent(const SEvent& event) _IRR_OVERRIDE_;
 
 		//! draws the element and its children
-		virtual void draw();
+		virtual void draw() _IRR_OVERRIDE_;
 
 		//! Writes attributes of the element.
-		virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options) const;
+		virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options) const _IRR_OVERRIDE_;
 
 		//! Reads attributes of the element
-		virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options);
+		virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options) _IRR_OVERRIDE_;
 
 	private:
 

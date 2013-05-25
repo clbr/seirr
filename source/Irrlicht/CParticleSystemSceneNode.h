@@ -31,34 +31,34 @@ public:
 		const core::vector3df& scale);
 
 	//! destructor
-	virtual ~CParticleSystemSceneNode();
+	virtual ~CParticleSystemSceneNode() _IRR_OVERRIDE_;
 
 	//! Gets the particle emitter, which creates the particles.
-	virtual IParticleEmitter* getEmitter();
+	virtual IParticleEmitter* getEmitter() _IRR_OVERRIDE_;
 
 	//! Sets the particle emitter, which creates the particles.
-	virtual void setEmitter(IParticleEmitter* emitter);
+	virtual void setEmitter(IParticleEmitter* emitter) _IRR_OVERRIDE_;
 
 	//! Adds new particle affector to the particle system.
-	virtual void addAffector(IParticleAffector* affector);
+	virtual void addAffector(IParticleAffector* affector) _IRR_OVERRIDE_;
 
 	//! Removes all particle affectors in the particle system.
-	virtual void removeAllAffectors();
+	virtual void removeAllAffectors() _IRR_OVERRIDE_;
 
 	//! Returns the material based on the zero based index i.
-	virtual video::SMaterial& getMaterial(u32 i);
+	virtual video::SMaterial& getMaterial(u32 i) _IRR_OVERRIDE_;
 
 	//! Returns amount of materials used by this scene node.
-	virtual u32 getMaterialCount() const;
+	virtual u32 getMaterialCount() const _IRR_OVERRIDE_;
 
 	//! pre render event
-	virtual void OnRegisterSceneNode();
+	virtual void OnRegisterSceneNode() _IRR_OVERRIDE_;
 
 	//! render
-	virtual void render();
+	virtual void render() _IRR_OVERRIDE_;
 
 	//! returns the axis aligned bounding box of this node
-	virtual const core::aabbox3d<f32>& getBoundingBox() const;
+	virtual const core::aabbox3d<f32>& getBoundingBox() const _IRR_OVERRIDE_;
 
 	//! Creates a particle emitter for an animated mesh scene node
 	virtual IParticleAnimatedMeshSceneNodeEmitter* createAnimatedMeshSceneNodeEmitter(
@@ -72,7 +72,7 @@ public:
 		u32 lifeTimeMin = 2000, u32 lifeTimeMax = 4000,
 		s32 maxAngleDegrees = 0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a box particle emitter.
 	virtual IParticleBoxEmitter* createBoxEmitter(
@@ -85,7 +85,7 @@ public:
 		u32 lifeTimeMin=2000, u32 lifeTimeMax=4000,
 		s32 maxAngleDegrees=0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a particle emitter for emitting from a cylinder
 	virtual IParticleCylinderEmitter* createCylinderEmitter(
@@ -98,7 +98,7 @@ public:
 		u32 lifeTimeMin = 2000, u32 lifeTimeMax = 4000,
 		s32 maxAngleDegrees = 0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a mesh particle emitter.
 	virtual IParticleMeshEmitter* createMeshEmitter(
@@ -113,7 +113,7 @@ public:
 		u32 lifeTimeMin = 2000, u32 lifeTimeMax = 4000,
 		s32 maxAngleDegrees = 0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a point particle emitter.
 	virtual IParticlePointEmitter* createPointEmitter(
@@ -125,7 +125,7 @@ public:
 		u32 lifeTimeMin=2000, u32 lifeTimeMax=4000,
 		s32 maxAngleDegrees=0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a ring particle emitter.
 	virtual IParticleRingEmitter* createRingEmitter(
@@ -138,7 +138,7 @@ public:
 		u32 lifeTimeMin=2000, u32 lifeTimeMax=4000,
 		s32 maxAngleDegrees=0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a sphere particle emitter.
 	virtual IParticleSphereEmitter* createSphereEmitter(
@@ -151,50 +151,50 @@ public:
 		u32 lifeTimeMin=2000, u32 lifeTimeMax=4000,
 		s32 maxAngleDegrees=0,
 		const core::dimension2df& minStartSize = core::dimension2df(5.0f,5.0f),
-		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) );
+		const core::dimension2df& maxStartSize = core::dimension2df(5.0f,5.0f) ) _IRR_OVERRIDE_;
 
 	//! Creates a point attraction affector. This affector modifies the positions of the
 	//! particles and attracts them to a specified point at a specified speed per second.
 	virtual IParticleAttractionAffector* createAttractionAffector(
 		const core::vector3df& point, f32 speed = 1.0f, bool attract = true,
-		bool affectX = true, bool affectY = true, bool affectZ = true);
+		bool affectX = true, bool affectY = true, bool affectZ = true) _IRR_OVERRIDE_;
 
 	//! Creates a scale particle affector.
-	virtual IParticleAffector* createScaleParticleAffector(const core::dimension2df& scaleTo = core::dimension2df(1.0f, 1.0f));
+	virtual IParticleAffector* createScaleParticleAffector(const core::dimension2df& scaleTo = core::dimension2df(1.0f, 1.0f)) _IRR_OVERRIDE_;
 
 	//! Creates a fade out particle affector.
 	virtual IParticleFadeOutAffector* createFadeOutParticleAffector(
 		const video::SColor& targetColor = video::SColor(0,0,0,0),
-		u32 timeNeededToFadeOut = 1000);
+		u32 timeNeededToFadeOut = 1000) _IRR_OVERRIDE_;
 
 	//! Creates a gravity affector.
 	virtual IParticleGravityAffector* createGravityAffector(
 		const core::vector3df& gravity = core::vector3df(0.0f,-0.03f,0.0f),
-		u32 timeForceLost = 1000);
+		u32 timeForceLost = 1000) _IRR_OVERRIDE_;
 
 	//! Creates a rotation affector. This affector rotates the particles
 	//! around a specified pivot point. The speed is in Degrees per second.
 	virtual IParticleRotationAffector* createRotationAffector(
 		const core::vector3df& speed = core::vector3df(5.0f,5.0f,5.0f),
-		const core::vector3df& pivotPoint = core::vector3df(0.0f,0.0f,0.0f) );
+		const core::vector3df& pivotPoint = core::vector3df(0.0f,0.0f,0.0f) ) _IRR_OVERRIDE_;
 
 	//! Sets the size of all particles.
 	virtual void setParticleSize(
-		const core::dimension2d<f32> &size = core::dimension2d<f32>(5.0f, 5.0f));
+		const core::dimension2d<f32> &size = core::dimension2d<f32>(5.0f, 5.0f)) _IRR_OVERRIDE_;
 
 	//! Sets if the particles should be global. If they are, the particles are affected by
 	//! the movement of the particle system scene node too, otherwise they completely
 	//! ignore it. Default is true.
-	virtual void setParticlesAreGlobal(bool global=true);
+	virtual void setParticlesAreGlobal(bool global=true) _IRR_OVERRIDE_;
 
 	//! Writes attributes of the scene node.
-	virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options=0) const;
+	virtual void serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options=0) const _IRR_OVERRIDE_;
 
 	//! Reads attributes of the scene node.
-	virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options=0);
+	virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options=0) _IRR_OVERRIDE_;
 
 	//! Returns type of the scene node
-	virtual ESCENE_NODE_TYPE getType() const { return ESNT_PARTICLE_SYSTEM; }
+	virtual ESCENE_NODE_TYPE getType() const _IRR_OVERRIDE_ { return ESNT_PARTICLE_SYSTEM; }
 
 private:
 

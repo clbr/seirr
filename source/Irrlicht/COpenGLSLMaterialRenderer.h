@@ -71,27 +71,27 @@ public:
 		s32 userData = 0);
 
 	//! Destructor
-	virtual ~COpenGLSLMaterialRenderer();
+	virtual ~COpenGLSLMaterialRenderer() _IRR_OVERRIDE_;
 
 	virtual void OnSetMaterial(const SMaterial& material, const SMaterial& lastMaterial,
-		bool resetAllRenderstates, IMaterialRendererServices* services);
+		bool resetAllRenderstates, IMaterialRendererServices* services) _IRR_OVERRIDE_;
 
-	virtual bool OnRender(IMaterialRendererServices* service, E_VERTEX_TYPE vtxtype);
+	virtual bool OnRender(IMaterialRendererServices* service, E_VERTEX_TYPE vtxtype) _IRR_OVERRIDE_;
 
-	virtual void OnUnsetMaterial();
+	virtual void OnUnsetMaterial() _IRR_OVERRIDE_;
 
 	//! Returns if the material is transparent.
-	virtual bool isTransparent() const;
+	virtual bool isTransparent() const _IRR_OVERRIDE_;
 
 	// implementations for the render services
-	virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastMaterial, bool resetAllRenderstates);
-	virtual bool setVertexShaderConstant(const c8* name, const f32* floats, int count);
-	virtual bool setVertexShaderConstant(const c8* name, const s32* ints, int count);
-	virtual void setVertexShaderConstant(const f32* data, s32 startRegister, s32 constantAmount=1);
-	virtual bool setPixelShaderConstant(const c8* name, const f32* floats, int count);
-	virtual bool setPixelShaderConstant(const c8* name, const s32* ints, int count);
-	virtual void setPixelShaderConstant(const f32* data, s32 startRegister, s32 constantAmount=1);
-	virtual IVideoDriver* getVideoDriver();
+	virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastMaterial, bool resetAllRenderstates) _IRR_OVERRIDE_;
+	virtual bool setVertexShaderConstant(const c8* name, const f32* floats, int count) _IRR_OVERRIDE_;
+	virtual bool setVertexShaderConstant(const c8* name, const s32* ints, int count) _IRR_OVERRIDE_;
+	virtual void setVertexShaderConstant(const f32* data, s32 startRegister, s32 constantAmount=1) _IRR_OVERRIDE_;
+	virtual bool setPixelShaderConstant(const c8* name, const f32* floats, int count) _IRR_OVERRIDE_;
+	virtual bool setPixelShaderConstant(const c8* name, const s32* ints, int count) _IRR_OVERRIDE_;
+	virtual void setPixelShaderConstant(const f32* data, s32 startRegister, s32 constantAmount=1) _IRR_OVERRIDE_;
+	virtual IVideoDriver* getVideoDriver() _IRR_OVERRIDE_;
 
 	virtual s32 getAttribLocation(const c8 *name);
 	virtual s32 getAttribType(const c8 *name);

@@ -22,37 +22,37 @@ public:
 	CMetaTriangleSelector();
 
 	//! destructor
-	virtual ~CMetaTriangleSelector();
+	virtual ~CMetaTriangleSelector() _IRR_OVERRIDE_;
 
 	//! Returns amount of all available triangles in this selector
-	virtual s32 getTriangleCount() const;
+	virtual s32 getTriangleCount() const _IRR_OVERRIDE_;
 
 	//! Gets all triangles.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize,
-		s32& outTriangleCount, const core::matrix4* transform=0) const;
+		s32& outTriangleCount, const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 
 	//! Gets all triangles which lie within a specific bounding box.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize,
 		s32& outTriangleCount, const core::aabbox3d<f32>& box, 
-		const core::matrix4* transform=0) const;
+		const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 
 	//! Gets all triangles which have or may have contact with a 3d line.
 	virtual void getTriangles(core::triangle3df* triangles, s32 arraySize,
 		s32& outTriangleCount, const core::line3d<f32>& line, 
-		const core::matrix4* transform=0) const;
+		const core::matrix4* transform=0) const _IRR_OVERRIDE_;
 
 	//! Adds a triangle selector to the collection of triangle selectors
 	//! in this metaTriangleSelector.
 	virtual void addTriangleSelector(ITriangleSelector* toAdd); 
 
 	//! Removes a specific triangle selector which was added before	from the collection.
-	virtual bool removeTriangleSelector(ITriangleSelector* toRemove);
+	virtual bool removeTriangleSelector(ITriangleSelector* toRemove) _IRR_OVERRIDE_;
 
 	//! Removes all triangle selectors from the collection.
-	virtual void removeAllTriangleSelectors();
+	virtual void removeAllTriangleSelectors() _IRR_OVERRIDE_;
 
 	//! Return the scene node associated with a given triangle.
-	virtual const ISceneNode* getSceneNodeForTriangle(u32 triangleIndex) const;
+	virtual const ISceneNode* getSceneNodeForTriangle(u32 triangleIndex) const _IRR_OVERRIDE_;
 
 private:
 

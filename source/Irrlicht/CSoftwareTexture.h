@@ -25,41 +25,41 @@ public:
 			bool renderTarget=false, void* mipmapData=0);
 
 	//! destructor
-	virtual ~CSoftwareTexture();
+	virtual ~CSoftwareTexture() _IRR_OVERRIDE_;
 
 	//! lock function
-	virtual void* lock(bool readOnly = false, u32 mipmapLevel=0);
+	virtual void* lock(bool readOnly = false, u32 mipmapLevel=0) _IRR_OVERRIDE_;
 
 	//! unlock function
-	virtual void unlock();
+	virtual void unlock() _IRR_OVERRIDE_;
 
 	//! Returns original size of the texture.
-	virtual const core::dimension2d<u32>& getOriginalSize() const;
+	virtual const core::dimension2d<u32>& getOriginalSize() const _IRR_OVERRIDE_;
 
 	//! Returns (=size) of the texture.
-	virtual const core::dimension2d<u32>& getSize() const;
+	virtual const core::dimension2d<u32>& getSize() const _IRR_OVERRIDE_;
 
 	//! returns unoptimized surface
-	virtual CImage* getImage();
+	virtual CImage* getImage() _IRR_OVERRIDE_;
 
 	//! returns texture surface
-	virtual CImage* getTexture();
+	virtual CImage* getTexture() _IRR_OVERRIDE_;
 
 	//! returns driver type of texture (=the driver, who created the texture)
-	virtual E_DRIVER_TYPE getDriverType() const;
+	virtual E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_;
 
 	//! returns color format of texture
-	virtual ECOLOR_FORMAT getColorFormat() const;
+	virtual ECOLOR_FORMAT getColorFormat() const _IRR_OVERRIDE_;
 
 	//! returns pitch of texture (in bytes)
-	virtual u32 getPitch() const;
+	virtual u32 getPitch() const _IRR_OVERRIDE_;
 
 	//! Regenerates the mip map levels of the texture. Useful after locking and
 	//! modifying the texture
-	virtual void regenerateMipMapLevels(void* mipmapData=0);
+	virtual void regenerateMipMapLevels(void* mipmapData=0) _IRR_OVERRIDE_;
 
 	//! is it a render target?
-	virtual bool isRenderTarget() const;
+	virtual bool isRenderTarget() const _IRR_OVERRIDE_;
 
 private:
 	CImage* Image;

@@ -33,7 +33,7 @@ public:
 	CSoftwareTexture2(IImage* surface, const io::path& name, u32 flags, void* mipmapData=0);
 
 	//! destructor
-	virtual ~CSoftwareTexture2();
+	virtual ~CSoftwareTexture2() _IRR_OVERRIDE_;
 
 	//! lock function
 	virtual void* lock(bool readOnly = false, u32 mipmapLevel=0)
@@ -101,7 +101,7 @@ public:
 
 	//! Regenerates the mip map levels of the texture. Useful after locking and
 	//! modifying the texture
-	virtual void regenerateMipMapLevels(void* mipmapData=0);
+	virtual void regenerateMipMapLevels(void* mipmapData=0) _IRR_OVERRIDE_;
 
 	//! support mipmaps
 	virtual bool hasMipMaps() const

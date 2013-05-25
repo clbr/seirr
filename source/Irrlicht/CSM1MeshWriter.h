@@ -22,10 +22,10 @@ public:
 	CSM1MeshWriter(io::IFileSystem *fs);
 
 	//! Returns the type of the mesh writer
-	virtual EMESH_WRITER_TYPE getType() const;
+	virtual EMESH_WRITER_TYPE getType() const _IRR_OVERRIDE_;
 
 	//! writes a mesh
-	virtual bool writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 flags=EMWF_NONE);
+	virtual bool writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 flags=EMWF_NONE) _IRR_OVERRIDE_;
 
 private:
 	io::IFileSystem *FileSystem;

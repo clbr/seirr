@@ -29,13 +29,13 @@ namespace gui
 		CGUIColorSelectDialog(const wchar_t* title, IGUIEnvironment* environment, IGUIElement* parent, s32 id);
 
 		//! destructor
-		virtual ~CGUIColorSelectDialog();
+		virtual ~CGUIColorSelectDialog() _IRR_OVERRIDE_;
 
 		//! called if an event happened.
-		virtual bool OnEvent(const SEvent& event);
+		virtual bool OnEvent(const SEvent& event) _IRR_OVERRIDE_;
 
 		//! draws the element and its children
-		virtual void draw();
+		virtual void draw() _IRR_OVERRIDE_;
 
 	private:
 

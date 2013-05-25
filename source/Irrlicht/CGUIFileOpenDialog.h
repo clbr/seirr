@@ -27,19 +27,19 @@ namespace gui
 		CGUIFileOpenDialog(const wchar_t* title, IGUIEnvironment* environment, IGUIElement* parent, s32 id);
 
 		//! destructor
-		virtual ~CGUIFileOpenDialog();
+		virtual ~CGUIFileOpenDialog() _IRR_OVERRIDE_;
 
 		//! returns the filename of the selected file. Returns NULL, if no file was selected.
-		virtual const wchar_t* getFileName() const;
+		virtual const wchar_t* getFileName() const _IRR_OVERRIDE_;
 
 		//! Returns the directory of the selected file. Returns NULL, if no directory was selected.
-		virtual const io::path& getDirectoryName();
+		virtual const io::path& getDirectoryName() _IRR_OVERRIDE_;
 
 		//! called if an event happened.
-		virtual bool OnEvent(const SEvent& event);
+		virtual bool OnEvent(const SEvent& event) _IRR_OVERRIDE_;
 
 		//! draws the element and its children
-		virtual void draw();
+		virtual void draw() _IRR_OVERRIDE_;
 
 	protected:
 

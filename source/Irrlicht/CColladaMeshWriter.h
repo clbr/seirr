@@ -27,13 +27,13 @@ class CColladaMeshWriter : public IMeshWriter
 public:
 
 	CColladaMeshWriter(video::IVideoDriver* driver, io::IFileSystem* fs);
-	virtual ~CColladaMeshWriter();
+	virtual ~CColladaMeshWriter() _IRR_OVERRIDE_;
 
 	//! Returns the type of the mesh writer
-	virtual EMESH_WRITER_TYPE getType() const;
+	virtual EMESH_WRITER_TYPE getType() const _IRR_OVERRIDE_;
 
 	//! writes a mesh
-	virtual bool writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 flags=EMWF_NONE);
+	virtual bool writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 flags=EMWF_NONE) _IRR_OVERRIDE_;
 
 protected:
 

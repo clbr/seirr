@@ -180,17 +180,17 @@ public:
 	CColladaFileLoader(scene::ISceneManager* smgr, io::IFileSystem* fs);
 
 	//! destructor
-	virtual ~CColladaFileLoader();
+	virtual ~CColladaFileLoader() _IRR_OVERRIDE_;
 
 	//! returns true if the file maybe is able to be loaded by this class
 	//! based on the file extension (e.g. ".cob")
-	virtual bool isALoadableFileExtension(const io::path& filename) const;
+	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
 
 	//! creates/loads an animated mesh from the file.
 	//! \return Pointer to the created mesh. Returns 0 if loading failed.
 	//! If you no longer need the mesh, you should call IAnimatedMesh::drop().
 	//! See IReferenceCounted::drop() for more information.
-	virtual IAnimatedMesh* createMesh(io::IReadFile* file);
+	virtual IAnimatedMesh* createMesh(io::IReadFile* file) _IRR_OVERRIDE_;
 
 private:
 
@@ -372,7 +372,7 @@ public:
 		scene::ISceneManager* mgr) = 0;
 
 	//! returns id of this prefab
-	virtual const core::stringc& getId() = 0;
+	virtual const core::stringc& getId() = 0 _IRR_OVERRIDE_;
 };
 
 

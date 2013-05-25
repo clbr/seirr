@@ -49,7 +49,7 @@ public:
 	//! \param name: Name of the variable
 	//! \param floats: Pointer to array of floats
 	//! \param count: Amount of floats in array.
-	virtual bool setVariable(bool vertexShader, const c8* name, const f32* floats, int count);
+	virtual bool setVariable(bool vertexShader, const c8* name, const f32* floats, int count) _IRR_OVERRIDE_;
 
 	bool OnRender(IMaterialRendererServices* service, E_VERTEX_TYPE vtxtype);
 

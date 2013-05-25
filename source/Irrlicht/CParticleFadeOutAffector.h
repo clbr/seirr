@@ -21,21 +21,21 @@ public:
 	CParticleFadeOutAffector(const video::SColor& targetColor, u32 fadeOutTime);
 
 	//! Affects a particle.
-	virtual void affect(u32 now, SParticle* particlearray, u32 count);
+	virtual void affect(u32 now, SParticle* particlearray, u32 count) _IRR_OVERRIDE_;
 
 	//! Sets the targetColor, i.e. the color the particles will interpolate
 	//! to over time.
-	virtual void setTargetColor( const video::SColor& targetColor ) { TargetColor = targetColor; }
+	virtual void setTargetColor( const video::SColor& targetColor ) _IRR_OVERRIDE_ { TargetColor = targetColor; }
 
 	//! Sets the amount of time it takes for each particle to fade out.
-	virtual void setFadeOutTime( f32 fadeOutTime ) { FadeOutTime = fadeOutTime; }
+	virtual void setFadeOutTime( f32 fadeOutTime ) _IRR_OVERRIDE_ { FadeOutTime = fadeOutTime; }
 
 	//! Sets the targetColor, i.e. the color the particles will interpolate
 	//! to over time.
-	virtual const video::SColor& getTargetColor() const { return TargetColor; }
+	virtual const video::SColor& getTargetColor() const _IRR_OVERRIDE_ { return TargetColor; }
 
 	//! Sets the amount of time it takes for each particle to fade out.
-	virtual f32 getFadeOutTime() const { return FadeOutTime; }
+	virtual f32 getFadeOutTime() const _IRR_OVERRIDE_ { return FadeOutTime; }
 
 	//! Writes attributes of the object.
 	//! Implement this to expose the attributes of your scene node animator for 
@@ -47,7 +47,7 @@ public:
 	//! scripting languages, editors, debuggers or xml deserialization purposes.
 	//! \param startIndex: start index where to start reading attributes.
 	//! \return: returns last index of an attribute read by this affector
-	virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options);
+	virtual void deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options) _IRR_OVERRIDE_;
 
 private:
 
