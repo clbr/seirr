@@ -176,7 +176,7 @@ float geopos(float pos)
 	pos = core::clamp<float>(pos, 0, 1);
 	pos *= 5;
 
-	const float out = powf(2.5f, pos - 5);
+	const float out = powf(2.5f, pos - 5) - 0.01f;
 
 	return out;
 }
