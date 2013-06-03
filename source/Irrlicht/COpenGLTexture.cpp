@@ -104,6 +104,10 @@ ECOLOR_FORMAT COpenGLTexture::getBestColorFormat(ECOLOR_FORMAT format)
 			if (Driver->getTextureCreationFlag(ETCF_ALWAYS_16_BIT) ||
 					Driver->getTextureCreationFlag(ETCF_OPTIMIZED_FOR_SPEED))
 				destFormat = ECF_A1R5G5B5;
+		break;
+		case ECF_R32F:
+			destFormat = format;
+		break;
 		default:
 		break;
 	}
