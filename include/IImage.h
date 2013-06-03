@@ -184,6 +184,7 @@ public:
 			case ECF_R5G6B5:
 			case ECF_R8G8B8:
 			case ECF_A8R8G8B8:
+			case ECF_R32F:
 				return false;
 			default:
 				return true;
