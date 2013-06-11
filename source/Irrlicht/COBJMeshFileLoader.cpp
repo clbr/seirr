@@ -700,7 +700,7 @@ const c8* COBJMeshFileLoader::readUV(const c8* bufPtr, core::vector2df& vec, con
 	bufPtr = goAndCopyNextWord(wordBuffer, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
 	vec.X=core::fast_atof(wordBuffer);
 	bufPtr = goAndCopyNextWord(wordBuffer, bufPtr, WORD_BUFFER_LENGTH, bufEnd);
-	vec.Y=1-core::fast_atof(wordBuffer); // change handedness
+	vec.Y=1-fabsf(core::fast_atof(wordBuffer)); // change handedness
 	return bufPtr;
 }
 
