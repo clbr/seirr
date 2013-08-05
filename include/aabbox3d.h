@@ -287,6 +287,22 @@ class aabbox3d
 			return out;
 		}
 
+		//! Returns the union of this box with another.
+		aabbox3d<T> unionOf(const aabbox3d<T>& other) const
+		{
+			aabbox3d<T> out;
+
+			out.MaxEdge.X = max_(MaxEdge.X, other.MaxEdge.X);
+			out.MaxEdge.Y = max_(MaxEdge.Y, other.MaxEdge.Y);
+			out.MaxEdge.Z = max_(MaxEdge.Z, other.MaxEdge.Z);
+
+			out.MinEdge.X = min_(MinEdge.X, other.MinEdge.X);
+			out.MinEdge.Y = min_(MinEdge.Y, other.MinEdge.Y);
+			out.MinEdge.Z = min_(MinEdge.Z, other.MinEdge.Z);
+
+			return out;
+		}
+
 		//! Tests if the box intersects with a line
 		/** \param linemiddle Center of the line.
 		\param linevect Vector of the line.
