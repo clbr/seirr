@@ -34,6 +34,12 @@ enum ECOLOR_FORMAT
 	//! Default 32 bit color format. 8 bits are used for every component: red, green, blue and alpha.
 	ECF_A8R8G8B8,
 
+	//! The normalized non-float formats from the _rg extension
+	ECF_R8,
+	ECF_R8G8,
+	ECF_R16,
+	ECF_R16G16,
+
 	/** Floating Point formats. The following formats may only be used for render target textures. */
 
 	//! 16 bit floating point format using 16 bits for the red channel.
@@ -154,6 +160,14 @@ public:
 		case ECF_R8G8B8:
 			return 24;
 		case ECF_A8R8G8B8:
+			return 32;
+		case ECF_R8:
+			return 8;
+		case ECF_R8G8:
+			return 16;
+		case ECF_R16:
+			return 16;
+		case ECF_R16G16:
 			return 32;
 		case ECF_R16F:
 			return 16;

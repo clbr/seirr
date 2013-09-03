@@ -159,6 +159,24 @@ GLint COpenGLTexture::getOpenGLFormatAndParametersFromColorFormat(ECOLOR_FORMAT 
 			if (Driver->Version > 101)
 				type=GL_UNSIGNED_INT_8_8_8_8_REV;
 			return GL_RGBA;
+		// _rg formats.
+		case ECF_R8:
+			colorformat = GL_RED;
+			type = GL_UNSIGNED_BYTE;
+			return GL_R8;
+		case ECF_R16:
+			colorformat = GL_RED;
+			type = GL_UNSIGNED_SHORT;
+			return GL_R16;
+		case ECF_R8G8:
+			colorformat = GL_RG;
+			type = GL_UNSIGNED_BYTE;
+			return GL_RG8;
+		case ECF_R16G16:
+			colorformat = GL_RG;
+			type = GL_UNSIGNED_SHORT;
+			return GL_RG16;
+
 		// Floating Point texture formats. Thanks to Patryk "Nadro" Nadrowski.
 		case ECF_R16F:
 		{
