@@ -163,6 +163,7 @@ const core::vector3df& CCameraSceneNode::getTarget() const
 void CCameraSceneNode::setUpVector(const core::vector3df& pos)
 {
 	UpVector = pos;
+	UpVector.normalize();
 }
 
 
@@ -267,8 +268,6 @@ void CCameraSceneNode::updateMatrices()
 	// if upvector and vector to the target are the same, we have a
 	// problem. so solve this problem:
 	core::vector3df up = UpVector;
-	up.normalize();
-
 	f32 dp = tgtv.dotProduct(up);
 
 	if ( core::equals(core::abs_<f32>(dp), 1.f) )
