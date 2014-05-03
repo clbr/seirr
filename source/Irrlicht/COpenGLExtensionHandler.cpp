@@ -36,7 +36,8 @@ COpenGLExtensionHandler::COpenGLExtensionHandler() :
 	pGlLinkProgramARB(0), pGlUseProgramObjectARB(0), pGlDeleteObjectARB(0),
 	pGlGetAttachedObjectsARB(0), pGlGetInfoLogARB(0),
 	pGlGetObjectParameterivARB(0), pGlGetUniformLocationARB(0),
-	pGlUniform1ivARB(0), pGlUniform1fvARB(0), pGlUniform2fvARB(0), pGlUniform3fvARB(0), pGlUniform4fvARB(0), pGlUniformMatrix2fvARB(0),
+	pGlUniform1ivARB(0), pGlUniform2ivARB(0), pGlUniform3ivARB(0), pGlUniform4ivARB(0),
+	pGlUniform1fvARB(0), pGlUniform2fvARB(0), pGlUniform3fvARB(0), pGlUniform4fvARB(0), pGlUniformMatrix2fvARB(0),
 	pGlUniformMatrix3fvARB(0), pGlUniformMatrix4fvARB(0),
 	pGlGetActiveUniformARB(0), pGlGetActiveAttribARB(0),
 	pGlGetAttribLocationARB(0), pGlVertexAttribPointerARB(0),
@@ -161,6 +162,9 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 	pGlGetUniformLocationARB = (PFNGLGETUNIFORMLOCATIONARBPROC) wglGetProcAddress("glGetUniformLocationARB");
 	pGlUniform4fvARB = (PFNGLUNIFORM4FVARBPROC) wglGetProcAddress("glUniform4fvARB");
 	pGlUniform1ivARB = (PFNGLUNIFORM1IVARBPROC) wglGetProcAddress("glUniform1ivARB");
+	pGlUniform2ivARB = (PFNGLUNIFORM1IVARBPROC) wglGetProcAddress("glUniform2ivARB");
+	pGlUniform3ivARB = (PFNGLUNIFORM1IVARBPROC) wglGetProcAddress("glUniform3ivARB");
+	pGlUniform4ivARB = (PFNGLUNIFORM1IVARBPROC) wglGetProcAddress("glUniform4ivARB");
 	pGlUniform1fvARB = (PFNGLUNIFORM1FVARBPROC) wglGetProcAddress("glUniform1fvARB");
 	pGlUniform2fvARB = (PFNGLUNIFORM2FVARBPROC) wglGetProcAddress("glUniform2fvARB");
 	pGlUniform3fvARB = (PFNGLUNIFORM3FVARBPROC) wglGetProcAddress("glUniform3fvARB");
@@ -346,6 +350,15 @@ void COpenGLExtensionHandler::initExtensions(bool stencilBuffer)
 
 	pGlUniform1ivARB = (PFNGLUNIFORM1IVARBPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glUniform1ivARB"));
+
+	pGlUniform2ivARB = (PFNGLUNIFORM2IVARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glUniform2ivARB"));
+
+	pGlUniform3ivARB = (PFNGLUNIFORM3IVARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glUniform3ivARB"));
+
+	pGlUniform4ivARB = (PFNGLUNIFORM4IVARBPROC)
+		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glUniform4ivARB"));
 
 	pGlUniform1fvARB = (PFNGLUNIFORM1FVARBPROC)
 		IRR_OGL_LOAD_EXTENSION(reinterpret_cast<const GLubyte*>("glUniform1fvARB"));

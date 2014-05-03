@@ -465,7 +465,24 @@ bool COpenGLSLMaterialRenderer::setPixelShaderConstant(const c8* name, const s32
 		UniformInfo[i].location = Location;
 	}
 
-	Driver->extGlUniform1iv(Location, count, ints);
+	switch (UniformInfo[i].type)
+	{
+		case GL_INT:
+			Driver->extGlUniform1iv(Location, count, ints);
+			break;
+		case GL_INT_VEC2_ARB:
+			Driver->extGlUniform2iv(Location, count/2, ints);
+			break;
+		case GL_INT_VEC3_ARB:
+			Driver->extGlUniform3iv(Location, count/3, ints);
+			break;
+		case GL_INT_VEC4_ARB:
+			Driver->extGlUniform4iv(Location, count/4, ints);
+			break;
+		default:
+			Driver->extGlUniform1iv(Location, count, ints);
+			break;
+	}
 
 	return true;
 #else

@@ -885,6 +885,9 @@ class COpenGLExtensionHandler
 	GLint extGlGetUniformLocationARB(GLhandleARB program, const char *name);
 	void extGlUniform4fv(GLint location, GLsizei count, const GLfloat *v);
 	void extGlUniform1iv(GLint loc, GLsizei count, const GLint *v);
+	void extGlUniform2iv(GLint loc, GLsizei count, const GLint *v);
+	void extGlUniform3iv(GLint loc, GLsizei count, const GLint *v);
+	void extGlUniform4iv(GLint loc, GLsizei count, const GLint *v);
 	void extGlUniform1fv(GLint loc, GLsizei count, const GLfloat *v);
 	void extGlUniform2fv(GLint loc, GLsizei count, const GLfloat *v);
 	void extGlUniform3fv(GLint loc, GLsizei count, const GLfloat *v);
@@ -959,6 +962,9 @@ class COpenGLExtensionHandler
 		PFNGLGETOBJECTPARAMETERIVARBPROC pGlGetObjectParameterivARB;
 		PFNGLGETUNIFORMLOCATIONARBPROC pGlGetUniformLocationARB;
 		PFNGLUNIFORM1IVARBPROC pGlUniform1ivARB;
+		PFNGLUNIFORM2IVARBPROC pGlUniform2ivARB;
+		PFNGLUNIFORM3IVARBPROC pGlUniform3ivARB;
+		PFNGLUNIFORM4IVARBPROC pGlUniform4ivARB;
 		PFNGLUNIFORM1FVARBPROC pGlUniform1fvARB;
 		PFNGLUNIFORM2FVARBPROC pGlUniform2fvARB;
 		PFNGLUNIFORM3FVARBPROC pGlUniform3fvARB;
@@ -1357,6 +1363,42 @@ inline void COpenGLExtensionHandler::extGlUniform1iv(GLint loc, GLsizei count, c
 	glUniform1ivARB(loc, count, v);
 #else
 	os::Printer::log("glUniform1iv not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlUniform2iv(GLint loc, GLsizei count, const GLint *v)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlUniform2ivARB)
+		pGlUniform2ivARB(loc, count, v);
+#elif defined(GL_ARB_shader_objects)
+	glUniform2ivARB(loc, count, v);
+#else
+	os::Printer::log("glUniform2iv not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlUniform3iv(GLint loc, GLsizei count, const GLint *v)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlUniform3ivARB)
+		pGlUniform3ivARB(loc, count, v);
+#elif defined(GL_ARB_shader_objects)
+	glUniform3ivARB(loc, count, v);
+#else
+	os::Printer::log("glUniform3iv not supported", ELL_ERROR);
+#endif
+}
+
+inline void COpenGLExtensionHandler::extGlUniform4iv(GLint loc, GLsizei count, const GLint *v)
+{
+#ifdef _IRR_OPENGL_USE_EXTPOINTER_
+	if (pGlUniform4ivARB)
+		pGlUniform4ivARB(loc, count, v);
+#elif defined(GL_ARB_shader_objects)
+	glUniform4ivARB(loc, count, v);
+#else
+	os::Printer::log("glUniform4iv not supported", ELL_ERROR);
 #endif
 }
 
