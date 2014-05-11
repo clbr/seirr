@@ -264,7 +264,7 @@ bool CIrrDeviceLinux::switchToFullscreen(bool reset)
 					modes[i]->vdisplay >= Height &&
 					modes[i]->hdisplay <= modes[bestMode]->hdisplay &&
 					modes[i]->vdisplay <= modes[bestMode]->vdisplay &&
-					modes[i]->flags != V_INTERLACE)
+					!(modes[i]->flags & V_INTERLACE))
 				bestMode = i;
 		}
 
