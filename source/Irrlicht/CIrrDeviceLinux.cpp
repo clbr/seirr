@@ -31,6 +31,10 @@
 #include <sys/joystick.h>
 #else
 
+#ifndef V_INTERLACE
+#define V_INTERLACE 0x0010
+#endif
+
 // linux/joystick.h includes linux/input.h, which #defines values for various KEY_FOO keys.
 // These override the irr::KEY_FOO equivalents, which stops key handling from working.
 // As a workaround, defining _INPUT_H stops linux/input.h from being included; it
@@ -259,9 +263,15 @@ bool CIrrDeviceLinux::switchToFullscreen(bool reset)
 					modes[i]->hdisplay >= Width &&
 					modes[i]->vdisplay >= Height &&
 					modes[i]->hdisplay <= modes[bestMode]->hdisplay &&
-					modes[i]->vdisplay <= modes[bestMode]->vdisplay)
+					modes[i]->vdisplay <= modes[bestMode]->vdisplay &&
+					modes[i]->flags != V_INTERLACE)
 				bestMode = i;
 		}
+
+		// Prefer current mode if possible, avoid needless modeset
+		if (modes[0]->hdisplay == Width && modes[0]->vdisplay == Height)
+			bestMode = 0;
+
 		if (bestMode != -1)
 		{
 			os::Printer::log("Starting vidmode fullscreen mode...", ELL_INFORMATION);
@@ -1339,6 +1349,9 @@ video::IVideoModeList* CIrrDeviceLinux::getVideoModeList()
 					modes[0]->hdisplay, modes[0]->vdisplay));
 				for (int i = 0; i<modeCount; ++i)
 				{
+					if (modes[i]->flags & V_INTERLACE)
+						continue;
+
 					VideoModeList->addMode(core::dimension2d<u32>(
 						modes[i]->hdisplay, modes[i]->vdisplay), defaultDepth);
 				}
