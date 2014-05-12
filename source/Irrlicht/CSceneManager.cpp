@@ -281,6 +281,7 @@ CSceneManager::CSceneManager(video::IVideoDriver* driver, io::IFileSystem* fs,
 	#endif
 
 	// factories
+	#ifdef _IRR_COMPILE_WITH_XML_
 	ISceneNodeFactory* factory = new CDefaultSceneNodeFactory(this);
 	registerSceneNodeFactory(factory);
 	factory->drop();
@@ -288,6 +289,7 @@ CSceneManager::CSceneManager(video::IVideoDriver* driver, io::IFileSystem* fs,
 	ISceneNodeAnimatorFactory* animatorFactory = new CDefaultSceneNodeAnimatorFactory(this, CursorControl);
 	registerSceneNodeAnimatorFactory(animatorFactory);
 	animatorFactory->drop();
+	#endif
 }
 
 
