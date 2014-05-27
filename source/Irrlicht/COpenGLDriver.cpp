@@ -2335,7 +2335,6 @@ void COpenGLDriver::removeTexture(ITexture* texture) {
 	for (i = 0; i < MATERIAL_MAX_TEXTURES; i++) {
 		if (CurrentTexture[i] == texture) {
 			CurrentTexture[i] = 0;
-			break;
 		}
 	}
 }
