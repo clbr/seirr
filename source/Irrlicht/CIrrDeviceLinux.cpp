@@ -62,6 +62,9 @@ namespace
 	Atom X_ATOM_TARGETS;
 	Atom X_ATOM_UTF8_STRING;
 	Atom X_ATOM_TEXT;
+	Atom X_ATOM_NETWM_MAXIMIZE_VERT;
+	Atom X_ATOM_NETWM_MAXIMIZE_HORZ;
+	Atom X_ATOM_NETWM_STATE;
 };
 
 namespace irr
@@ -74,6 +77,7 @@ CIrrDeviceLinux::CIrrDeviceLinux(const SIrrlichtCreationParameters& param)
  : CIrrDeviceStub(param),
 #ifdef _IRR_COMPILE_WITH_X11_
 	display(0), visual(0), screennr(0), window(0), StdHints(0), SoftwareImage(0),
+	HasNetWM(false),
 #ifdef _IRR_COMPILE_WITH_OPENGL_
 	glxWin(0),
 	Context(0),
@@ -779,6 +783,11 @@ bool CIrrDeviceLinux::createWindow()
 
 	initXAtoms();
 
+	// check netwm support
+	Atom WMCheck = XInternAtom(display, "_NET_SUPPORTING_WM_CHECK", true);
+	if (WMCheck != None)
+		HasNetWM = true;
+
 #endif // #ifdef _IRR_COMPILE_WITH_X11_
 	return true;
 }
@@ -1406,6 +1415,22 @@ void CIrrDeviceLinux::minimizeWindow()
 void CIrrDeviceLinux::maximizeWindow()
 {
 #ifdef _IRR_COMPILE_WITH_X11_
+	// Maximize is not implemented in bare X, it's a WM construct.
+	if (HasNetWM) {
+		XEvent ev = {0};
+
+		ev.type = ClientMessage;
+		ev.xclient.window = window;
+		ev.xclient.message_type = X_ATOM_NETWM_STATE;
+		ev.xclient.format = 32;
+		ev.xclient.data.l[0] = 1; // _NET_WM_STATE_ADD
+		ev.xclient.data.l[1] = X_ATOM_NETWM_MAXIMIZE_VERT;
+		ev.xclient.data.l[2] = X_ATOM_NETWM_MAXIMIZE_HORZ;
+
+		XSendEvent(display, DefaultRootWindow(display), false,
+				SubstructureNotifyMask|SubstructureRedirectMask, &ev);
+	}
+
 	XMapWindow(display, window);
 #endif
 }
@@ -1415,6 +1440,22 @@ void CIrrDeviceLinux::maximizeWindow()
 void CIrrDeviceLinux::restoreWindow()
 {
 #ifdef _IRR_COMPILE_WITH_X11_
+	// Maximize is not implemented in bare X, it's a WM construct.
+	if (HasNetWM) {
+		XEvent ev = {0};
+
+		ev.type = ClientMessage;
+		ev.xclient.window = window;
+		ev.xclient.message_type = X_ATOM_NETWM_STATE;
+		ev.xclient.format = 32;
+		ev.xclient.data.l[0] = 0; // _NET_WM_STATE_REMOVE
+		ev.xclient.data.l[1] = X_ATOM_NETWM_MAXIMIZE_VERT;
+		ev.xclient.data.l[2] = X_ATOM_NETWM_MAXIMIZE_HORZ;
+
+		XSendEvent(display, DefaultRootWindow(display), false,
+				SubstructureNotifyMask|SubstructureRedirectMask, &ev);
+	}
+
 	XMapWindow(display, window);
 #endif
 }
@@ -1949,6 +1990,9 @@ void CIrrDeviceLinux::initXAtoms()
 	X_ATOM_TARGETS = XInternAtom(display, "TARGETS", False);
 	X_ATOM_UTF8_STRING = XInternAtom (display, "UTF8_STRING", False);
 	X_ATOM_TEXT = XInternAtom (display, "TEXT", False);
+	X_ATOM_NETWM_MAXIMIZE_VERT = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_VERT", true);
+	X_ATOM_NETWM_MAXIMIZE_HORZ = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_HORZ", true);
+	X_ATOM_NETWM_STATE = XInternAtom(display, "_NET_WM_STATE", true);
 #endif
 }
 
