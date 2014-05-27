@@ -2323,6 +2323,22 @@ bool COpenGLDriver::disableTextures(u32 fromStage)
 	return result;
 }
 
+//! remove texture from gl caches
+void COpenGLDriver::removeTexture(ITexture* texture) {
+
+	if (!texture)
+		return;
+
+	CNullDriver::removeTexture(texture);
+	// Remove this texture from CurrentTexture as well
+	u32 i;
+	for (i = 0; i < MATERIAL_MAX_TEXTURES; i++) {
+		if (CurrentTexture[i] == texture) {
+			CurrentTexture[i] = 0;
+			break;
+		}
+	}
+}
 
 //! creates a matrix in supplied GLfloat array to pass to OpenGL
 inline void COpenGLDriver::getGLMatrix(GLfloat gl_matrix[16], const core::matrix4& m)

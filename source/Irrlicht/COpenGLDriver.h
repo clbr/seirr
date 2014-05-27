@@ -286,6 +286,9 @@ namespace video
 		//! Returns whether disabling was successful or not.
 		bool disableTextures(u32 fromStage=0);
 
+		//! remove texture from gl caches
+		virtual void removeTexture(ITexture* texture);
+
 		//! Adds a new material renderer to the VideoDriver, using
 		//! extGLGetObjectParameteriv(shaderHandle, GL_OBJECT_COMPILE_STATUS_ARB, &status)
 		//! pixel and/or vertex shaders to render geometry.
