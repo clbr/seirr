@@ -293,12 +293,17 @@ namespace scene
 
 	inline void SViewFrustum::recalculateBoundingBox()
 	{
-		boundingBox.reset ( cameraPosition );
+		boundingBox.reset (cameraPosition);
 
 		boundingBox.addInternalPoint(getFarLeftUp());
 		boundingBox.addInternalPoint(getFarRightUp());
 		boundingBox.addInternalPoint(getFarLeftDown());
 		boundingBox.addInternalPoint(getFarRightDown());
+
+		boundingBox.addInternalPoint(getNearLeftUp());
+		boundingBox.addInternalPoint(getNearRightUp());
+		boundingBox.addInternalPoint(getNearLeftDown());
+		boundingBox.addInternalPoint(getNearRightDown());
 
 		// Also recalculate the bounding sphere, cone when the bbox changes
 		recalculateBoundingSphere();
