@@ -12,7 +12,7 @@ namespace irr
 
 //! 8 bit unsigned variable.
 /** This is a typedef for unsigned char, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef unsigned __int8		u8;
 #else
 typedef unsigned char		u8;
@@ -20,7 +20,7 @@ typedef unsigned char		u8;
 
 //! 8 bit signed variable.
 /** This is a typedef for signed char, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef __int8			s8;
 #else
 typedef signed char		s8;
@@ -34,7 +34,7 @@ typedef char			c8;
 
 //! 16 bit unsigned variable.
 /** This is a typedef for unsigned short, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef unsigned __int16	u16;
 #else
 typedef unsigned short		u16;
@@ -42,7 +42,7 @@ typedef unsigned short		u16;
 
 //! 16 bit signed variable.
 /** This is a typedef for signed short, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef __int16			s16;
 #else
 typedef signed short		s16;
@@ -52,7 +52,7 @@ typedef signed short		s16;
 
 //! 32 bit unsigned variable.
 /** This is a typedef for unsigned int, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef unsigned __int32	u32;
 #else
 typedef unsigned int		u32;
@@ -60,19 +60,42 @@ typedef unsigned int		u32;
 
 //! 32 bit signed variable.
 /** This is a typedef for signed int, it ensures portability of the engine. */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
 typedef __int32			s32;
 #else
 typedef signed int		s32;
 #endif
 
 
+#ifdef __IRR_HAS_S64
+//! 64 bit unsigned variable.
+/** This is a typedef for 64bit uint, it ensures portability of the engine. */
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
+typedef unsigned __int64			u64;
+#elif __GNUC__
+#if __WORDSIZE == 64
+typedef unsigned long int			u64;
+#else
+__extension__ typedef unsigned long long	u64;
+#endif
+#else
+typedef unsigned long long			u64;
+#endif
 
-// 64 bit signed variable.
-// This is a typedef for __int64, it ensures portability of the engine.
-// This type is currently not used by the engine and not supported by compilers
-// other than Microsoft Compilers, so it is outcommented.
-//typedef __int64				s64;
+//! 64 bit signed variable.
+/** This is a typedef for 64bit int, it ensures portability of the engine. */
+#if defined(_MSC_VER) || ((__BORLANDC__ >= 0x530) && !defined(__STRICT_ANSI__))
+typedef __int64					s64;
+#elif __GNUC__
+#if __WORDSIZE == 64
+typedef long int				s64;
+#else
+__extension__ typedef long long			s64;
+#endif
+#else
+typedef long long				s64;
+#endif
+#endif	// __IRR_HAS_S64
 
 
 
@@ -97,7 +120,7 @@ typedef double				f64;
 #if defined(_MSC_VER) && _MSC_VER > 1310 && !defined (_WIN32_WCE)
 #define swprintf swprintf_s
 #define snprintf sprintf_s
-#else
+#elif !defined(__CYGWIN__)
 #define swprintf _snwprintf
 #define snprintf _snprintf
 #endif
@@ -130,8 +153,10 @@ strings
 */
 #if defined(_IRR_WCHAR_FILESYSTEM)
 	typedef wchar_t fschar_t;
+	#define _IRR_TEXT(X) L##X
 #else
 	typedef char fschar_t;
+	#define _IRR_TEXT(X) X
 #endif
 
 } // end namespace irr
@@ -139,18 +164,18 @@ strings
 //! define a break macro for debugging.
 #if defined(_DEBUG)
 #if defined(_IRR_WINDOWS_API_) && defined(_MSC_VER) && !defined (_WIN32_WCE)
-  #if defined(WIN64) || defined(_WIN64) // using portable common solution for x64 configuration
-  #include <crtdbg.h>
-  #define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) if (_CONDITION_) {_CrtDbgBreak();}
-  #else
-  #define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) if (_CONDITION_) {_asm int 3}
-  #endif
+#if defined(WIN64) || defined(_WIN64) // using portable common solution for x64 configuration
+	#include <crtdbg.h>
+	#define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) if (_CONDITION_) {_CrtDbgBreak();}
 #else
-#include "assert.h"
-#define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) assert( !(_CONDITION_) );
+	#define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) if (_CONDITION_) {_asm int 3}
 #endif
 #else
-#define _IRR_DEBUG_BREAK_IF( _CONDITION_ )
+	#include "assert.h"
+	#define _IRR_DEBUG_BREAK_IF( _CONDITION_ ) assert( !(_CONDITION_) );
+#endif
+#else
+	#define _IRR_DEBUG_BREAK_IF( _CONDITION_ )
 #endif
 
 //! Defines a deprecated macro which generates a warning at compile time
@@ -174,7 +199,9 @@ For functions:		template<class T> _IRR_DEPRECATED_ void test4(void) {}
 /** Usage in a derived class:
 virtual void somefunc() _IRR_OVERRIDE_;
 */
-#if (__GNUC__ >= 4 && __GNUC_MINOR__ >= 7)
+#if (__GNUC__ >= 4 && __GNUC_MINOR__ >= 7 && (defined(__GXX_EXPERIMENTAL_CXX0X) || __cplusplus >= 201103L) )
+#define _IRR_OVERRIDE_ override
+#elif (_MSC_VER >= 1600 ) /* supported since MSVC 2010 */
 #define _IRR_OVERRIDE_ override
 #elif (__clang_major__ >= 3)
 #define _IRR_OVERRIDE_ override
