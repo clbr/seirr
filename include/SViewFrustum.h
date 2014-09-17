@@ -96,7 +96,7 @@ namespace scene
 		//! get the bounding cone's radius
 		float getConeAngle(float *sinesq, float *cosinesq, float *invsine) const;
 
-		//! get the bounding sphere's radius (of an optimized sphere, not the AABB's)
+		//! get the bounding sphere's center (of an optimized sphere, not the AABB's)
 		core::vector3df getBoundingCenter() const;
 
 		//! the cam should tell the frustum the distance between far and near
