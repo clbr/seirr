@@ -334,6 +334,35 @@ void CInstancedMeshSceneNode::setInstanceColor(u32 num, const SColor& col)
 	UseColors = true;
 }
 
+const vector3df& CInstancedMeshSceneNode::getInstancePosition(u32 num) const {
+	if (num >= Instances.size())
+		return getPosition();
+
+	return Instances[num]->getPosition();
+}
+
+const vector3df& CInstancedMeshSceneNode::getInstanceRotation(u32 num) const {
+	if (num >= Instances.size())
+		return getRotation();
+
+	return Instances[num]->getRotation();
+}
+
+const vector3df& CInstancedMeshSceneNode::getInstanceScale(u32 num) const {
+	if (num >= Instances.size())
+		return getScale();
+
+	return Instances[num]->getScale();
+}
+
+const SColor& CInstancedMeshSceneNode::getInstanceColor(u32 num) const {
+	static SColor none(255, 255, 255, 255);
+	if (num >= Instances.size())
+		return none;
+
+	return SColors[num];
+}
+
 void CInstancedMeshSceneNode::rebuildBoundingBox()
 {
 	u32 i;

@@ -83,6 +83,18 @@ namespace scene
 		    \param col: New color. */
 		virtual void setInstanceColor(u32 num, const video::SColor& col) _IRR_OVERRIDE_;
 
+		//! Gets the position of this instance.
+		virtual const core::vector3df& getInstancePosition(u32 num) const _IRR_OVERRIDE_;
+
+		//! Gets the rotation of this instance.
+		virtual const core::vector3df& getInstanceRotation(u32 num) const _IRR_OVERRIDE_;
+
+		//! Gets the scale of this instance.
+		virtual const core::vector3df& getInstanceScale(u32 num) const _IRR_OVERRIDE_;
+
+		//! Gets the color of this instance.
+		virtual const video::SColor& getInstanceColor(u32 num) const _IRR_OVERRIDE_;
+
 		//! Set the names of the vertex attributes
 		/** By default, the color is bound to "color", and the model/world
 		    matrix of each instance is bound to "model". */
