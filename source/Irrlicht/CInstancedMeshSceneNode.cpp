@@ -104,7 +104,7 @@ void CInstancedMeshSceneNode::copyMaterials()
 //! frame
 void CInstancedMeshSceneNode::OnRegisterSceneNode()
 {
-	if (!IsVisible)
+	if (!IsVisible || Instances.empty())
 		return;
 
 	if (RebuildBox)
