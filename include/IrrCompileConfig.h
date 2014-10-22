@@ -293,6 +293,8 @@ B3D, MS3D or X meshes */
 #define _IRR_COMPILE_WITH_PLY_LOADER_
 //! Define _IRR_COMPILE_WITH_SM1_LOADER_ if you want to load SM1 files
 #define _IRR_COMPILE_WITH_SM1_LOADER_
+//! Define _IRR_COMPILE_WITH_IQE_LOADER_ if you want to load IQE (IQM ascii) files
+#define _IRR_COMPILE_WITH_IQE_LOADER_
 
 //! Define _IRR_COMPILE_WITH_IRR_WRITER_ if you want to write static .irrMesh files
 //#define _IRR_COMPILE_WITH_IRR_WRITER_

@@ -97,6 +97,10 @@
 #include "CSM1MeshFileLoader.h"
 #endif
 
+#ifdef _IRR_COMPILE_WITH_IQE_LOADER_
+#include "CIQEMeshFileLoader.h"
+#endif
+
 #ifdef _IRR_COMPILE_WITH_COLLADA_WRITER_
 #include "CColladaMeshWriter.h"
 #endif
@@ -282,6 +286,9 @@ CSceneManager::CSceneManager(video::IVideoDriver* driver, io::IFileSystem* fs,
 	#endif
 	#ifdef _IRR_COMPILE_WITH_SM1_LOADER_
 	MeshLoaderList.push_back(new CSM1MeshFileLoader(Driver));
+	#endif
+	#ifdef _IRR_COMPILE_WITH_IQE_LOADER_
+	MeshLoaderList.push_back(new CIQEMeshFileLoader(Driver, FileSystem));
 	#endif
 
 	// factories
