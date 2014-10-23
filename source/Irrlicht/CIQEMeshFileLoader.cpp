@@ -251,6 +251,9 @@ void CIQEMeshFileLoader::parse(SMesh * const mesh, const char *ptr,
 
 	#undef cmd
 
+	if (!mb)
+		return;
+
 	mb->recalculateBoundingBox();
 	mesh->addMeshBuffer(mb);
 	mb->drop();
