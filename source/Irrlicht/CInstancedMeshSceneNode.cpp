@@ -48,7 +48,7 @@ CInstancedMeshSceneNode::CInstancedMeshSceneNode(ISceneNode* parent, ISceneManag
 	u32 i;
 	for (i = 0; i < initialInstances; i++)
 	{
-		Instances.push_back(new CEmptySceneNode(this, mgr, -1));
+		Instances.push_back(new CEmptySceneNode(NULL, mgr, -1));
 		SColors.push_back(SColor(0xffffffff));
 	}
 
@@ -61,6 +61,8 @@ CInstancedMeshSceneNode::~CInstancedMeshSceneNode()
 {
 	if (Mesh)
 		Mesh->drop();
+
+	clear();
 
 	free(Colors);
 	free(Matrices);
@@ -264,7 +266,7 @@ void CInstancedMeshSceneNode::addInstance(
 	const vector3df& scale,
 	const SColor& col)
 {
-	Instances.push_back(new CEmptySceneNode(this, SceneManager, -1));
+	Instances.push_back(new CEmptySceneNode(NULL, SceneManager, -1));
 
 	ISceneNode * const cur = Instances.getLast();
 	cur->setPosition(pos);
@@ -449,6 +451,12 @@ void CInstancedMeshSceneNode::setAttributeNames(const char *color, const char *m
 
 void CInstancedMeshSceneNode::clear()
 {
+	const u32 max = Instances.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		delete Instances[i];
+	}
+
 	Instances.clear();
 	Box.reset(0, 0, 0);
 }
@@ -458,6 +466,7 @@ void CInstancedMeshSceneNode::removeInstance(u32 num)
 	if (num >= Instances.size())
 		return;
 
+	delete Instances[num];
 	Instances.erase(num);
 
 	NeedsRebuild = true;
