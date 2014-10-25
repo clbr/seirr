@@ -393,7 +393,9 @@ void CInstancedMeshSceneNode::rebuildBoundingBox()
 		Box.addInternalBox(tmpbox);
 	}
 
-
+	// Set our position to the bounding box center, so alpha sort between
+	// this entire node and other nodes works.
+	setPosition(Box.getCenter());
 }
 
 void CInstancedMeshSceneNode::rebuildArrays()
@@ -423,8 +425,6 @@ void CInstancedMeshSceneNode::rebuildArrays()
 	for (i = 0; i < len; i++)
 	{
 		Instances[i]->updateAbsolutePosition();
-
-		// Instance matrices are relative to this node.
 		const matrix4 &mat = Instances[i]->getAbsoluteTransformation();
 
 		memcpy(&Matrices[16 * i], mat.pointer(), sizeof(f32) * 16);
