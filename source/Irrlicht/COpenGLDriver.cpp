@@ -759,6 +759,8 @@ void COpenGLDriver::createMaterialRenderers()
 
 	// add basic 1 texture blending
 	addAndDropMaterialRenderer(new COpenGLMaterialRenderer_ONETEXTURE_BLEND(this));
+
+	lastBuiltinMaterial = MaterialRenderers.size() - 1;
 }
 
 
@@ -2411,6 +2413,11 @@ void COpenGLDriver::setCustomVertexAttribute(u32 mtype, const char *name,
 {
 	if (!name || mtype >= MaterialRenderers.size())
 		return;
+
+	if (mtype <= lastBuiltinMaterial) {
+		os::Printer::log("Tried to draw instancing without a shader material", ELL_ERROR);
+		return;
+	}
 
 	COpenGLSLMaterialRenderer * const rend = (COpenGLSLMaterialRenderer *)
 	                                MaterialRenderers[mtype].Renderer;

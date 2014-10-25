@@ -510,6 +510,7 @@ namespace video
 		core::array<RequestedLight> RequestedLights;
 
 		core::array<u32> EnabledAttributes;
+		u32 lastBuiltinMaterial;
 
 		#ifdef _IRR_WINDOWS_API_
 			HDC HDc; // Private GDI Device Context
