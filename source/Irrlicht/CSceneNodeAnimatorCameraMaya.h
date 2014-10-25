@@ -101,6 +101,7 @@ namespace scene
 		bool Rotating;
 		bool Moving;
 		bool Translating;
+		bool FirstUpdate;
 	};
 
 } // end namespace scene

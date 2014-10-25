@@ -31,6 +31,7 @@ CSceneNodeAnimatorCameraMaya::CSceneNodeAnimatorCameraMaya(gui::ICursorControl* 
 	}
 
 	allKeysUp();
+	FirstUpdate = true;
 }
 
 
@@ -103,7 +104,11 @@ void CSceneNodeAnimatorCameraMaya::animateNode(ISceneNode *node, u32 timeMs)
 
 	// If the camera isn't the active camera, and receiving input, then don't process it.
 	if (!camera->isInputReceiverEnabled())
+	{
+		// If the input receiver is down, then reset the camera, so it take the new position to start
+		FirstUpdate = true;
 		return;
+	}
 
 	scene::ISceneManager * smgr = camera->getSceneManager();
 	if (smgr && smgr->getActiveCamera() != camera)
@@ -117,6 +122,17 @@ void CSceneNodeAnimatorCameraMaya::animateNode(ISceneNode *node, u32 timeMs)
 	else
 	{
 		OldTarget += camera->getTarget() - LastCameraTarget;
+	}
+
+	// Calculate the camera angle and position for the first time
+	if (FirstUpdate)
+	{
+		core::vector3df OffsetVector = camera->getTarget() - camera->getPosition();
+		core::vector3df OffsetVec2 = core::vector3df(OffsetVector.Z, OffsetVector.Y, OffsetVector.X);
+		core::vector3df InitialRotation = (-OffsetVec2).getHorizontalAngle();
+		RotX = -InitialRotation.Y;
+		RotY = -InitialRotation.X;
+		CurrentZoom = camera->getPosition().getDistanceFrom(camera->getTarget());
 	}
 
 	f32 nRotX = RotX;
@@ -232,6 +248,7 @@ void CSceneNodeAnimatorCameraMaya::animateNode(ISceneNode *node, u32 timeMs)
 	pos.rotateXZBy(-nRotX+180.f);
 	camera->setUpVector(pos);
 	LastCameraTarget = camera->getTarget();
+	FirstUpdate = false;
 }
 
 
