@@ -396,6 +396,11 @@ void CInstancedMeshSceneNode::rebuildBoundingBox()
 	// Set our position to the bounding box center, so alpha sort between
 	// this entire node and other nodes works.
 	setPosition(Box.getCenter());
+
+	// The box was built in world space, now move it to the new position
+	matrix4 trans;
+	trans.setTranslation(-getPosition());
+	trans.transformBoxEx(Box);
 }
 
 void CInstancedMeshSceneNode::rebuildArrays()
